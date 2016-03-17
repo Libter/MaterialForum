@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
@@ -30,9 +31,8 @@ public class SectionManager {
         } catch (IOException ex) { }
     }
     
-    public ArrayList<ForumSection> getSections() {
-        ArrayList<ForumSection> sections = new ArrayList<>();
-        HashMap<String,ForumSection> sectionsMap = new HashMap<>();
+    public LinkedHashMap<String,ForumSection> getSections() {
+        LinkedHashMap<String,ForumSection> sections = new LinkedHashMap<>();
         HashMap<String,String> parents = new HashMap<>();
         
         for (String name : config.getKeys()) {
@@ -42,8 +42,7 @@ public class SectionManager {
             section.setDisplayName(config.getString(name + ".name"));
             section.setUrlName(config.getString(name + ".url"));
             
-            sections.add(section);
-            sectionsMap.put(name, section);
+            sections.put(name, section);
             
             String parent = config.getString(name + ".parent");
             if (!parent.isEmpty())
@@ -52,8 +51,8 @@ public class SectionManager {
         
         for (String name : parents.keySet()) {
             String parentName = parents.get(name);
-            ForumSection parent = sectionsMap.get(parentName);
-            sectionsMap.get(name).setParent(parent);
+            ForumSection parent = sections.get(parentName);
+            sections.get(name).setParent(parent);
         }
        
         return sections;

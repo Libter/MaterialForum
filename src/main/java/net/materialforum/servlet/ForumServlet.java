@@ -10,14 +10,16 @@ import javax.servlet.http.HttpServletResponse;
 import net.materialforum.yaml.ForumSection;
 import net.materialforum.yaml.SectionManager;
 
-@WebServlet("")
-public class IndexServlet extends HttpServlet {
+@WebServlet("/forum/*")
+public class ForumServlet extends HttpServlet {
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String section = request.getRequestURI().split("/")[2];
         LinkedHashMap<String,ForumSection> sections = new SectionManager().getSections();
         request.setAttribute("forums", sections.values());
-        request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
+        request.setAttribute("forum", sections.get(section));
+        request.getRequestDispatcher("/WEB-INF/forum.jsp").forward(request, response);
     }
 
 }
