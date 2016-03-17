@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.programmerpeter.javaee</groupId>
-    <artifactId>JavaForum</artifactId>
+    <artifactId>MaterialForum</artifactId>
     <version>0.1</version>
     <packaging>war</packaging>
 
-    <name>JavaForum</name>
+    <name>MaterialForum</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>

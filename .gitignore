@@ -1,3 +1,4 @@
 nb-configuration.xml
 src/main/webapp/css
 lib/
+/target/
