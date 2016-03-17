@@ -1,9 +1,11 @@
 package com.programmerpeter.javaee.forum.entity;
 
+import com.sun.org.apache.xml.internal.security.utils.Base64;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,9 +40,19 @@ public class UserEntity implements Serializable {
     @Column(name = "passwordHash")
     private String passwordHash;
     
+    @Column(name = "salt")
+    private String salt;
+    
     @Temporal(TemporalType.TIMESTAMP) 
     @Column(name = "registerDate")
-    private Date registerDate = new Date();
+    private Date registerDate;
+    
+    public UserEntity() {
+        registerDate = new Date();
+        byte[] saltBytes = new byte[32];
+        new SecureRandom().nextBytes(saltBytes);
+        salt = Base64.encode(saltBytes);
+    }
     
     public Long getId() {
         return id;
@@ -68,11 +80,10 @@ public class UserEntity implements Serializable {
 
     public void setPassword(String password) {
         try {
-            byte[] hash = MessageDigest.getInstance("SHA-512").digest(password.getBytes("utf-8"));
-            StringBuilder sb = new StringBuilder();
-            for (byte b : hash)
-                sb.append(Integer.toString((b & 0xff) + 0x100, 16).substring(1));
-            this.passwordHash = sb.toString();
+            String codeSalt = "Cwn9x0JA7X3kkQL2uLVO";
+            String saltedPassword = password + salt + codeSalt;
+            byte[] hash = MessageDigest.getInstance("SHA-512").digest(saltedPassword.getBytes("utf-8"));
+            this.passwordHash = Base64.encode(hash);
         } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
             Logger.getLogger(UserEntity.class.getName()).log(Level.SEVERE, null, ex);
         }
