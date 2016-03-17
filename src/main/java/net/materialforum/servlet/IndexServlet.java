@@ -1,4 +1,4 @@
-package com.programmerpeter.javaee.forum;
+package net.materialforum.servlet;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

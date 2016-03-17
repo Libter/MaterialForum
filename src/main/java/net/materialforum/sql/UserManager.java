@@ -1,7 +1,7 @@
-package com.programmerpeter.javaee.forum.entity;
+package net.materialforum.sql;
 
-import com.programmerpeter.javaee.forum.utils.Database;
-import com.programmerpeter.javaee.forum.utils.StringUtils;
+import net.materialforum.util.Database;
+import net.materialforum.util.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;

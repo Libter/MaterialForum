@@ -1,4 +1,4 @@
-package com.programmerpeter.javaee.forum.utils;
+package net.materialforum.util;
 
 
 public class StringUtils {

@@ -1,7 +1,7 @@
-package com.programmerpeter.javaee.forum;
+package net.materialforum.servlet;
 
-import com.programmerpeter.javaee.forum.entity.UserManager;
-import com.programmerpeter.javaee.forum.utils.Validator;
+import net.materialforum.sql.UserManager;
+import net.materialforum.util.Validator;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

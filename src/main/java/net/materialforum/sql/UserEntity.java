@@ -1,4 +1,4 @@
-package com.programmerpeter.javaee.forum.entity;
+package net.materialforum.sql;
 
 import com.sun.org.apache.xml.internal.security.utils.Base64;
 import java.io.Serializable;

@@ -1,4 +1,4 @@
-package com.programmerpeter.javaee.forum.utils;
+package net.materialforum.util;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

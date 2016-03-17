@@ -1,6 +1,6 @@
-package com.programmerpeter.javaee.forum;
+package net.materialforum.servlet;
 
-import com.programmerpeter.javaee.forum.entity.UserManager;
+import net.materialforum.sql.UserManager;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

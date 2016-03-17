@@ -1,6 +1,6 @@
-package com.programmerpeter.javaee.forum.utils;
+package net.materialforum.util;
 
-import com.programmerpeter.javaee.forum.entity.UserManager;
+import net.materialforum.sql.UserManager;
 import java.io.IOException;
 import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletResponse;
