@@ -13,10 +13,15 @@
         <script src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>
 
         <script src="/js/index.js"></script>
-        
+
         <style>
             label {
                 width: 100%;
+            }
+            
+            #forums {
+                width: 80%;
+                margin: auto auto;
             }
         </style>
 
@@ -36,15 +41,30 @@
                         <c:when test="${empty user}">
                             <li><a href="#login" class="modal-trigger">Zaloguj się</a></li>
                             <li><a href="#register" class="modal-trigger">Zarejestruj się</a></li>
-                        </c:when>
-                        <c:otherwise>
+                            </c:when>
+                            <c:otherwise>
                             <li><a href="/logout/" class="modal-trigger">Wyloguj się</a></li>
-                        </c:otherwise>
-                    </c:choose>
+                            </c:otherwise>
+                        </c:choose>
                 </ul>
             </div>
         </nav>
 
+        <div id="forums">
+            <c:forEach var="forum" items="${forums}">
+                <c:if test="${empty forum.parent}">
+                    <ul class="collection with-header">
+                        <li class="collection-header"><h4>${forum.displayName}</h4></li>
+                                <c:forEach var="subforum" items="${forums}">
+                                    <c:if test="${forum.name.equals(subforum.parent.name)}">
+                                <li class="collection-item">${subforum.displayName}</li>
+                                </c:if>
+                            </c:forEach>
+                    </ul>
+                </c:if>
+            </c:forEach> 
+        </div>
+        <br />
         <div id="login" class="modal">
             <form id="loginForm" action="/login/" method="post" novalidate="novalidate">
                 <div class="modal-content">
@@ -67,7 +87,7 @@
                 </div>
             </form>
         </div>
-                
+
         <div id="register" class="modal">
             <form id="registerForm" action="/register/" method="post" novalidate="novalidate">
                 <div class="modal-content">

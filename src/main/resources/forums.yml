@@ -1,0 +1,4 @@
+example:
+  id: 1
+  name: 'Example forum'
+  url: 'example'
