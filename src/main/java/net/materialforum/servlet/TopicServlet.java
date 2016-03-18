@@ -26,7 +26,7 @@ public class TopicServlet extends HttpServlet {
         
         TopicEntity topic = TopicManager.getById(topicId);
         if (!URLEncoder.encode(topic.getUrl(), "utf-8").equals(topicUrl))
-            redirectToTopic(response, topic);
+            response.sendRedirect(topic.getLink());
         else {
             request.setAttribute("topic", topic);
             request.setAttribute("posts", PostManager.getPosts(topic));
@@ -36,13 +36,15 @@ public class TopicServlet extends HttpServlet {
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {        
+        request.setCharacterEncoding("utf-8");
+        
         String[] splitted = request.getRequestURI().split("/");
         String topicUrl = splitted[2];
         Long topicId = Long.parseLong(topicUrl.split("\\.")[0]);
         
         TopicEntity topic = TopicManager.getById(topicId);
         if (!URLEncoder.encode(topic.getUrl(), "utf-8").equals(topicUrl))
-            redirectToTopic(response, topic);
+            response.sendRedirect(topic.getLink());
         else {
             try {
                 String text = request.getParameter("text");
@@ -51,15 +53,11 @@ public class TopicServlet extends HttpServlet {
                 
                 PostManager.create(topic, user, text);
                 
-                redirectToTopic(response, topic);
+                response.sendRedirect(topic.getLink());
             } catch (Validator.ValidationException ex) {
                 Validator.message(response);
             }
         }
-    }
-    
-    private void redirectToTopic(HttpServletResponse response, TopicEntity topic) throws IOException {
-        response.sendRedirect("/topic/" + URLEncoder.encode(topic.getUrl(), "utf-8") + "/");
     }
 
 }

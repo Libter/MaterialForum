@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import net.materialforum.sql.TopicEntity;
 import net.materialforum.sql.TopicManager;
 import net.materialforum.sql.UserEntity;
 import net.materialforum.util.Validator;
@@ -62,9 +63,9 @@ public class ForumServlet extends HttpServlet {
                     
                     UserEntity user = Validator.User.get(request);
                     
-                    TopicManager.create(manager.findByUrl(forum), user, title, text);
+                    TopicEntity topic = TopicManager.create(manager.findByUrl(forum), user, title, text);
                     
-                    response.sendRedirect("/forum/" + forum);
+                    response.sendRedirect(topic.getLink());
                 } catch (Validator.ValidationException ex) {
                     Validator.message(response);
                 }

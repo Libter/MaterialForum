@@ -6,7 +6,7 @@ import net.materialforum.util.Database;
 
 public class PostManager {
     
-    public static void create(TopicEntity topic, UserEntity user, String text) {
+    public static PostEntity create(TopicEntity topic, UserEntity user, String text) {
         EntityManager entityManager = Database.getEntityManager();
         
         PostEntity post = new PostEntity();
@@ -17,6 +17,8 @@ public class PostManager {
         entityManager.getTransaction().begin();
         entityManager.persist(post);
         entityManager.getTransaction().commit();
+        
+        return post;
     }
     
     public static List<PostEntity> getPosts(TopicEntity topic) {

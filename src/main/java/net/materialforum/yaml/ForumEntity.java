@@ -1,5 +1,8 @@
 package net.materialforum.yaml;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 public class ForumEntity {
     
     private Long id;
@@ -46,6 +49,14 @@ public class ForumEntity {
 
     public void setParent(ForumEntity parent) {
         this.parent = parent;
+    }
+    
+    public String getLink() {
+        return "/forum/" + getUrl() + "/";
+    }
+    
+    public String getAddLink() {
+        return getLink() + "add/";
     }
     
 }

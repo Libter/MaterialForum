@@ -12,6 +12,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.owasp.html.examples.EbayPolicyExample;
 
 @Entity(name = "posts")
 @NamedQueries({
@@ -63,7 +64,7 @@ public class PostEntity implements Serializable {
     }
 
     public String getText() {
-        return text;
+        return EbayPolicyExample.POLICY_DEFINITION.sanitize(text);
     }
 
     public void setText(String text) {

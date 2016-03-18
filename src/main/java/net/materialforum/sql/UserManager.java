@@ -10,7 +10,7 @@ public class UserManager {
     
     private UserManager() {}
     
-    public static void register(String nick, String email, String password) {
+    public static UserEntity register(String nick, String email, String password) {
         EntityManager entityManager = Database.getEntityManager();
         UserEntity user = new UserEntity();
         user.setNick(nick);
@@ -19,6 +19,8 @@ public class UserManager {
         entityManager.getTransaction().begin();
         entityManager.persist(user);
         entityManager.getTransaction().commit();
+        
+        return user;
     }
     
     public static UserEntity login(String nickOrEmail, String password) {

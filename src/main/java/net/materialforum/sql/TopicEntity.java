@@ -82,4 +82,16 @@ public class TopicEntity implements Serializable {
         return id + "." + title.replaceAll("[^\\pL0-9 ]", "").replace(' ', '-');
     }
     
+    public String getLink() {
+        try {
+            return "/topic/" + URLEncoder.encode(getUrl(), "utf-8") + "/";
+        } catch (UnsupportedEncodingException ex) {
+            return null;
+        }
+    }
+    
+    public String getAddLink() {
+        return getLink() + "add/";
+    }
+    
 }

@@ -7,7 +7,7 @@ import net.materialforum.yaml.ForumEntity;
 
 public class TopicManager {
     
-    public static void create(ForumEntity forum, UserEntity user, String title, String text) {
+    public static TopicEntity create(ForumEntity forum, UserEntity user, String title, String text) {
         EntityManager entityManager = Database.getEntityManager();
         
         TopicEntity topic = new TopicEntity();
@@ -19,6 +19,8 @@ public class TopicManager {
         entityManager.getTransaction().commit();
         
         PostManager.create(topic, user, text);
+        
+        return topic;
     }
     
     public static List<TopicEntity> getTopics(Long forumId) {

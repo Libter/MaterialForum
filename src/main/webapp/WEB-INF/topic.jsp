@@ -15,7 +15,7 @@
                 ${post.text}<hr />
             </c:forEach>
             <br />
-            <form method="post" action="/topic/${topic.url}/add/">
+            <form method="post" action="${topic.addLink}">
                 <textarea name="text" id="editor"></textarea>
                 <script>CKEDITOR.replace('editor');</script>
                 <br />
