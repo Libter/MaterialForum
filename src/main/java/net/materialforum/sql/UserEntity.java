@@ -1,6 +1,6 @@
 package net.materialforum.sql;
 
-import com.sun.org.apache.xml.internal.security.utils.Base64;
+import javax.xml.bind.DatatypeConverter;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -51,7 +51,7 @@ public class UserEntity implements Serializable {
         registerDate = new Date();
         byte[] saltBytes = new byte[32];
         new SecureRandom().nextBytes(saltBytes);
-        salt = Base64.encode(saltBytes);
+        salt = DatatypeConverter.printBase64Binary(saltBytes);
     }
     
     public Long getId() {
@@ -83,7 +83,7 @@ public class UserEntity implements Serializable {
             String codeSalt = "Cwn9x0JA7X3kkQL2uLVO";
             String saltedPassword = password + salt + codeSalt;
             byte[] hash = MessageDigest.getInstance("SHA-512").digest(saltedPassword.getBytes("utf-8"));
-            this.passwordHash = Base64.encode(hash);
+            this.passwordHash = DatatypeConverter.printBase64Binary(hash);
         } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
             Logger.getLogger(UserEntity.class.getName()).log(Level.SEVERE, null, ex);
         }

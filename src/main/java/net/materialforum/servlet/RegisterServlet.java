@@ -31,7 +31,7 @@ public class RegisterServlet extends HttpServlet {
             
             request.getSession().setAttribute("user", UserManager.login(nick, password));
             
-            response.sendRedirect("/");
+            response.sendRedirect(request.getHeader("referer"));
         } catch (Validator.ValidationException ex) {
             Validator.message(response);
         }

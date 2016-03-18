@@ -3,7 +3,9 @@ package net.materialforum.util;
 import net.materialforum.sql.UserManager;
 import java.io.IOException;
 import java.util.regex.Pattern;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import net.materialforum.sql.UserEntity;
 
 public class Validator {
 
@@ -52,6 +54,13 @@ public class Validator {
         public static void emailExists(String email) throws ValidationException {
             if (UserManager.fieldExists("email", email))
                 throw new ValidationException();
+        }
+        
+        public static UserEntity get(HttpServletRequest request) throws ValidationException {
+            UserEntity user = (UserEntity) request.getSession().getAttribute("user");
+            if (user == null)
+                throw new ValidationException();
+            return user;
         }
     }
 

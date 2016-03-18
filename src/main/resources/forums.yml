@@ -1,4 +1,4 @@
 example:
-  id: 1
-  name: 'Example forum'
-  url: 'example'
+  id: 1 #Any number - only for MySQL performance. Don't change it on forums with threads!
+  title: Example forum
+  url: example
