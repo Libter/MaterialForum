@@ -1,7 +1,11 @@
 package net.materialforum.sql;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -72,6 +76,10 @@ public class TopicEntity implements Serializable {
 
     public void updateLastActiveDate() {
         this.lastActiveDate = new Date();
+    }
+    
+    public String getUrl() {
+        return id + "." + title.replaceAll("[^\\pL0-9 ]", "").replace(' ', '-');
     }
     
 }

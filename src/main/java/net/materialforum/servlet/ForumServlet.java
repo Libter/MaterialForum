@@ -1,8 +1,6 @@
 package net.materialforum.servlet;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,7 +33,7 @@ public class ForumServlet extends HttpServlet {
         if (splitted.length > 3) {
             String action = splitted[3];
             if (action.equals("add")) {
-                request.getRequestDispatcher("/WEB-INF/newthread.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/newtopic.jsp").forward(request, response);
             }
         } else {
             request.setAttribute("forums", manager.getForums());
@@ -46,6 +44,8 @@ public class ForumServlet extends HttpServlet {
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("utf-8");
+        
         ForumManager manager = new ForumManager();
         String[] splitted = request.getRequestURI().split("/");
         String forum = splitted[2];
@@ -62,7 +62,7 @@ public class ForumServlet extends HttpServlet {
                     
                     UserEntity user = Validator.User.get(request);
                     
-                    TopicManager.create(manager.findByUrl(forum).getId(), user, title, text);
+                    TopicManager.create(manager.findByUrl(forum), user, title, text);
                     
                     response.sendRedirect("/forum/" + forum);
                 } catch (Validator.ValidationException ex) {

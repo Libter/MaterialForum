@@ -10,7 +10,7 @@
         <%@ include file="/WEB-INF/include/menu.jsp" %>
         <br />
         <div id="main">
-            <form method="post" action="/forum/${forum.url}/add">
+            <form method="post" action="/forum/${forum.url}/add/">
                 <div class="row">
                     <div class="input-field col s10">
                         <input placeholder="Tytuł" name="title" type="text">

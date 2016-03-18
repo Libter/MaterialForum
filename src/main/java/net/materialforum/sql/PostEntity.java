@@ -7,10 +7,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity(name = "posts")
+@NamedQueries({
+    @NamedQuery(name = "Post.findByTopicId", query = "SELECT post FROM posts post WHERE post.topicId = :topicId ORDER BY post.creationDate")
+})
 public class PostEntity implements Serializable {
     
     @Id
@@ -24,6 +30,7 @@ public class PostEntity implements Serializable {
     @Column(name = "userId")
     private Long userId;
     
+    @Lob 
     @Column(name = "text")
     private String text;
     

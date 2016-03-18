@@ -22,7 +22,7 @@
         margin: auto auto;
     }
 
-    .forum a {
+    #main a {
         color: rgba(0, 0, 0, 0.87);
     }
 
