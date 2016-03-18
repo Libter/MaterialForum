@@ -4,13 +4,14 @@
 <html>
     <head>
         <%@include file="/WEB-INF/include/head.jsp" %>
+        <script src="/js/newtopic.js"></script>
         <script src="/ckeditor/ckeditor.js"></script>
     </head>
     <body>
         <%@ include file="/WEB-INF/include/menu.jsp" %>
         <br />
         <div id="main">
-            <form method="post" action="${forum.addLink}">
+            <form id="newTopicForm" method="post" action="${forum.addLink}">
                 <div class="row">
                     <div class="input-field col s10">
                         <input placeholder="Tytuł" name="title" type="text">
@@ -22,7 +23,10 @@
                         </button>
                     </div>
                 </div>
-                <textarea name="text" id="editor"></textarea>
+                <div>
+                    <textarea name="text" id="editor"></textarea>
+                    <label class="error"></label>
+                </div>
                 <script>CKEDITOR.replace('editor');</script>
             </form>
         </div>
