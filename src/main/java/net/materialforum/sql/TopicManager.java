@@ -13,8 +13,11 @@ public class TopicManager {
         topic.setForum(forum);
         topic.setTitle(title);
         
+        forum.incrementTopicCount();
+        
         entityManager.getTransaction().begin();
         entityManager.persist(topic);
+        entityManager.merge(forum);
         entityManager.getTransaction().commit();
         
         PostManager.create(topic, user, text);
@@ -27,8 +30,8 @@ public class TopicManager {
             .setParameter("forumId", forumId).getResultList();
     }
     
-    public static TopicEntity getById(Long topicId) {
-        return Database.getEntityManager().find(TopicEntity.class, topicId);
+    public static TopicEntity findById(Long id) {
+        return Database.getEntityManager().find(TopicEntity.class, id);
     }
     
 }

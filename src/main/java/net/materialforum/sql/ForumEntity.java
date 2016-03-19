@@ -6,8 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 
 @Entity(name = "forums")
 @NamedQueries({
@@ -21,15 +23,27 @@ public class ForumEntity implements Serializable {
     @Column(name = "id", nullable = false)
     private Long id;
     
-    @Column(name = "parentId", nullable = false)
-    private Long parentId;
+    @OneToOne
+    @JoinColumn(name = "parentId", nullable = true)
+    private ForumEntity parent;
     
     @Column(name = "title", nullable = false)
     private String title;
     
     @Column(name = "url", nullable = false, unique = true)
     private String url;
+    
+    @Column(name = "postCount", nullable = false)
+    private Long postCount;
+    
+    @Column(name = "topicCount", nullable = false)
+    private Long topicCount;
 
+    public ForumEntity() {
+        postCount = 0L;
+        topicCount = 0L;
+    }
+    
     public Long getId() {
         return id;
     }
@@ -38,12 +52,12 @@ public class ForumEntity implements Serializable {
         this.id = id;
     }
     
-    public Long getParentId() {
-        return parentId;
+    public ForumEntity getParent() {
+        return parent;
     }
 
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
+    public void setParent(ForumEntity parent) {
+        this.parent = parent;
     }
     
     public String getTitle() {
@@ -60,6 +74,30 @@ public class ForumEntity implements Serializable {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+    
+    public Long getPostCount() {
+        return postCount;
+    }
+
+    public void setPostCount(Long postCount) {
+        this.postCount = postCount;
+    }
+    
+    public void incrementPostCount() {
+        postCount += 1;
+    }
+    
+    public Long getTopicCount() {
+        return topicCount;
+    }
+
+    public void recountPostCount() {
+        //TODO: implement
+    }
+    
+    public void incrementTopicCount() {
+        topicCount += 1;
     }
     
     public String getLink() {

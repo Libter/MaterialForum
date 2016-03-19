@@ -2,8 +2,6 @@ package net.materialforum.servlet;
 
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,7 +22,7 @@ public class TopicServlet extends HttpServlet {
         String topicUrl = splitted[2];
         Long topicId = Long.parseLong(topicUrl.split("\\.")[0]);
         
-        TopicEntity topic = TopicManager.getById(topicId);
+        TopicEntity topic = TopicManager.findById(topicId);
         if (!URLEncoder.encode(topic.getUrl(), "utf-8").equals(topicUrl))
             response.sendRedirect(topic.getLink());
         else {
@@ -42,7 +40,7 @@ public class TopicServlet extends HttpServlet {
         String topicUrl = splitted[2];
         Long topicId = Long.parseLong(topicUrl.split("\\.")[0]);
         
-        TopicEntity topic = TopicManager.getById(topicId);
+        TopicEntity topic = TopicManager.findById(topicId);
         if (!URLEncoder.encode(topic.getUrl(), "utf-8").equals(topicUrl))
             response.sendRedirect(topic.getLink());
         else {

@@ -18,7 +18,7 @@ import org.owasp.html.examples.EbayPolicyExample;
 
 @Entity(name = "posts")
 @NamedQueries({
-    @NamedQuery(name = "Post.findByTopicId", query = "SELECT post FROM posts post WHERE post.topic.id :topicId ORDER BY post.creationDate")
+    @NamedQuery(name = "Post.findByTopicId", query = "SELECT post FROM posts post WHERE post.topic.id = :topicId ORDER BY post.creationDate")
 })
 public class PostEntity implements Serializable {
     
@@ -31,8 +31,9 @@ public class PostEntity implements Serializable {
     @JoinColumn(name = "topicId", nullable = false)
     private TopicEntity topic;
     
-    @Column(name = "userId", nullable = false)
-    private Long userId;
+    @OneToOne
+    @JoinColumn(name = "userId", nullable = false)
+    private UserEntity user;
     
     @Lob 
     @Column(name = "text", nullable = false)
@@ -50,12 +51,12 @@ public class PostEntity implements Serializable {
         return id;
     }
     
-    public Long getUserId() {
-        return userId;
+    public UserEntity getUser() {
+        return user;
     }
     
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
     
     public TopicEntity getTopic() {

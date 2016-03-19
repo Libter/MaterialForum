@@ -6,11 +6,11 @@ import net.materialforum.util.Database;
 
 public class ForumManager {
 
-    public static ForumEntity create(Long parentId, String title, String url) {
+    public static ForumEntity create(ForumEntity parent, String title, String url) {
         EntityManager entityManager = Database.getEntityManager();
         
         ForumEntity forum = new ForumEntity();
-        forum.setParentId(parentId);
+        forum.setParent(parent);
         forum.setTitle(title);
         forum.setUrl(url);
         

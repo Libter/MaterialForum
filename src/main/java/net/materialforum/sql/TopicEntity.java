@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,7 +19,7 @@ import javax.persistence.TemporalType;
 
 @Entity(name = "topics")
 @NamedQueries({
-    @NamedQuery(name = "Topic.findByForumId", query = "SELECT topic FROM topics topic WHERE topic.forumId = :forumId ORDER BY topic.lastPost.creationDate DESC")
+    @NamedQuery(name = "Topic.findByForumId", query = "SELECT topic FROM topics topic WHERE topic.forum.id = :forumId ORDER BY topic.lastPost.creationDate DESC")
 })
 public class TopicEntity implements Serializable {
     
@@ -47,7 +48,7 @@ public class TopicEntity implements Serializable {
     
     public TopicEntity() {
         creationDate = new Date();
-        postCount = 0l;
+        postCount = 0L;
     }
 
     public Long getId() {
@@ -86,8 +87,12 @@ public class TopicEntity implements Serializable {
         return postCount;
     }
 
-    public void setPostCount(Long postCount) {
-        this.postCount = postCount;
+    public void recountPostCount() {
+        //TODO: implement
+    }
+    
+    public void incrementPostCount() {
+        postCount += 1;
     }
     
     public String getUrl() {

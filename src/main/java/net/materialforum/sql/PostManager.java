@@ -9,20 +9,22 @@ public class PostManager {
     public static PostEntity create(TopicEntity topic, UserEntity user, String text) {
         EntityManager entityManager = Database.getEntityManager();
         
+        ForumEntity forum = topic.getForum();
+        
         PostEntity post = new PostEntity();
         post.setTopic(topic);
-        post.setUserId(user.getId());
+        post.setUser(user);
         post.setText(text);
+        
+        topic.setLastPost(post);
+        topic.incrementPostCount();
+        
+        forum.incrementPostCount();
         
         entityManager.getTransaction().begin();
         entityManager.persist(post);
-        entityManager.getTransaction().commit();
-        
-        topic.setPostCount(topic.getPostCount() + 1);
-        topic.setLastPost(post);
-        
-        entityManager.getTransaction().begin();
         entityManager.merge(topic);
+        entityManager.merge(forum);
         entityManager.getTransaction().commit();
         
         return post;
