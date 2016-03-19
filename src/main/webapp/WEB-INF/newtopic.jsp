@@ -23,11 +23,13 @@
                         </button>
                     </div>
                 </div>
-                <div>
-                    <textarea name="text" id="editor"></textarea>
-                    <label class="error"></label>
+                <div class="row">
+                    <div class="col s12">
+                        <textarea name="text" id="editor"></textarea>
+                        <label class="error"></label>
+                        <script>CKEDITOR.replace('editor');</script>
+                    </div>
                 </div>
-                <script>CKEDITOR.replace('editor');</script>
             </form>
         </div>
     </body>

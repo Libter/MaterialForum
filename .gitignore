@@ -1,5 +1,4 @@
 nb-configuration.xml
-src/main/webapp/css
-src/main/webapp/ckeditor
 lib/
 /target/
+src/main/webapp/css/
