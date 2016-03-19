@@ -15,16 +15,18 @@
             <c:forEach var="post" items="${posts}">
                 ${post.text}<hr />
             </c:forEach>
-            <br />
-            <form id="newPostForm" method="post" action="${topic.addLink}">
-                <textarea name="text" id="editor"></textarea>
-                <label class="error"></label>
-                <script>CKEDITOR.replace('editor');</script>
+            <c:if test="${!empty sessionScope.user}">
                 <br />
-                <button type="submit" class="btn waves-effect waves-light">
-                    Odpowiedz <i class="material-icons right">send</i> 
-                </button>
-            </form>
+                <form id="newPostForm" method="post" action="${topic.addLink}">
+                    <textarea name="text" id="editor"></textarea>
+                    <label class="error"></label>
+                    <script>CKEDITOR.replace('editor');</script>
+                    <br />
+                    <button type="submit" class="btn waves-effect waves-light">
+                        Odpowiedz <i class="material-icons right">send</i> 
+                    </button>
+                </form>
+            </c:if>
         </div>
     </body>
 </html>
