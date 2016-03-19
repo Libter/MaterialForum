@@ -10,7 +10,7 @@
         <br />
         <div id="main">
             <c:forEach var="forum" items="${forums}">
-                <c:if test="${empty forum.parent}">
+                <c:if test="${forum.parentId == 0}">
                     <%@ include file="/WEB-INF/include/forumlist.jsp" %>
                 </c:if>
             </c:forEach> 

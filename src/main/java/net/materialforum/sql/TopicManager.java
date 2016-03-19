@@ -3,7 +3,6 @@ package net.materialforum.sql;
 import java.util.List;
 import javax.persistence.EntityManager;
 import net.materialforum.util.Database;
-import net.materialforum.yaml.ForumEntity;
 
 public class TopicManager {
     

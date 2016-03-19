@@ -31,10 +31,10 @@ public class UserEntity implements Serializable {
     @Column(name = "id")
     private Long id;
     
-    @Column(name = "nick")
+    @Column(name = "nick", unique = true)
     private String nick;
     
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
     
     @Column(name = "passwordHash")

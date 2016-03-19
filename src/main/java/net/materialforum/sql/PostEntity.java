@@ -22,21 +22,21 @@ public class PostEntity implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private Long id;
        
-    @Column(name = "topicId")
+    @Column(name = "topicId", nullable = false)
     private Long topicId;
     
-    @Column(name = "userId")
+    @Column(name = "userId", nullable = false)
     private Long userId;
     
     @Lob 
-    @Column(name = "text")
+    @Column(name = "text", nullable = false)
     private String text;
     
     @Temporal(TemporalType.TIMESTAMP) 
-    @Column(name = "creationDate")
+    @Column(name = "creationDate", nullable = false)
     private Date creationDate;
     
     public PostEntity() {

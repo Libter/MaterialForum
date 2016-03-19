@@ -6,12 +6,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import net.materialforum.sql.ForumEntity;
 import net.materialforum.sql.TopicEntity;
 import net.materialforum.sql.TopicManager;
 import net.materialforum.sql.UserEntity;
 import net.materialforum.util.Validator;
-import net.materialforum.yaml.ForumEntity;
-import net.materialforum.yaml.ForumManager;
+import net.materialforum.sql.ForumManager;
 
 @WebServlet("/forum/*")
 public class ForumServlet extends HttpServlet {

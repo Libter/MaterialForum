@@ -18,6 +18,13 @@ public class PostManager {
         entityManager.persist(post);
         entityManager.getTransaction().commit();
         
+        topic.setPostCount(topic.getPostCount() + 1);
+        topic.setLastPost(post);
+        
+        entityManager.getTransaction().begin();
+        entityManager.merge(topic);
+        entityManager.getTransaction().commit();
+        
         return post;
     }
     
