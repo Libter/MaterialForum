@@ -34,7 +34,7 @@ public class ForumEntity implements Serializable {
     private String url;
     
     @OneToOne
-    @JoinColumn(name = "lastPostId", nullable = false)
+    @JoinColumn(name = "lastPostId", nullable = true)
     private PostEntity lastPost;
     
     @Column(name = "postCount", nullable = false)
