@@ -4,6 +4,7 @@
 <html>
     <head>
         <%@include file="/WEB-INF/include/head.jsp" %>
+        <script src="/js/newpost.js"></script>
         <script src="/ckeditor/ckeditor.js"></script>
     </head>
     <body>
@@ -15,8 +16,9 @@
                 ${post.text}<hr />
             </c:forEach>
             <br />
-            <form method="post" action="${topic.addLink}">
+            <form id="newPostForm" method="post" action="${topic.addLink}">
                 <textarea name="text" id="editor"></textarea>
+                <label class="error"></label>
                 <script>CKEDITOR.replace('editor');</script>
                 <br />
                 <button type="submit" class="btn waves-effect waves-light">

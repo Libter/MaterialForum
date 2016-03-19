@@ -48,7 +48,9 @@ public class TopicServlet extends HttpServlet {
         else {
             try {
                 String text = request.getParameter("text");
-                Validator.lengthOrEmpty(text, 3, Integer.MAX_VALUE);
+                
+                Validator.lengthOrEmpty(text, 10, Integer.MAX_VALUE);
+                
                 UserEntity user = Validator.User.get(request);
                 
                 PostManager.create(topic, user, text);

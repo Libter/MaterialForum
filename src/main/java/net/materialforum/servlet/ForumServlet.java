@@ -59,7 +59,7 @@ public class ForumServlet extends HttpServlet {
                     String text = request.getParameter("text");
                     
                     Validator.lengthOrEmpty(title, 3, 255);
-                    Validator.lengthOrEmpty(text, 3, Integer.MAX_VALUE);
+                    Validator.lengthOrEmpty(text, 10, Integer.MAX_VALUE);
                     
                     UserEntity user = Validator.User.get(request);
                     
