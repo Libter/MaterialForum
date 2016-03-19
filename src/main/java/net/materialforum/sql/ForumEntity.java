@@ -33,6 +33,10 @@ public class ForumEntity implements Serializable {
     @Column(name = "url", nullable = false, unique = true)
     private String url;
     
+    @OneToOne
+    @JoinColumn(name = "lastPostId", nullable = false)
+    private PostEntity lastPost;
+    
     @Column(name = "postCount", nullable = false)
     private Long postCount;
     
@@ -74,6 +78,14 @@ public class ForumEntity implements Serializable {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+    
+    public PostEntity getLastPost() {
+        return lastPost;
+    }
+
+    public void setLastPost(PostEntity lastPost) {
+        this.lastPost = lastPost;
     }
     
     public Long getPostCount() {

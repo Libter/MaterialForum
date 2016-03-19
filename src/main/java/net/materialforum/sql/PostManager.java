@@ -19,6 +19,7 @@ public class PostManager {
         topic.setLastPost(post);
         topic.incrementPostCount();
         
+        forum.setLastPost(post);
         forum.incrementPostCount();
         
         entityManager.getTransaction().begin();
