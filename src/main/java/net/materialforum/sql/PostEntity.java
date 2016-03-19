@@ -7,16 +7,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.owasp.html.examples.EbayPolicyExample;
 
 @Entity(name = "posts")
 @NamedQueries({
-    @NamedQuery(name = "Post.findByTopicId", query = "SELECT post FROM posts post WHERE post.topicId = :topicId ORDER BY post.creationDate")
+    @NamedQuery(name = "Post.findByTopicId", query = "SELECT post FROM posts post WHERE post.topic.id :topicId ORDER BY post.creationDate")
 })
 public class PostEntity implements Serializable {
     
@@ -25,8 +27,9 @@ public class PostEntity implements Serializable {
     @Column(name = "id", nullable = false)
     private Long id;
        
-    @Column(name = "topicId", nullable = false)
-    private Long topicId;
+    @OneToOne
+    @JoinColumn(name = "topicId", nullable = false)
+    private TopicEntity topic;
     
     @Column(name = "userId", nullable = false)
     private Long userId;
@@ -55,12 +58,12 @@ public class PostEntity implements Serializable {
         this.userId = userId;
     }
     
-    public Long getTopicId() {
-        return topicId;
+    public TopicEntity getTopic() {
+        return topic;
     }
 
-    public void setTopicId(Long topicId) {
-        this.topicId = topicId;
+    public void setTopic(TopicEntity topic) {
+        this.topic = topic;
     }
 
     public String getText() {

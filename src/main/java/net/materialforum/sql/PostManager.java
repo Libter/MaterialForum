@@ -10,7 +10,7 @@ public class PostManager {
         EntityManager entityManager = Database.getEntityManager();
         
         PostEntity post = new PostEntity();
-        post.setTopicId(topic.getId());
+        post.setTopic(topic);
         post.setUserId(user.getId());
         post.setText(text);
         
