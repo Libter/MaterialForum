@@ -27,8 +27,9 @@ public class TopicEntity implements Serializable {
     @Column(name = "id", nullable = false)
     private Long id;
     
-    @Column(name = "forumId", nullable = false)
-    private Long forumId;
+    @OneToOne
+    @JoinColumn(name = "forumId", nullable = false)
+    private ForumEntity forum;
     
     @OneToOne
     @JoinColumn(name = "lastPostId", nullable = false)
@@ -53,12 +54,12 @@ public class TopicEntity implements Serializable {
         return id;
     }
     
-    public Long getForumId() {
-        return forumId;
+    public ForumEntity getForum() {
+        return forum;
     }
 
-    public void setForumId(Long forumId) {
-        this.forumId = forumId;
+    public void setForum(ForumEntity forum) {
+        this.forum = forum;
     }
     
     public PostEntity getLastPost() {

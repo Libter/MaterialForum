@@ -10,7 +10,7 @@ public class TopicManager {
         EntityManager entityManager = Database.getEntityManager();
         
         TopicEntity topic = new TopicEntity();
-        topic.setForumId(forum.getId());
+        topic.setForum(forum);
         topic.setTitle(title);
         
         entityManager.getTransaction().begin();
