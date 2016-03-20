@@ -3,8 +3,10 @@ $(document).ready(function () {
         ignore: [],
         rules: {
             text: {
-                required: true,
-                minlength: 10
+                required: function() {
+                    CKEDITOR.instances.editor.updateElement();
+                },
+                minlength: 11
             }
         },
         messages: {

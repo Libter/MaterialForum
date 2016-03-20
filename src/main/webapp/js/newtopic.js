@@ -7,8 +7,10 @@ $(document).ready(function () {
                 minlength: 3
             },
             text: {
-                required: true,
-                minlength: 10
+                required: function() {
+                    CKEDITOR.instances.editor.updateElement();
+                },
+                minlength: 11
             }
         },
         messages: {

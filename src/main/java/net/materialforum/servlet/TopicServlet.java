@@ -47,7 +47,7 @@ public class TopicServlet extends HttpServlet {
             try {
                 String text = request.getParameter("text");
                 
-                Validator.lengthOrEmpty(text, 10, Integer.MAX_VALUE);
+                Validator.lengthOrEmpty(text, 11, Integer.MAX_VALUE);
                 
                 UserEntity user = Validator.User.get(request);
                 
