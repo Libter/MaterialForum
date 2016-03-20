@@ -6,6 +6,8 @@ import net.materialforum.util.Database;
 
 public class PostManager {
     
+    private PostManager() {}
+    
     public static PostEntity create(TopicEntity topic, UserEntity user, String text) {
         EntityManager entityManager = Database.getEntityManager();
         

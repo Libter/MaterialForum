@@ -6,6 +6,8 @@ import net.materialforum.util.Database;
 
 public class TopicManager {
     
+    private TopicManager() {}
+    
     public static TopicEntity create(ForumEntity forum, UserEntity user, String title, String text) {
         EntityManager entityManager = Database.getEntityManager();
         
