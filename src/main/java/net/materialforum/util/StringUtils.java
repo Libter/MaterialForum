@@ -19,4 +19,8 @@ public class StringUtils {
         return dateFormat.format(input);
     }
     
+    public static String removeHtml(String input) {
+        return input.replace("<", "lt;").replace(">", "gt;");
+    }
+    
 }

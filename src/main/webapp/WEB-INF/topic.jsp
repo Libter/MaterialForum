@@ -11,10 +11,21 @@
         <%@ include file="/WEB-INF/include/menu.jsp" %>
         <br />
         <div id="main">
-            <h1>${topic.title}</h1>
-            <c:forEach var="post" items="${posts}">
-                ${post.text}<hr />
-            </c:forEach>
+            <h1 class="panel-header">${topic.title}</h1>
+
+            <div id="posts">
+                <c:forEach var="post" items="${posts}">
+                    <div class="post">
+                        <div class="user-info">
+                            <b>${post.user.nick}</b><br />
+                        </div>
+                        <div class="text">
+                            ${post.text}
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+
             <c:if test="${!empty sessionScope.user}">
                 <br />
                 <form id="newPostForm" method="post" action="${topic.addLink}">

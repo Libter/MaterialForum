@@ -1,0 +1,23 @@
+#posts {
+    background: #f6f6f6;
+    padding: 12px;
+    padding-bottom: 0.1px;
+}
+
+.post {
+    display: table;
+    width: 100%;
+    background: white;
+    margin-bottom: 12px;
+}
+
+.post .user-info {
+    display: table-cell;
+    width: 15%;
+    text-align: center;
+    font-size: 14px;
+}
+
+.post .text {
+    display: table-cell;
+}

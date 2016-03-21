@@ -12,24 +12,22 @@
             <%@ include file="/WEB-INF/include/forumlist.jsp" %>
             <br />
             <c:if test="${!empty forum.parent}">
-                <div>
-                    <h1 class="panel-header">Tematy</h1>
-                    <div class="panel-content">
-                        <c:forEach var="topic" items="${topics}" varStatus="topicStatus">
-                            <div class="panel-entry ${topicStatus.index % 2 == 0 ? 'even' : 'odd'}">
-                                <div>
-                                    <h1><a href="${topic.link}">${topic.title}</a></h1>
-                                </div>
-                                <div class="count">
-                                    ${topic.postCount} postów
-                                </div>
-                                <div class="lastpost">
-                                    ${topic.lastPost.user.nick}<br />
-                                    ${topic.lastPost.formattedCreationDate}
-                                </div>
+                <h1 class="panel-header">Tematy</h1>
+                <div class="panel-content">
+                    <c:forEach var="topic" items="${topics}" varStatus="topicStatus">
+                        <div class="panel-entry ${topicStatus.index % 2 == 0 ? 'even' : 'odd'}">
+                            <div>
+                                <h1><a href="${topic.link}">${topic.title}</a></h1>
                             </div>
-                        </c:forEach>  
-                    </div>
+                            <div class="count">
+                                ${topic.postCount} postów
+                            </div>
+                            <div class="lastpost">
+                                ${topic.lastPost.user.nick}<br />
+                                ${topic.lastPost.formattedCreationDate}
+                            </div>
+                        </div>
+                    </c:forEach>  
                 </div>
             </c:if>
         </div>
