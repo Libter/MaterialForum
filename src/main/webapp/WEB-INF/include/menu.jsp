@@ -1,14 +1,12 @@
 <%@page contentType="text/html" pageEncoding="utf-8"%>
 <nav>
     <div class="nav-wrapper">
-        <a href="/" class="brand-logo">
-            &nbsp;&nbsp;&nbsp;
-            <c:choose>
-                <c:when test="${empty sessionScope.user}">Witaj na ${header.host} nieznajomy!</c:when>
-                <c:otherwise>Witaj na ${header.host}&nbsp;${sessionScope.user.nick}!</c:otherwise>
-            </c:choose>
-        </a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <div id="navigation">
+            <c:forEach var="navItem" items="${navigation}">
+                <a href="${navItem.link}" class="breadcrumb">${navItem.title}</a>
+            </c:forEach> 
+        </div>
+        <ul class="right">
             <c:choose>
                 <c:when test="${empty sessionScope.user}">
                     <li><a href="#login" class="modal-trigger">Zaloguj się</a></li>
