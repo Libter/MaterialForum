@@ -18,6 +18,7 @@
                     <div class="post">
                         <div class="user-info">
                             <b>${post.user.nick}</b><br />
+                            <img src="${post.user.avatar}" class="avatar" />
                         </div>
                         <div class="text">
                             ${post.text}

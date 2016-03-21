@@ -3,6 +3,7 @@ package net.materialforum.sql;
 import javax.xml.bind.DatatypeConverter;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -123,6 +124,16 @@ public class UserEntity implements Serializable {
     
     public void incrementTopicCount() {
         topicCount += 1;
+    }
+    
+    public String getAvatar() {
+        try {
+            byte[] byteHash = MessageDigest.getInstance("MD5").digest(email.trim().toLowerCase().getBytes("utf-8"));
+            String hash = new BigInteger(1, byteHash).toString(16);
+            while(hash.length() < 32)
+                hash = "0" + hash;
+            return "http://www.gravatar.com/avatar/" + hash + "?d=retro";
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) { return null; }
     }
     
 }
