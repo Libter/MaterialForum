@@ -5,7 +5,7 @@
             &nbsp;&nbsp;&nbsp;
             <c:choose>
                 <c:when test="${empty sessionScope.user}">Witaj na ${header.host} nieznajomy!</c:when>
-                <c:otherwise>Witaj na ${header.host} ${sessionScope.user.nick}!</c:otherwise>
+                <c:otherwise>Witaj na ${header.host}&nbsp;${sessionScope.user.nick}!</c:otherwise>
             </c:choose>
         </a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">

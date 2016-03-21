@@ -18,16 +18,23 @@ public class PostManager {
         post.setUser(user);
         post.setText(text);
         
+        entityManager.getTransaction().begin();
+        
+        entityManager.persist(post);
+        
         topic.setLastPost(post);
         topic.incrementPostCount();
         
         forum.setLastPost(post);
         forum.incrementPostCount();
-        
-        entityManager.getTransaction().begin();
-        entityManager.persist(post);
-        entityManager.merge(topic);
         entityManager.merge(forum);
+        while ((forum = forum.getParent()) != null) {
+            forum.setLastPost(post);
+            forum.incrementPostCount();
+            entityManager.merge(forum);
+        }
+        
+        entityManager.merge(topic);
         entityManager.getTransaction().commit();
         
         return post;

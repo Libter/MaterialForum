@@ -47,21 +47,23 @@ public class ForumServlet extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         
         String[] splitted = request.getRequestURI().split("/");
-        String forum = splitted[2];
+        String forumUrl = splitted[2];
         
         if (splitted.length > 3) {
             String action = splitted[3];
             if (action.equals("add")) {
                 try {
+                    ForumEntity forum = ForumManager.findByUrl(forumUrl);
                     String title = request.getParameter("title");
                     String text = request.getParameter("text");
-                    
+                                      
+                    Validator.Forum.nullParent(forum);
                     Validator.lengthOrEmpty(title, 3, 255);
                     Validator.lengthOrEmpty(text, 11, Integer.MAX_VALUE);
                     
                     UserEntity user = Validator.User.get(request);
                     
-                    TopicEntity topic = TopicManager.create(ForumManager.findByUrl(forum), user, title, text);
+                    TopicEntity topic = TopicManager.create(forum, user, title, text);
                     
                     response.sendRedirect(topic.getLink());
                 } catch (Validator.ValidationException ex) {

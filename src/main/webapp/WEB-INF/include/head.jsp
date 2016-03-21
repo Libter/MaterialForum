@@ -5,33 +5,10 @@
 <link rel="stylesheet" href="/css/materialize.css" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="/css/main.css" />
 
 <script src="http://code.jquery.com/jquery-2.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
 <script src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>
 
 <script src="/js/menu.js"></script>
-
-<style>
-    label {
-        width: 100%;
-    }
-
-    label.error:after {
-        content: attr(data-error);
-        color: #F44336;
-    }
-    
-    #main {
-        width: 80%;
-        margin: auto auto;
-    }
-
-    #main a {
-        color: rgba(0, 0, 0, 0.87);
-    }
-
-    .subsubforum {
-        font-size: 12px;
-    }
-</style>

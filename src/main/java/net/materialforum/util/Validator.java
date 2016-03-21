@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import net.materialforum.sql.ForumEntity;
 import net.materialforum.sql.UserEntity;
 
 public class Validator {
@@ -18,6 +19,7 @@ public class Validator {
 
     public static void message(HttpServletResponse response) {
         try {
+            response.setCharacterEncoding("utf-8");
             response.getWriter().write("Tajna wiadomość dla hakierów lub no-scriptów!");
         } catch (IOException ex) { }
     }
@@ -62,6 +64,17 @@ public class Validator {
                 throw new ValidationException();
             return user;
         }
+    }
+    
+    public static class Forum {
+        
+        private Forum() {}
+        
+        public static void nullParent(ForumEntity forum) throws ValidationException {
+            if (forum.getParent() == null)
+                throw new ValidationException();
+        }
+        
     }
 
 }

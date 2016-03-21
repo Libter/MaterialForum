@@ -15,11 +15,16 @@ public class TopicManager {
         topic.setForum(forum);
         topic.setTitle(title);
         
-        forum.incrementTopicCount();
-        
         entityManager.getTransaction().begin();
-        entityManager.persist(topic);
+        
+        forum.incrementTopicCount();
         entityManager.merge(forum);
+        while ((forum = forum.getParent()) != null) {
+            forum.incrementTopicCount();
+            entityManager.merge(forum);
+        }
+        entityManager.persist(topic);
+        
         entityManager.getTransaction().commit();
         
         PostManager.create(topic, user, text);
