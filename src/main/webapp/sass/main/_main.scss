@@ -24,3 +24,7 @@ label.error:after {
 .subsubforum {
     font-size: 14px;
 }
+
+.avatar, .avatar > img {
+    border-radius: 50%;
+}

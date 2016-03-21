@@ -126,14 +126,22 @@ public class UserEntity implements Serializable {
         topicCount += 1;
     }
     
-    public String getAvatar() {
+    private String getAvatar(int size) {
         try {
             byte[] byteHash = MessageDigest.getInstance("MD5").digest(email.trim().toLowerCase().getBytes("utf-8"));
             String hash = new BigInteger(1, byteHash).toString(16);
             while(hash.length() < 32)
                 hash = "0" + hash;
-            return "http://www.gravatar.com/avatar/" + hash + "?d=retro";
+            return "http://www.gravatar.com/avatar/" + hash + "?d=retro&s=" + size;
         } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) { return null; }
+    }
+    
+    public String getSmallAvatar() {
+        return getAvatar(48);
+    }
+    
+    public String getLargeAvatar() {
+        return getAvatar(96);
     }
     
 }
