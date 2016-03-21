@@ -3,6 +3,7 @@ package net.materialforum.bean;
 import java.util.ArrayList;
 import java.util.Collections;
 import net.materialforum.sql.ForumEntity;
+import net.materialforum.sql.TopicEntity;
 
 public class NavigationBean {
 
@@ -30,6 +31,12 @@ public class NavigationBean {
         Collections.reverse(forums);
         
         beans.addAll(forums);
+        return beans;
+    }
+    
+    public static ArrayList<NavigationBean> topic(TopicEntity topic) {
+        ArrayList<NavigationBean> beans = forum(topic.getForum());
+        beans.add(new NavigationBean(topic.getTitle(), topic.getLink()));
         return beans;
     }
     

@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import net.materialforum.bean.NavigationBean;
 import net.materialforum.sql.PostManager;
 import net.materialforum.sql.TopicEntity;
 import net.materialforum.sql.TopicManager;
@@ -28,6 +29,7 @@ public class TopicServlet extends HttpServlet {
         else {
             request.setAttribute("topic", topic);
             request.setAttribute("posts", PostManager.getPosts(topic));
+            request.setAttribute("navigation", NavigationBean.topic(topic));
             request.getRequestDispatcher("/WEB-INF/topic.jsp").forward(request, response);
         }
     }
