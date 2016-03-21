@@ -13,6 +13,7 @@ import net.materialforum.sql.TopicManager;
 import net.materialforum.sql.UserEntity;
 import net.materialforum.util.Validator;
 import net.materialforum.sql.ForumManager;
+import net.materialforum.util.StringUtils;
 
 @WebServlet("/forum/*")
 public class ForumServlet extends HttpServlet {
@@ -57,7 +58,7 @@ public class ForumServlet extends HttpServlet {
             if (action.equals("add")) {
                 try {
                     ForumEntity forum = ForumManager.findByUrl(forumUrl);
-                    String title = request.getParameter("title");
+                    String title = StringUtils.removeHtml(request.getParameter("title"));
                     String text = request.getParameter("text");
 
                     Validator.Forum.nullParent(forum);

@@ -20,7 +20,7 @@ public class StringUtils {
     }
     
     public static String removeHtml(String input) {
-        return input.replace("<", "lt;").replace(">", "gt;");
+        return input.replace("<", "&lt;").replace(">", "&gt;");
     }
     
 }

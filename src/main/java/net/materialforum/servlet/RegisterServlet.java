@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import net.materialforum.util.StringUtils;
 
 @WebServlet("/register/")
 public class RegisterServlet extends HttpServlet {
@@ -16,8 +17,8 @@ public class RegisterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         try {
-            String nick = request.getParameter("nick");
-            String email = request.getParameter("email");
+            String nick = StringUtils.removeHtml(request.getParameter("nick"));
+            String email = StringUtils.removeHtml(request.getParameter("email"));
             String password = request.getParameter("password");
             
             Validator.lengthOrEmpty(nick, 3, 255);
