@@ -37,7 +37,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="submit" class="modal-action waves-effect waves-green btn-flat">Zaloguj się</button>
+            <button type="submit" class="modal-action waves-effect btn-flat">Zaloguj się</button>
         </div>
     </form>
 </div>
@@ -66,7 +66,7 @@
             </div> 
         </div>
         <div class="modal-footer">
-            <button type="submit" class="modal-action waves-effect waves-green btn-flat">Zarejestruj się</button>
+            <button type="submit" class="modal-action waves-effect btn-flat">Zarejestruj się</button>
         </div>
     </form>
 </div>

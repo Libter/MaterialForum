@@ -1,0 +1,58 @@
+.panel-entry { 
+    display: table;
+    width: 100%;
+    padding: 8px;
+    height: 64px;
+}
+
+.panel-entry > div {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.panel-entry > .count {
+    width: 10%;
+    text-align: center;
+}
+
+.panel-entry > .lastpost {
+    width: 20%;
+    font-size: 13px;
+    padding: 0 10px;
+}
+
+.panel-entry a:hover {
+    color: $link-hover-color;
+}
+
+.panel-entry h2, .panel-entry h1 {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+    line-height: initial;
+}
+
+.panel-entry.even {
+    background: #fcfcfc;
+}
+
+.panel-entry.odd {
+    background: #f6f6f6;
+}
+
+.panel-header {
+    padding: 11px 15px 11px 15px;
+    font-size: 16px;
+    background: #212121;
+    margin: 0;
+    color: white;
+} 
+
+.panel-header a {
+    color: white;
+}
+
+.panel-content {
+    border: 1px solid #ccc;
+    border-top: none;
+}

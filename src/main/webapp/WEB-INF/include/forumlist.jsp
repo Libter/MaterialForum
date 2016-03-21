@@ -1,22 +1,21 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="utf-8"%>
-<%@page trimDirectiveWhitespaces="true" %>
+<%@page contentType="text/html" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <div class="forum">
-    <h1><a href="${forum.link}">${forum.title}</a></h1>
-    <div class="subforums">
+    <h1 class="panel-header"><a href="${forum.link}">${forum.title}</a></h1>
+    <div class="panel-content">
         <c:set var="subforumCount" value="0" scope="page" />
         <c:forEach var="subforum" items="${forums}">
             <c:if test="${forum.id == subforum.parent.id}">
-                <div class="subforum ${subforumCount % 2 == 0 ? 'even' : 'odd'}">
+                <div class="panel-entry ${subforumCount % 2 == 0 ? 'even' : 'odd'}">
                     <div>
                         <h2><a href="${subforum.link}">${subforum.title}</a></h2>
-                            <c:set var="subsubforumStart" value="false" scope="page" />
+                            <c:set var="subsubforumStarted" value="false" scope="page" />
                             <c:forEach var="subsubforum" items="${forums}">
                                 <c:if test="${subforum.id == subsubforum.parent.id}">
-                                    <c:if test="${subsubforumStart}">,</c:if>
-                                <c:if test="${!subsubforumStart}">
+                                    <c:if test="${subsubforumStarted}">,</c:if>
+                                <c:if test="${!subsubforumStarted}">
                                     └
-                                    <c:set var="subsubforumStart" value="true" scope="page" />
+                                    <c:set var="subsubforumStarted" value="true" scope="page" />
                                 </c:if>
                                 <a href="${subsubforum.link}" class="subsubforum">${subsubforum.title}</a></c:if>
                         </c:forEach>

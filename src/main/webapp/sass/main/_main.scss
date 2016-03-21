@@ -1,0 +1,26 @@
+body {
+    background: #eee;
+}
+
+label {
+    width: 100%;
+}
+
+label.error:after {
+    content: attr(data-error);
+    color: #F44336;
+}
+
+#main {
+    width: 1000px;
+    margin: auto auto;
+}
+
+#navigation {
+    display: inline-block;
+    padding-left: 16px;
+}
+
+.subsubforum {
+    font-size: 14px;
+}
