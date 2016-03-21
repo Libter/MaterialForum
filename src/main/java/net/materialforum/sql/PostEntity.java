@@ -1,6 +1,7 @@
 package net.materialforum.sql;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +15,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import net.materialforum.util.StringUtils;
 import org.owasp.html.examples.EbayPolicyExample;
 
 @Entity(name = "posts")
@@ -77,6 +79,10 @@ public class PostEntity implements Serializable {
 
     public Date getCreationDate() {
         return creationDate;
+    }
+    
+    public String getFormattedCreationDate() {
+        return StringUtils.formatDate(creationDate);
     }
     
 }

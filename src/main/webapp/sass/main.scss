@@ -12,7 +12,7 @@ label.error:after {
 }
 
 #main {
-    width: 80%;
+    width: 1000px;
     margin: auto auto;
 }
 
@@ -47,6 +47,12 @@ label.error:after {
 .subforum > .count {
     width: 10%;
     text-align: center;
+}
+
+.subforum > .lastpost {
+    width: 20%;
+    font-size: 13px;
+    padding: 0 10px;
 }
 
 .subforum a {

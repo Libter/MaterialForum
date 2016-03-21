@@ -22,8 +22,22 @@
                         </c:forEach>
                     </div>
                     <div class="count">
-                        ${subforum.postCount} postów<br />
-                        ${subforum.topicCount} tematów
+                        ${subforum.topicCount} tematów<br />
+                        ${subforum.postCount} postów
+                    </div>
+                    <div class="lastpost">
+                        <c:choose>
+                            <c:when test="${empty subforum.lastPost}">
+                                <div style="text-align: center">
+                                    -   
+                                </div>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="${subforum.lastPost.topic.link}">${subforum.lastPost.topic.title}</a><br />
+                                Przez ${subforum.lastPost.user.nick}<br />
+                                ${subforum.lastPost.formattedCreationDate}
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
                 <c:set var="subforumCount" value="${subforumCount + 1}" scope="page" />            
