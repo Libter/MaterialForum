@@ -24,6 +24,10 @@ public class PostManager {
         
         topic.setLastPost(post);
         topic.incrementPostCount();
+        entityManager.merge(topic);
+        
+        user.incrementPostCount();
+        entityManager.merge(user);
         
         forum.setLastPost(post);
         forum.incrementPostCount();
@@ -34,7 +38,6 @@ public class PostManager {
             entityManager.merge(forum);
         }
         
-        entityManager.merge(topic);
         entityManager.getTransaction().commit();
         
         return post;

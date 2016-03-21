@@ -28,30 +28,38 @@ public class UserEntity implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private Long id;
     
-    @Column(name = "nick", unique = true)
+    @Column(name = "nick", unique = true, nullable = false)
     private String nick;
     
-    @Column(name = "email", unique = true)
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
     
-    @Column(name = "passwordHash")
+    @Column(name = "passwordHash", nullable = false)
     private String passwordHash;
     
-    @Column(name = "salt")
+    @Column(name = "salt", nullable = false)
     private String salt;
     
     @Temporal(TemporalType.TIMESTAMP) 
-    @Column(name = "registerDate")
+    @Column(name = "registerDate", nullable = false)
     private Date registerDate;
+    
+    @Column(name = "postCount", nullable = false)
+    private Long postCount;
+    
+    @Column(name = "topicCount", nullable = false)
+    private Long topicCount;
     
     public UserEntity() {
         registerDate = new Date();
         byte[] saltBytes = new byte[32];
         new SecureRandom().nextBytes(saltBytes);
         salt = DatatypeConverter.printBase64Binary(saltBytes);
+        postCount = 0L;
+        topicCount = 0L;
     }
     
     public Long getId() {
@@ -91,6 +99,30 @@ public class UserEntity implements Serializable {
 
     public Date getRegisterDate() {
         return registerDate;
+    }
+    
+    public Long getPostCount() {
+        return postCount;
+    }
+
+    public void recountPostCount() {
+        //TODO: implement
+    }
+    
+    public void incrementPostCount() {
+        postCount += 1;
+    }
+    
+    public Long getTopicCount() {
+        return topicCount;
+    }
+
+    public void recountTopicCount() {
+        //TODO: implement
+    }
+    
+    public void incrementTopicCount() {
+        topicCount += 1;
     }
     
 }

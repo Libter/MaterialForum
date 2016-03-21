@@ -92,8 +92,8 @@ public class ForumEntity implements Serializable {
         return postCount;
     }
 
-    public void setPostCount(Long postCount) {
-        this.postCount = postCount;
+    public void recountPostCount() {
+        //TODO: implement
     }
     
     public void incrementPostCount() {
@@ -104,7 +104,7 @@ public class ForumEntity implements Serializable {
         return topicCount;
     }
 
-    public void recountPostCount() {
+    public void recountTopicCount() {
         //TODO: implement
     }
     
