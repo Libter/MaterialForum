@@ -1,4 +1,4 @@
-package net.materialforum.util;
+package net.materialforum.utils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

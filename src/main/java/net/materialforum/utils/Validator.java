@@ -1,12 +1,12 @@
-package net.materialforum.util;
+package net.materialforum.utils;
 
-import net.materialforum.sql.UserManager;
+import net.materialforum.entities.UserManager;
 import java.io.IOException;
 import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import net.materialforum.sql.ForumEntity;
-import net.materialforum.sql.UserEntity;
+import net.materialforum.entities.ForumEntity;
+import net.materialforum.entities.UserEntity;
 
 public class Validator {
 

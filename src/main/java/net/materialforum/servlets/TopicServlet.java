@@ -1,4 +1,4 @@
-package net.materialforum.servlet;
+package net.materialforum.servlets;
 
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -7,12 +7,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import net.materialforum.bean.NavigationBean;
-import net.materialforum.sql.PostManager;
-import net.materialforum.sql.TopicEntity;
-import net.materialforum.sql.TopicManager;
-import net.materialforum.sql.UserEntity;
-import net.materialforum.util.Validator;
+import net.materialforum.beans.NavigationBean;
+import net.materialforum.entities.PostManager;
+import net.materialforum.entities.TopicEntity;
+import net.materialforum.entities.TopicManager;
+import net.materialforum.entities.UserEntity;
+import net.materialforum.utils.Validator;
 
 @WebServlet("/topic/*")
 public class TopicServlet extends HttpServlet {

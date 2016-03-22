@@ -1,4 +1,4 @@
-package net.materialforum.sql;
+package net.materialforum.entities;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -15,7 +15,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import net.materialforum.util.StringUtils;
+import net.materialforum.utils.StringUtils;
 import org.owasp.html.examples.EbayPolicyExample;
 
 @Entity(name = "posts")

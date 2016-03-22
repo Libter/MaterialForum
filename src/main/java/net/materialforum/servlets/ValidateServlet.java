@@ -1,6 +1,6 @@
-package net.materialforum.servlet;
+package net.materialforum.servlets;
 
-import net.materialforum.sql.UserManager;
+import net.materialforum.entities.UserManager;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

@@ -1,14 +1,14 @@
-package net.materialforum.servlet;
+package net.materialforum.servlets;
 
-import net.materialforum.sql.UserManager;
-import net.materialforum.util.Validator;
+import net.materialforum.entities.UserManager;
+import net.materialforum.utils.Validator;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import net.materialforum.util.StringUtils;
+import net.materialforum.utils.StringUtils;
 
 @WebServlet("/register/")
 public class RegisterServlet extends HttpServlet {

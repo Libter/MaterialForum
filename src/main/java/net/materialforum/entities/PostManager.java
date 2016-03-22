@@ -1,8 +1,8 @@
-package net.materialforum.sql;
+package net.materialforum.entities;
 
 import java.util.List;
 import javax.persistence.EntityManager;
-import net.materialforum.util.Database;
+import net.materialforum.utils.Database;
 
 public class PostManager {
     

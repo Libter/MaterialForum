@@ -1,7 +1,7 @@
-package net.materialforum.sql;
+package net.materialforum.entities;
 
-import net.materialforum.util.Database;
-import net.materialforum.util.StringUtils;
+import net.materialforum.utils.Database;
+import net.materialforum.utils.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;

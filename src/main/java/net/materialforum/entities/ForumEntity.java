@@ -1,4 +1,4 @@
-package net.materialforum.sql;
+package net.materialforum.entities;
 
 import java.io.Serializable;
 import java.util.Arrays;

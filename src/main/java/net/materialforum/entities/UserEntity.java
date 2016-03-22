@@ -1,4 +1,4 @@
-package net.materialforum.sql;
+package net.materialforum.entities;
 
 import javax.xml.bind.DatatypeConverter;
 import java.io.Serializable;

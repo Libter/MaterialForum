@@ -1,9 +1,9 @@
-package net.materialforum.bean;
+package net.materialforum.beans;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import net.materialforum.sql.ForumEntity;
-import net.materialforum.sql.TopicEntity;
+import net.materialforum.entities.ForumEntity;
+import net.materialforum.entities.TopicEntity;
 
 public class NavigationBean {
 

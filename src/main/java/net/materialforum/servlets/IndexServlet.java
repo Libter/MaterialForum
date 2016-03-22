@@ -1,4 +1,4 @@
-package net.materialforum.servlet;
+package net.materialforum.servlets;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -6,8 +6,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import net.materialforum.bean.NavigationBean;
-import net.materialforum.sql.ForumManager;
+import net.materialforum.beans.NavigationBean;
+import net.materialforum.entities.ForumManager;
 
 @WebServlet("")
 public class IndexServlet extends HttpServlet {
