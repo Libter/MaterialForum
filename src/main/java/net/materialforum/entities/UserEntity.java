@@ -163,6 +163,10 @@ public class UserEntity implements Serializable {
         return getAvatar(96);
     }
     
+    public String getFormattedNick() {
+        return PermissionManager.format(group, nick);
+    }
+    
     public boolean hasPermission(String permission) {
         return PermissionManager.hasPermission(group, permission);
     }

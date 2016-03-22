@@ -23,6 +23,7 @@ public class PermissionManager {
     private static void reload() {
         HashMap<String,List<String>> permissions = new HashMap<>();
         HashMap<String,List<String>> parents = new HashMap<>();
+        HashMap<String,String> formats = new HashMap<>();
         try {
             config = provider.load(new File("***REMOVED***", "permissions.yml"));
         } catch (IOException ex) {  }
@@ -40,6 +41,8 @@ public class PermissionManager {
                 permissions.put(key, new ArrayList<String>());
             else
                 permissions.put(key, lPermissions);
+            
+            formats.put(key, config.getString(key + ".format"));
         }
         
         for (String key : config.getKeys()){
@@ -47,7 +50,7 @@ public class PermissionManager {
             List<String> lPermissions = permissions.get(key);
             for (String parent : lParents)
                 lPermissions.addAll(permissions.get(parent));
-            groups.put(key, new PermissionGroup(lPermissions));
+            groups.put(key, new PermissionGroup(lPermissions, formats.get(key)));
         }
         lastReload = System.currentTimeMillis();
     }
@@ -60,5 +63,13 @@ public class PermissionManager {
             return false;
         else
             return pGroup.hasPermission(permission);
+    }
+    
+    public static String format(String group, String nick) {
+        PermissionGroup pGroup = groups.get(group);
+        if (pGroup == null)
+            return null;
+        else
+            return pGroup.format(nick);
     }
 }

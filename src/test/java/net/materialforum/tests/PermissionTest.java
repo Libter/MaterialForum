@@ -13,7 +13,7 @@ public class PermissionTest {
     public void testHasPermission() {
         ArrayList<String> permissions = new ArrayList<>();
         permissions.add("forum.test.*");
-        PermissionGroup group = new PermissionGroup(permissions);
+        PermissionGroup group = new PermissionGroup(permissions, null);
         assertTrue(group.hasPermission("forum.test.read"));
         assertTrue(group.hasPermission("forum.test.write"));
         assertFalse(group.hasPermission("forum.admin.read"));

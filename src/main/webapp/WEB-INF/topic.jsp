@@ -17,7 +17,7 @@
                 <c:forEach var="post" items="${posts}">
                     <div class="post">
                         <div class="user-info">
-                            <b>${post.user.nick}</b><br />
+                            <b>${post.user.formattedNick}</b><br />
                             <img src="${post.user.largeAvatar}" class="avatar" />
                         </div>
                         <div class="text">

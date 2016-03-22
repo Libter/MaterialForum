@@ -26,7 +26,7 @@
                                 <img src="${topic.lastPost.user.smallAvatar}" />
                             </div>
                             <div class="lastpost">
-                                ${topic.lastPost.user.nick}<br />
+                                ${topic.lastPost.user.formattedNick}<br />
                                 ${topic.lastPost.formattedCreationDate}
                             </div>
                         </div>

@@ -39,7 +39,7 @@
                                 </c:when>
                                 <c:otherwise>  
                                     <a href="${subforum.lastPost.topic.link}">${subforum.lastPost.topic.title}</a><br />
-                                    Przez ${subforum.lastPost.user.nick}<br />
+                                    Przez ${subforum.lastPost.user.formattedNick}<br />
                                     ${subforum.lastPost.formattedCreationDate}
                                 </c:otherwise>
                             </c:choose>
