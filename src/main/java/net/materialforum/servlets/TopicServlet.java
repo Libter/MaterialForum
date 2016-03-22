@@ -44,7 +44,7 @@ public class TopicServlet extends BaseServlet {
             String text = request.getParameter("text");
 
             Validator.Forum.canRead(topic.getForum(), user);
-            Validator.Forum.canWrite(topic.getForum(), user);
+            Validator.Forum.canWritePosts(topic.getForum(), user);
             Validator.lengthOrEmpty(text, 11, Integer.MAX_VALUE);
 
             PostManager.create(topic, user, text);

@@ -33,7 +33,7 @@ public class ForumServlet extends BaseServlet {
         if (splitted.length > 3) {
             String action = splitted[3];
             if (action.equals("add")) {
-                Validator.Forum.canWrite(forum, user);
+                Validator.Forum.canWriteTopics(forum, user);
                 request.setAttribute("navigation", NavigationBean.forumAddTopic(forum));
                 request.getRequestDispatcher("/WEB-INF/newtopic.jsp").forward(request, response);
             }
@@ -58,7 +58,7 @@ public class ForumServlet extends BaseServlet {
                 String text = request.getParameter("text");
 
                 Validator.Forum.canRead(forum, user);
-                Validator.Forum.canWrite(forum, user);
+                Validator.Forum.canWriteTopics(forum, user);
                 Validator.Forum.nullParent(forum);
                 Validator.lengthOrEmpty(title, 3, 255);
                 Validator.lengthOrEmpty(text, 11, Integer.MAX_VALUE);

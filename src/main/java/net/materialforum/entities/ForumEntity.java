@@ -161,8 +161,12 @@ public class ForumEntity implements Serializable {
         return checkPermission(user, "read");
     }
 
-    public boolean canWrite(UserEntity user) {
-        return checkPermission(user, "write");
+    public boolean canWriteTopics(UserEntity user) {
+        return checkPermission(user, "write.topic");
+    }
+    
+    public boolean canWritePosts(UserEntity user) {
+        return checkPermission(user, "write.post");
     }
     
 }

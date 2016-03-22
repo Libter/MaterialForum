@@ -82,8 +82,13 @@ public class Validator {
                 throw new ValidationException();
         }
         
-        public static void canWrite(ForumEntity forum, UserEntity user) throws ValidationException {
-            if (!forum.canWrite(user))
+        public static void canWriteTopics(ForumEntity forum, UserEntity user) throws ValidationException {
+            if (!forum.canWriteTopics(user))
+                throw new ValidationException();
+        }
+        
+        public static void canWritePosts(ForumEntity forum, UserEntity user) throws ValidationException {
+            if (!forum.canWritePosts(user))
                 throw new ValidationException();
         }
 
