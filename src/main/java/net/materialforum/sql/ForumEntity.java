@@ -1,6 +1,8 @@
 package net.materialforum.sql;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,6 +37,9 @@ public class ForumEntity implements Serializable {
     
     @Column(name = "description", nullable = false)
     private String description;
+    
+    @Column(name = "groups", nullable = false)
+    private String groups;
     
     @OneToOne
     @JoinColumn(name = "lastPostId", nullable = true)
@@ -129,6 +134,18 @@ public class ForumEntity implements Serializable {
     
     public String getAddLink() {
         return getLink() + "add/";
+    }
+    
+    public List<String> getGroups() {
+        return Arrays.asList(groups.split("|"));
+    }
+    
+    public void setGroups(List<String> groupsList) {
+        StringBuilder sb = new StringBuilder();
+        for (String group : groupsList)
+            sb.append(group).append("|");
+        sb.substring(0, sb.length() - 1);
+        groups = sb.toString();
     }
 
 }

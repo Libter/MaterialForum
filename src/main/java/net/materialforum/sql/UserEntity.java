@@ -37,6 +37,9 @@ public class UserEntity implements Serializable {
     
     @Column(name = "email", unique = true, nullable = false)
     private String email;
+     
+    @Column(name = "group", nullable = false)
+    private String group;
     
     @Column(name = "passwordHash", nullable = false)
     private String passwordHash;
@@ -81,6 +84,14 @@ public class UserEntity implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+    
+    public String getGroup() {
+        return group;
+    }
+
+    public void setGroup(String group) {
+        this.group = group;
     }
 
     public String getPasswordHash() {
