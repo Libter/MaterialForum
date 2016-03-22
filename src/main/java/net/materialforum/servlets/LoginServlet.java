@@ -23,7 +23,7 @@ public class LoginServlet extends BaseServlet {
             Validator.lengthOrEmpty(nickOrEmail, 0, 255);
             Validator.lengthOrEmpty(password, 0, 255);
             
-            request.getSession().setAttribute("user", UserManager.login(nickOrEmail, password));
+            request.getSession().setAttribute("userId", UserManager.login(nickOrEmail, password).getId());
             
             response.sendRedirect(request.getHeader("referer"));
         } catch (Validator.ValidationException ex) {

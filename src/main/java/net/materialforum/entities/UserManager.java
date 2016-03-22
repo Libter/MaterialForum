@@ -54,4 +54,8 @@ public class UserManager {
                 .setParameter(field, value).getResultList();
     }
     
+    public static UserEntity findById(Long id) {
+        return Database.getEntityManager().find(UserEntity.class, id);
+    }
+    
 }

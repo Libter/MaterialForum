@@ -29,9 +29,7 @@ public class RegisterServlet extends BaseServlet {
             Validator.User.nickExists(nick);
             Validator.User.emailExists(email);
             
-            UserManager.register(nick, email, password);
-            
-            request.getSession().setAttribute("user", UserManager.login(nick, password));
+            request.getSession().setAttribute("userId", UserManager.register(nick, email, password).getId());
             
             response.sendRedirect(request.getHeader("referer"));
         } catch (Validator.ValidationException ex) {
