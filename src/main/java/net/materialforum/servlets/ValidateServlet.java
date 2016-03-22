@@ -2,7 +2,6 @@ package net.materialforum.servlets;
 
 import net.materialforum.entities.UserManager;
 import java.io.IOException;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ValidateServlet extends BaseServlet {
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse r) throws ServletException, IOException {
+    protected void post(HttpServletRequest request, HttpServletResponse r) throws Exception {
         super.doPost(request, r);
         
         try {
@@ -31,10 +30,8 @@ public class ValidateServlet extends BaseServlet {
         } catch(ArrayIndexOutOfBoundsException | NullPointerException ex) { }
     }
     
-    private void response(HttpServletResponse r, boolean b) {
-        try {
-            r.getWriter().write(String.valueOf(b));
-        } catch (IOException ex) { }
+    private void response(HttpServletResponse r, boolean b) throws IOException {
+        r.getWriter().write(String.valueOf(b));
     }
 
 }

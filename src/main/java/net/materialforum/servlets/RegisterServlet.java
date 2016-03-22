@@ -13,27 +13,21 @@ import net.materialforum.utils.StringUtils;
 public class RegisterServlet extends BaseServlet {
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        super.doPost(request, response);
-        
-        try {
-            String nick = StringUtils.removeHtml(request.getParameter("nick"));
-            String email = StringUtils.removeHtml(request.getParameter("email"));
-            String password = request.getParameter("password");
-            
-            Validator.lengthOrEmpty(nick, 3, 255);
-            Validator.lengthOrEmpty(password, 4, 255);
-            Validator.lengthOrEmpty(email, 0, 255);
-            Validator.email(email);
-            
-            Validator.User.nickExists(nick);
-            Validator.User.emailExists(email);
-            
-            request.getSession().setAttribute("userId", UserManager.register(nick, email, password).getId());
-            
-            response.sendRedirect(request.getHeader("referer"));
-        } catch (Validator.ValidationException ex) {
-            Validator.message(response);
-        }
+    protected void post(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String nick = StringUtils.removeHtml(request.getParameter("nick"));
+        String email = StringUtils.removeHtml(request.getParameter("email"));
+        String password = request.getParameter("password");
+
+        Validator.lengthOrEmpty(nick, 3, 255);
+        Validator.lengthOrEmpty(password, 4, 255);
+        Validator.lengthOrEmpty(email, 0, 255);
+        Validator.email(email);
+
+        Validator.User.nickExists(nick);
+        Validator.User.emailExists(email);
+
+        request.getSession().setAttribute("userId", UserManager.register(nick, email, password).getId());
+
+        response.sendRedirect(request.getHeader("referer"));
     }
 }
