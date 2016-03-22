@@ -27,11 +27,14 @@ public class ForumEntity implements Serializable {
     @JoinColumn(name = "parentId", nullable = true)
     private ForumEntity parent;
     
+    @Column(name = "url", nullable = false, unique = true)
+    private String url;
+    
     @Column(name = "title", nullable = false)
     private String title;
     
-    @Column(name = "url", nullable = false, unique = true)
-    private String url;
+    @Column(name = "description", nullable = false)
+    private String description;
     
     @OneToOne
     @JoinColumn(name = "lastPostId", nullable = true)
@@ -70,6 +73,14 @@ public class ForumEntity implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+    
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getUrl() {

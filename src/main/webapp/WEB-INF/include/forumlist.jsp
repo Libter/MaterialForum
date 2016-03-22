@@ -10,16 +10,17 @@
                     <div class="panel-entry ${subforumCount % 2 == 0 ? 'even' : 'odd'}">
                         <div>
                             <h2><a href="${subforum.link}">${subforum.title}</a></h2>
-                                <c:set var="subsubforumStarted" value="false" scope="page" />
-                                <c:forEach var="subsubforum" items="${forums}">
-                                    <c:if test="${subforum.id == subsubforum.parent.id}">
-                                        <c:if test="${subsubforumStarted}">,</c:if>
-                                    <c:if test="${!subsubforumStarted}">
-                                        └
-                                        <c:set var="subsubforumStarted" value="true" scope="page" />
-                                    </c:if>
-                                    <a href="${subsubforum.link}" class="subsubforum">${subsubforum.title}</a></c:if>
+                            <c:set var="subsubforumStarted" value="false" scope="page" />
+                            <c:forEach var="subsubforum" items="${forums}">
+                                <c:if test="${subforum.id == subsubforum.parent.id}">
+                                    <c:if test="${subsubforumStarted}">,</c:if>
+                                <c:if test="${!subsubforumStarted}">
+                                    └
+                                    <c:set var="subsubforumStarted" value="true" scope="page" />
+                                </c:if>
+                                <a href="${subsubforum.link}" class="subsubforum">${subsubforum.title}</a></c:if>
                             </c:forEach>
+                                <h3>${subforum.description}</h3>
                         </div>
                         <div class="count">
                             ${subforum.topicCount} tematów<br />

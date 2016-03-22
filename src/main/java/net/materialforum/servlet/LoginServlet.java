@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import net.materialforum.util.StringUtils;
 
 @WebServlet("/login/")
 public class LoginServlet extends HttpServlet {
@@ -16,7 +17,7 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         try {
-            String nickOrEmail = request.getParameter("nickOrEmail");
+            String nickOrEmail = StringUtils.removeHtml(request.getParameter("nickOrEmail"));
             String password = request.getParameter("password");
             
             Validator.lengthOrEmpty(nickOrEmail, 0, 255);
