@@ -14,8 +14,13 @@ public class PermissionManager {
     private static Configuration config;
     private static final ConfigurationProvider provider = ConfigurationProvider.getProvider(YamlConfiguration.class);
     private static final HashMap<String,PermissionGroup> groups = new HashMap<>();
+    private static long lastReload;
     
     static {
+        reload();
+    }
+    
+    private static void reload() {
         HashMap<String,List<String>> permissions = new HashMap<>();
         HashMap<String,List<String>> parents = new HashMap<>();
         try {
@@ -44,9 +49,12 @@ public class PermissionManager {
                 lPermissions.addAll(permissions.get(parent));
             groups.put(key, new PermissionGroup(lPermissions));
         }
+        lastReload = System.currentTimeMillis();
     }
     
     public static boolean hasPermission(String group, String permission) {
+        if (lastReload < System.currentTimeMillis() - 1000)
+            reload();
         PermissionGroup pGroup = groups.get(group);
         if (pGroup == null)
             return false;
