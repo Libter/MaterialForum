@@ -65,6 +65,7 @@ public class UserEntity implements Serializable {
         salt = DatatypeConverter.printBase64Binary(saltBytes);
         postCount = 0L;
         topicCount = 0L;
+        group = "user";
     }
     
     public static UserEntity guest() {
