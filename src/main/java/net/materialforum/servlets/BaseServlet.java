@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import net.materialforum.entities.UserEntity;
 import net.materialforum.entities.UserManager;
-import net.materialforum.utils.Validator.ValidationException;
+import net.materialforum.utils.Validator.ForumError;
 
 public abstract class BaseServlet extends HttpServlet {
     
@@ -36,7 +36,7 @@ public abstract class BaseServlet extends HttpServlet {
         try {
             init(request, response);
             get(request, response);
-        } catch(ValidationException e) { 
+        } catch(ForumError e) { 
             
         } catch (Exception ex) {
             Logger.getLogger(BaseServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -48,10 +48,10 @@ public abstract class BaseServlet extends HttpServlet {
          try {
             init(request, response);
             post(request, response);
-        } catch(ValidationException e) { 
-        
-        } catch (Exception ex) {
-            Logger.getLogger(BaseServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch(ForumError e) { 
+            e.display(request, response);
+        } catch (Exception e) {
+            new ForumError("Wystąpił wyjątek - skontaktuj się z administratorem!").display(request, response);
         }
     }
     
