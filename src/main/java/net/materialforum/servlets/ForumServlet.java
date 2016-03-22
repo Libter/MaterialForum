@@ -1,6 +1,8 @@
 package net.materialforum.servlets;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,31 +21,37 @@ public class ForumServlet extends BaseServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        super.doGet(request, response);
-        
-        String[] splitted = request.getRequestURI().split("/");
-
-        if (splitted.length < 3) {
-            response.sendRedirect("/");
-            return;
-        }
-
-        String forumUrl = splitted[2];
-        ForumEntity forum = ForumManager.findByUrl(forumUrl);
-
-        request.setAttribute("forum", forum);
-
-        if (splitted.length > 3) {
-            String action = splitted[3];
-            if (action.equals("add")) {
-                request.setAttribute("navigation", NavigationBean.forumAddTopic(forum));
-                request.getRequestDispatcher("/WEB-INF/newtopic.jsp").forward(request, response);
+        try {
+            super.doGet(request, response);
+            
+            String[] splitted = request.getRequestURI().split("/");
+            
+            if (splitted.length < 3) {
+                response.sendRedirect("/");
+                return;
             }
-        } else {
-            request.setAttribute("forums", ForumManager.getForums());
-            request.setAttribute("topics", TopicManager.getTopics(forum.getId()));
-            request.setAttribute("navigation", NavigationBean.forum(forum));
-            request.getRequestDispatcher("/WEB-INF/forum.jsp").forward(request, response);
+            
+            String forumUrl = splitted[2];
+            ForumEntity forum = ForumManager.findByUrl(forumUrl);
+            
+            Validator.Forum.canRead(forum, user);
+            
+            request.setAttribute("forum", forum);
+            
+            if (splitted.length > 3) {
+                String action = splitted[3];
+                if (action.equals("add")) {
+                    request.setAttribute("navigation", NavigationBean.forumAddTopic(forum));
+                    request.getRequestDispatcher("/WEB-INF/newtopic.jsp").forward(request, response);
+                }
+            } else {
+                request.setAttribute("forums", ForumManager.getForums());
+                request.setAttribute("topics", TopicManager.getTopics(forum.getId()));
+                request.setAttribute("navigation", NavigationBean.forum(forum));
+                request.getRequestDispatcher("/WEB-INF/forum.jsp").forward(request, response);
+            }
+        } catch (Validator.ValidationException ex) {
+            Validator.message(response);
         }
     }
 
@@ -62,11 +70,10 @@ public class ForumServlet extends BaseServlet {
                     String title = StringUtils.removeHtml(request.getParameter("title"));
                     String text = request.getParameter("text");
 
+                    Validator.Forum.canRead(forum, user);
                     Validator.Forum.nullParent(forum);
                     Validator.lengthOrEmpty(title, 3, 255);
                     Validator.lengthOrEmpty(text, 11, Integer.MAX_VALUE);
-
-                    UserEntity user = Validator.User.get(request);
 
                     TopicEntity topic = TopicManager.create(forum, user, title, text);
 

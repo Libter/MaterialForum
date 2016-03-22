@@ -3,7 +3,6 @@ package net.materialforum.utils;
 import net.materialforum.entities.UserManager;
 import java.io.IOException;
 import java.util.regex.Pattern;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import net.materialforum.entities.ForumEntity;
 import net.materialforum.entities.UserEntity;
@@ -19,7 +18,6 @@ public class Validator {
 
     public static void message(HttpServletResponse response) {
         try {
-            response.setCharacterEncoding("utf-8");
             response.getWriter().write("Tajna wiadomość dla hakierów lub no-scriptów!");
         } catch (IOException ex) { }
     }
@@ -57,13 +55,6 @@ public class Validator {
             if (UserManager.fieldExists("email", email))
                 throw new ValidationException();
         }
-        
-        public static UserEntity get(HttpServletRequest request) throws ValidationException {
-            UserEntity user = (UserEntity) request.getSession().getAttribute("user");
-            if (user == null)
-                throw new ValidationException();
-            return user;
-        }
     }
     
     public static class Forum {
@@ -72,6 +63,11 @@ public class Validator {
         
         public static void nullParent(ForumEntity forum) throws ValidationException {
             if (forum.getParent() == null)
+                throw new ValidationException();
+        }
+        
+        public static void canRead(ForumEntity forum, UserEntity user) throws ValidationException {
+            if (!forum.canRead(user))
                 throw new ValidationException();
         }
         

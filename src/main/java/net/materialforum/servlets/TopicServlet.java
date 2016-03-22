@@ -2,6 +2,8 @@ package net.materialforum.servlets;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -10,7 +12,6 @@ import net.materialforum.beans.NavigationBean;
 import net.materialforum.entities.PostManager;
 import net.materialforum.entities.TopicEntity;
 import net.materialforum.entities.TopicManager;
-import net.materialforum.entities.UserEntity;
 import net.materialforum.utils.Validator;
 
 @WebServlet("/topic/*")
@@ -28,10 +29,15 @@ public class TopicServlet extends BaseServlet {
         if (!URLEncoder.encode(topic.getUrl(), "utf-8").equals(topicUrl))
             response.sendRedirect(topic.getLink());
         else {
-            request.setAttribute("topic", topic);
-            request.setAttribute("posts", PostManager.getPosts(topic));
-            request.setAttribute("navigation", NavigationBean.topic(topic));
-            request.getRequestDispatcher("/WEB-INF/topic.jsp").forward(request, response);
+            try {
+                Validator.Forum.canRead(topic.getForum(), user);
+                request.setAttribute("topic", topic);
+                request.setAttribute("posts", PostManager.getPosts(topic));
+                request.setAttribute("navigation", NavigationBean.topic(topic));
+                request.getRequestDispatcher("/WEB-INF/topic.jsp").forward(request, response);
+            } catch (Validator.ValidationException ex) {
+                Validator.message(response);
+            }
         }
     }
     
@@ -50,9 +56,8 @@ public class TopicServlet extends BaseServlet {
             try {
                 String text = request.getParameter("text");
                 
+                Validator.Forum.canRead(topic.getForum(), user);
                 Validator.lengthOrEmpty(text, 11, Integer.MAX_VALUE);
-                
-                UserEntity user = Validator.User.get(request);
                 
                 PostManager.create(topic, user, text);
                 
