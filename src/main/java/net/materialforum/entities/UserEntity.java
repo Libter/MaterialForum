@@ -19,6 +19,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import net.materialforum.permissions.PermissionManager;
 
 @Entity(name = "users")
 @NamedQueries({
@@ -38,7 +39,7 @@ public class UserEntity implements Serializable {
     @Column(name = "email", unique = true, nullable = false)
     private String email;
      
-    @Column(name = "group", nullable = false)
+    @Column(name = "_group", nullable = false)
     private String group;
     
     @Column(name = "passwordHash", nullable = false)
@@ -153,6 +154,10 @@ public class UserEntity implements Serializable {
     
     public String getLargeAvatar() {
         return getAvatar(96);
+    }
+    
+    public boolean hasPermission(String permission) {
+        return PermissionManager.hasPermission(group, permission);
     }
     
 }
