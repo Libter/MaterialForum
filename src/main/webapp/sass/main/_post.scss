@@ -4,6 +4,23 @@
     padding-bottom: 0.1px;
 }
 
+.post .text table {
+    border-collapse: collapse;
+}
+
+.post .text table, .post .text th, .post .text  td {
+    border: 1px solid black;
+    padding: 4px;
+}
+
+.post .text ul, .post .text ul li {
+    list-style-type: initial;
+}
+
+.post .text ul {
+    padding: 0 40px;
+}
+
 .post {
     display: table;
     width: 100%;
@@ -22,4 +39,5 @@
 
 .post .text {
     display: table-cell;
+    padding-right: 8px;
 }
