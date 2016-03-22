@@ -4,17 +4,17 @@ import net.materialforum.entities.UserManager;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
 @WebServlet("/validate/*")
-public class ValidateServlet extends HttpServlet {
+public class ValidateServlet extends BaseServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse r) throws ServletException, IOException {
-        request.setCharacterEncoding("utf-8");
+        super.doPost(request, r);
+        
         try {
             String[] splitted = request.getRequestURI().split("/");
             String value = request.getParameter("value");
