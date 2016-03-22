@@ -148,13 +148,21 @@ public class ForumEntity implements Serializable {
         groups = sb.toString();
     }
     
-    public boolean canRead(UserEntity user) {
+    private boolean checkPermission(UserEntity user, String permission) {
         if (user == null)
             user = UserEntity.guest();
         for (String group : getGroups())
-            if (user.hasPermission("forum." + group + ".read"))
+            if (user.hasPermission("forum." + group + "." + permission))
                 return true;
         return false;
     }
+    
+    public boolean canRead(UserEntity user) {
+        return checkPermission(user, "read");
+    }
 
+    public boolean canWrite(UserEntity user) {
+        return checkPermission(user, "write");
+    }
+    
 }

@@ -1,9 +1,5 @@
 package net.materialforum.servlets;
 
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,7 +7,6 @@ import net.materialforum.beans.NavigationBean;
 import net.materialforum.entities.ForumEntity;
 import net.materialforum.entities.TopicEntity;
 import net.materialforum.entities.TopicManager;
-import net.materialforum.entities.UserEntity;
 import net.materialforum.utils.Validator;
 import net.materialforum.entities.ForumManager;
 import net.materialforum.utils.StringUtils;
@@ -38,6 +33,7 @@ public class ForumServlet extends BaseServlet {
         if (splitted.length > 3) {
             String action = splitted[3];
             if (action.equals("add")) {
+                Validator.Forum.canWrite(forum, user);
                 request.setAttribute("navigation", NavigationBean.forumAddTopic(forum));
                 request.getRequestDispatcher("/WEB-INF/newtopic.jsp").forward(request, response);
             }
@@ -62,6 +58,7 @@ public class ForumServlet extends BaseServlet {
                 String text = request.getParameter("text");
 
                 Validator.Forum.canRead(forum, user);
+                Validator.Forum.canWrite(forum, user);
                 Validator.Forum.nullParent(forum);
                 Validator.lengthOrEmpty(title, 3, 255);
                 Validator.lengthOrEmpty(text, 11, Integer.MAX_VALUE);

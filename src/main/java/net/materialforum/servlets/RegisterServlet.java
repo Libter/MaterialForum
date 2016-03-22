@@ -2,8 +2,6 @@ package net.materialforum.servlets;
 
 import net.materialforum.entities.UserManager;
 import net.materialforum.utils.Validator;
-import java.io.IOException;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

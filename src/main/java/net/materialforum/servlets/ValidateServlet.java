@@ -6,14 +6,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 @WebServlet("/validate/*")
 public class ValidateServlet extends BaseServlet {
 
     @Override
     protected void post(HttpServletRequest request, HttpServletResponse r) throws Exception {
-        super.doPost(request, r);
-        
         try {
             String[] splitted = request.getRequestURI().split("/");
             String value = request.getParameter("value");

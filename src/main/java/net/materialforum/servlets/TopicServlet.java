@@ -1,10 +1,6 @@
 package net.materialforum.servlets;
 
-import java.io.IOException;
 import java.net.URLEncoder;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -48,6 +44,7 @@ public class TopicServlet extends BaseServlet {
             String text = request.getParameter("text");
 
             Validator.Forum.canRead(topic.getForum(), user);
+            Validator.Forum.canWrite(topic.getForum(), user);
             Validator.lengthOrEmpty(text, 11, Integer.MAX_VALUE);
 
             PostManager.create(topic, user, text);
