@@ -1,6 +1,7 @@
 package net.materialforum.entities;
 
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.EntityManager;
 import net.materialforum.utils.Database;
 
@@ -32,8 +33,12 @@ public class ForumManager {
     }
     
     public static ForumEntity findByUrl(String url) {
-        return (ForumEntity) Database.getEntityManager().createNamedQuery("Forum.findByUrl")
-            .setParameter("url", url).getResultList().get(0);
+        List<ForumEntity> list = Database.getEntityManager().createNamedQuery("Forum.findByUrl")
+            .setParameter("url", url).getResultList();
+        if (list.size() == 0)
+            return null;
+        else 
+            return list.get(0);
     }
 
 }

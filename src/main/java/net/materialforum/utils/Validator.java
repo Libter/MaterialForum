@@ -7,12 +7,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import net.materialforum.entities.ForumEntity;
+import net.materialforum.entities.TopicEntity;
 import net.materialforum.entities.UserEntity;
 
 public class Validator {
 
-    private Validator() {
-    }
+    private Validator() { }
 
     private static final Pattern EMAIL_PATTERN = Pattern.compile(
             "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
@@ -59,8 +59,7 @@ public class Validator {
 
     public static class User {
 
-        private User() {
-        }
+        private User() { }
 
         public static void nickExists(String nick) throws ForumError {
             if (UserManager.fieldExists("nick", nick)) {
@@ -74,11 +73,20 @@ public class Validator {
             }
         }
     }
+    
+    public static class Topic {
+        
+        private Topic() { }
+        
+        public static void exists(TopicEntity topic) throws ForumError {
+            if (topic == null)
+                throw new ForumError("Temat, który próbujesz wyświetlić nie istnieje!");
+        }
+    }
 
     public static class Forum {
 
-        private Forum() {
-        }
+        private Forum() { }
 
         public static void nullParent(ForumEntity forum) throws ForumError {
             if (forum.getParent() == null) {
@@ -86,6 +94,11 @@ public class Validator {
             }
         }
 
+        public static void exists(ForumEntity forum) throws ForumError {
+            if (forum == null)
+                throw new ForumError("Forum, które próbujesz wyświetlić nie istnieje!");
+        }
+        
         public static void canRead(ForumEntity forum, UserEntity user) throws ForumError {
             if (!forum.canRead(user))
                 throw new ForumError("Nie masz uprawnień do odczytania tej zawartości!");

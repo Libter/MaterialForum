@@ -20,6 +20,7 @@ public class TopicServlet extends BaseServlet {
         Long topicId = Long.parseLong(topicUrl.split("\\.")[0]);
 
         TopicEntity topic = TopicManager.findById(topicId);
+        Validator.Topic.exists(topic);
         if (!URLEncoder.encode(topic.getUrl(), "utf-8").equals(topicUrl)) {
             response.sendRedirect(topic.getLink());
         } else {
@@ -38,6 +39,7 @@ public class TopicServlet extends BaseServlet {
         Long topicId = Long.parseLong(topicUrl.split("\\.")[0]);
 
         TopicEntity topic = TopicManager.findById(topicId);
+        Validator.Topic.exists(topic);
         if (!URLEncoder.encode(topic.getUrl(), "utf-8").equals(topicUrl)) {
             response.sendRedirect(topic.getLink());
         } else {

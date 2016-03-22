@@ -26,6 +26,7 @@ public class ForumServlet extends BaseServlet {
         String forumUrl = splitted[2];
         ForumEntity forum = ForumManager.findByUrl(forumUrl);
 
+        Validator.Forum.exists(forum);
         Validator.Forum.canRead(forum, user);
 
         request.setAttribute("forum", forum);

@@ -39,8 +39,9 @@ public abstract class BaseServlet extends HttpServlet {
         } catch(ForumError e) { 
             e.display(request, response);
         } catch (Exception e) {
+            Logger.getLogger(BaseServlet.class.getName()).log(Level.SEVERE, null, e);
             new ForumError("Wystąpił wyjątek - skontaktuj się z administratorem!").display(request, response);
-        }
+        } 
     }
 
     @Override
@@ -51,6 +52,7 @@ public abstract class BaseServlet extends HttpServlet {
         } catch(ForumError e) { 
             e.display(request, response);
         } catch (Exception e) {
+            Logger.getLogger(BaseServlet.class.getName()).log(Level.SEVERE, null, e);
             new ForumError("Wystąpił wyjątek - skontaktuj się z administratorem!").display(request, response);
         }
     }
