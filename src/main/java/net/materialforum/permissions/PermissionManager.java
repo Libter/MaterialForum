@@ -47,6 +47,10 @@ public class PermissionManager {
     }
     
     public static boolean hasPermission(String group, String permission) {
-        return groups.get(group).hasPermission(permission);
+        PermissionGroup pGroup = groups.get(group);
+        if (pGroup == null)
+            return false;
+        else
+            return pGroup.hasPermission(permission);
     }
 }

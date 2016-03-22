@@ -137,7 +137,7 @@ public class ForumEntity implements Serializable {
     }
     
     public List<String> getGroups() {
-        return Arrays.asList(groups.split("|"));
+        return Arrays.asList(groups.split("\\|"));
     }
     
     public void setGroups(List<String> groupsList) {
@@ -146,6 +146,15 @@ public class ForumEntity implements Serializable {
             sb.append(group).append("|");
         sb.substring(0, sb.length() - 1);
         groups = sb.toString();
+    }
+    
+    public boolean canRead(UserEntity user) {
+        if (user == null)
+            user = UserEntity.guest();
+        for (String group : getGroups())
+            if (user.hasPermission("forum." + group + ".read"))
+                return true;
+        return false;
     }
 
 }

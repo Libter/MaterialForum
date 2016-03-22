@@ -67,6 +67,12 @@ public class UserEntity implements Serializable {
         topicCount = 0L;
     }
     
+    public static UserEntity guest() {
+        UserEntity user = new UserEntity();
+        user.setGroup("guest");
+        return user;
+    }
+    
     public Long getId() {
         return id;
     }
