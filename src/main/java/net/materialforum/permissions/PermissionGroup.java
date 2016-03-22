@@ -10,7 +10,7 @@ public class PermissionGroup {
     
     public PermissionGroup(List<String> permissions) {
         for(String permission : permissions)
-            this.permissions.add(Pattern.compile(permission.replace(".", "\\.")));
+            this.permissions.add(Pattern.compile(permission.replace(".", "\\.").replace("*", ".*")));
     }
     
     public boolean hasPermission(String permission) {
