@@ -27,7 +27,7 @@
                 </c:forEach>
             </div>
 
-            <c:if test="${!empty user}">
+            <c:if test="${topic.forum.canWritePosts(user)}">
                 <br />
                 <form id="newPostForm" method="post" action="${topic.addLink}">
                     <textarea name="text" id="editor"></textarea>
