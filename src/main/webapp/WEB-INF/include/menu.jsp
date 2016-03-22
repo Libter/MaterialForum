@@ -8,7 +8,7 @@
         </div>
         <ul class="right">
             <c:choose>
-                <c:when test="${empty sessionScope.user}">
+                <c:when test="${empty user}">
                     <li><a href="#login" class="modal-trigger">Zaloguj się</a></li>
                     <li><a href="#register" class="modal-trigger">Zarejestruj się</a></li>
                 </c:when>

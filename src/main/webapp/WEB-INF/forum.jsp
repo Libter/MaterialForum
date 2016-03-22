@@ -34,7 +34,7 @@
                 </div>
             </c:if>
         </div>
-        <c:if test="${!empty sessionScope.user && !empty forum.parent}">
+        <c:if test="${!empty user && !empty forum.parent}">
             <div class="fixed-action-btn">
                 <a href="${forum.addLink}" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
             </div>
