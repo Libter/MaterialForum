@@ -15,7 +15,7 @@ import javax.persistence.OneToOne;
 
 @Entity(name = "forums")
 @NamedQueries({
-    @NamedQuery(name="Forum.findAll", query="SELECT forum FROM forums forum"),
+    @NamedQuery(name="Forum.findAll", query="SELECT forum FROM forums forum ORDER BY position"),
     @NamedQuery(name="Forum.findByUrl", query="SELECT forum FROM forums forum WHERE forum.url = :url")
 })
 public class ForumEntity implements Serializable {
@@ -40,6 +40,9 @@ public class ForumEntity implements Serializable {
     
     @Column(name = "groups", nullable = false)
     private String groups;
+    
+    @Column(name = "position", nullable = false)
+    private Long position;
     
     @OneToOne
     @JoinColumn(name = "lastPostId", nullable = true)
