@@ -2,8 +2,6 @@ package net.materialforum.utils;
 
 import net.materialforum.entities.UserManager;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

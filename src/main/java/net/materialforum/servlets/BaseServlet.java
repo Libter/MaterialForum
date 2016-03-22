@@ -37,9 +37,9 @@ public abstract class BaseServlet extends HttpServlet {
             init(request, response);
             get(request, response);
         } catch(ForumError e) { 
-            
-        } catch (Exception ex) {
-            Logger.getLogger(BaseServlet.class.getName()).log(Level.SEVERE, null, ex);
+            e.display(request, response);
+        } catch (Exception e) {
+            new ForumError("Wystąpił wyjątek - skontaktuj się z administratorem!").display(request, response);
         }
     }
 
