@@ -40,4 +40,6 @@
 .post .text {
     display: table-cell;
     padding-right: 8px;
+    word-break: break-word;
+    word-wrap: break-word;
 }
