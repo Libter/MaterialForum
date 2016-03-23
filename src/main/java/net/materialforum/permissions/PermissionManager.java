@@ -28,7 +28,15 @@ public class PermissionManager {
         HashMap<String,String> formats = new HashMap<>();
         
         try {
-            config = provider.load(new File("/etc/materialforum", "permissions.yml"));
+            File directory = new File("/etc/materialforum");
+            if (System.getProperty("os.name").toLowerCase().contains("win"))
+                directory = new File("***REMOVED***");
+            directory.mkdirs();
+            
+            File file = new File(directory, "permissions.yml");
+            file.createNewFile();
+            
+            config = provider.load(file);
         } catch (IOException ex) {
             Logger.getLogger(PermissionManager.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -36,6 +44,7 @@ public class PermissionManager {
         for (String key : config.getKeys()) {
             List<String> lParents = config.getStringList(key + ".parents");
             List<String> lPermissions = config.getStringList(key + ".permissions");
+            String lFormat = config.getString(key + ".format", null);
             
             if (lParents == null)
                 parents.put(key, new ArrayList<String>());
@@ -47,7 +56,10 @@ public class PermissionManager {
             else
                 permissions.put(key, lPermissions);
             
-            formats.put(key, config.getString(key + ".format"));
+            if (lFormat == null)
+                formats.put(key, "{nick}");
+            else
+                formats.put(key, lFormat);
         }
         
         for (String key : config.getKeys()){

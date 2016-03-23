@@ -20,7 +20,7 @@ public class StringUtils {
     }
     
     public static String formatDateElapsed(Date input) {
-        long seconds = System.currentTimeMillis() - input.getTime();
+        long seconds = (System.currentTimeMillis() - input.getTime()) / 1000;
         long minutes = seconds / 60;
         long hours = minutes / 60;
         long days = hours / 24;

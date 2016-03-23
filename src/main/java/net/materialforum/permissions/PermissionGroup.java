@@ -23,10 +23,7 @@ public class PermissionGroup {
     }
     
     public String format(String nick) {
-        if (format == null)
-            return nick;
-        else
-            return format.replace("{nick}", nick);
+        return format.replace("{nick}", nick);
     }
     
 }
