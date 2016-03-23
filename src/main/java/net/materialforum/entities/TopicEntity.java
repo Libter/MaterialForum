@@ -33,7 +33,7 @@ public class TopicEntity implements Serializable {
     private ForumEntity forum;
     
     @OneToOne
-    @JoinColumn(name = "lastPostId", nullable = false)
+    @JoinColumn(name = "lastPostId", nullable = true)
     private PostEntity lastPost;
     
     @Column(name = "title", nullable = false)

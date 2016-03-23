@@ -12,7 +12,7 @@
                             <c:set var="subsubforumStarted" value="false" scope="page" />
                             <c:forEach var="subsubforum" items="${forums}">
                                 <c:if test="${subforum.id == subsubforum.parent.id && subsubforum.canRead(user)}">
-                                    <c:if test="${subsubforumStarted}">,</c:if>
+                                    <c:if test="${subsubforumStarted}">, </c:if>
                                 <c:if test="${!subsubforumStarted}">
                                     └
                                     <c:set var="subsubforumStarted" value="true" scope="page" />
