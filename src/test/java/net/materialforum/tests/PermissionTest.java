@@ -1,7 +1,6 @@
 package net.materialforum.tests;
 
 import java.util.ArrayList;
-import net.materialforum.entities.UserEntity;
 import net.materialforum.permissions.PermissionGroup;
 import org.junit.Test;
 import static org.junit.Assert.assertFalse;
@@ -18,13 +17,6 @@ public class PermissionTest {
         assertTrue(group.hasPermission("forum.test.write"));
         assertFalse(group.hasPermission("forum.admin.read"));
         assertFalse(group.hasPermission("forum.admin.write"));
-    }
-    
-    @Test
-    public void testGuestPermissions() {
-        UserEntity guest = UserEntity.guest();
-        assertTrue(guest.hasPermission("forum.standard.read"));
-        assertFalse(guest.hasPermission("forum.admin.read"));
     }
     
 }

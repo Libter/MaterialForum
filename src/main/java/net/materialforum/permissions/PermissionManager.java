@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
@@ -24,9 +26,12 @@ public class PermissionManager {
         HashMap<String,List<String>> permissions = new HashMap<>();
         HashMap<String,List<String>> parents = new HashMap<>();
         HashMap<String,String> formats = new HashMap<>();
+        
         try {
-            config = provider.load(new File("***REMOVED***", "permissions.yml"));
-        } catch (IOException ex) {  }
+            config = provider.load(new File("/etc/materialforum", "permissions.yml"));
+        } catch (IOException ex) {
+            Logger.getLogger(PermissionManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         for (String key : config.getKeys()) {
             List<String> lParents = config.getStringList(key + ".parents");
