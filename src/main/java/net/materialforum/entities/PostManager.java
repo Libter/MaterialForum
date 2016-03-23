@@ -1,6 +1,5 @@
 package net.materialforum.entities;
 
-import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityManager;
 import net.materialforum.utils.Database;

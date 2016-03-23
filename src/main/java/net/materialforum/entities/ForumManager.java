@@ -43,7 +43,7 @@ public class ForumManager {
     public static ForumEntity findByUrl(String url) {
         EntityManager entityManager = Database.getEntityManager();
         List<ForumEntity> list = entityManager.createNamedQuery("Forum.findByUrl")
-            .setParameter("url", url).getResultList();
+            .setParameter("url", url).getResultList(); 
         entityManager.close();
         if (list.isEmpty())
             return null;
