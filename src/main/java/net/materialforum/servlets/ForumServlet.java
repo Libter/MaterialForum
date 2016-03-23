@@ -50,7 +50,7 @@ public class ForumServlet extends BaseServlet {
     @Override
     protected void post(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String[] splitted = request.getRequestURI().split("/");
-        String forumUrl = splitted[2];
+        String forumUrl = URLDecoder.decode(splitted[2], "utf-8");
 
         if (splitted.length > 3) {
             String action = splitted[3];

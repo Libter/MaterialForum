@@ -36,7 +36,10 @@ public class NavigationBean {
     
     public static ArrayList<NavigationBean> topic(TopicEntity topic) {
         ArrayList<NavigationBean> beans = forum(topic.getForum());
-        beans.add(new NavigationBean(topic.getTitle(), topic.getLink()));
+        int ellipsizeCount = 135;
+        for (NavigationBean bean : beans)
+            ellipsizeCount -= bean.getTitle().length() + 5;
+        beans.add(new NavigationBean(topic.getEllipsizedTitle(ellipsizeCount), topic.getLink()));
         return beans;
     }
     
