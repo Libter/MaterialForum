@@ -12,10 +12,8 @@
                         <h2><a href="${subforum.link}">${subforum.title}</a></h2>
                         <c:forEach var="subsubforum" varStatus="subsubforumStatus" items="${subforum.getSubforums(forums, user)}">
                             <c:if test="${subsubforumStatus.index > 0}">, </c:if>
-                            <c:if test="${subsubforumStatus.index == 0}">
-                                └
-                            <a href="${subsubforum.link}" class="subsubforum">${subsubforum.title}</a></c:if>
-                        </c:forEach>
+                            <c:if test="${subsubforumStatus.index == 0}">└ </c:if>
+                            <a href="${subsubforum.link}" class="subsubforum">${subsubforum.title}</a></c:forEach>
                         <h3>${subforum.description}</h3>
                     </div>
                     <div class="count">
