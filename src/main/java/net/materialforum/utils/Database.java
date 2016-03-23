@@ -1,8 +1,7 @@
 package net.materialforum.utils;
 
 import java.util.HashMap;
-import javax.persistence.EntityManager;import javax.persistence.EntityManagerFactory;
-;
+import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import net.md_5.bungee.config.Configuration;
 
@@ -18,10 +17,7 @@ public class Database {
         properties.put("hibernate.connection.url", String.format(
             "jdbc:mysql://%s:%d/%s?characterEncoding=utf8&amp;characterSetResults=utf8",
             config.getString("address"), config.getShort("port"), config.getString("database")));
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("EntityManager", properties);
-        EntityManager manager = factory.createEntityManager();
-        factory.close();
-        return manager;
+        return Persistence.createEntityManagerFactory("EntityManager", properties).createEntityManager();
     }
 
 }
