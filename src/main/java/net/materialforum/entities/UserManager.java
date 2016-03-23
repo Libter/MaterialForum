@@ -19,6 +19,7 @@ public class UserManager {
         entityManager.getTransaction().begin();
         entityManager.persist(user);
         entityManager.getTransaction().commit();
+        entityManager.close();
         
         return user;
     }
@@ -50,12 +51,18 @@ public class UserManager {
         allowedFields.add("email");
         if (!allowedFields.contains(field))
             throw(new IllegalArgumentException("Unknown field!"));
-        return Database.getEntityManager().createNamedQuery("User.findBy" + StringUtils.capitalize(field))
+        EntityManager entityManager = Database.getEntityManager();
+        List<UserEntity> users = entityManager.createNamedQuery("User.findBy" + StringUtils.capitalize(field))
                 .setParameter(field, value).getResultList();
+        entityManager.close();
+        return users;
     }
     
     public static UserEntity findById(Long id) {
-        return Database.getEntityManager().find(UserEntity.class, id);
+        EntityManager entityManager = Database.getEntityManager();
+        UserEntity user = entityManager.find(UserEntity.class, id);
+        entityManager.close();
+        return user;
     }
     
 }

@@ -1,5 +1,6 @@
 package net.materialforum.entities;
 
+import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityManager;
 import net.materialforum.utils.Database;
@@ -39,13 +40,17 @@ public class PostManager {
         }
         
         entityManager.getTransaction().commit();
+        entityManager.close();
         
         return post;
     }
     
     public static List<PostEntity> getPosts(TopicEntity topic) {
-        return Database.getEntityManager().createNamedQuery("Post.findByTopicId")
+        EntityManager entityManager = Database.getEntityManager();
+        List<PostEntity> posts = entityManager.createNamedQuery("Post.findByTopicId")
             .setParameter("topicId", topic.getId()).getResultList();
+        entityManager.close();
+        return posts;
     }
     
 }

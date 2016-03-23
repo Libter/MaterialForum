@@ -21,21 +21,31 @@ public class ForumManager {
         entityManager.persist(forum);
         entityManager.getTransaction().commit();
         
+        entityManager.close();
+        
         return forum;
     }
     
     public static Collection<ForumEntity> getForums() {
-        return Database.getEntityManager().createNamedQuery("Forum.findAll").getResultList();
+        EntityManager entityManager = Database.getEntityManager();
+        Collection<ForumEntity> forums = entityManager.createNamedQuery("Forum.findAll").getResultList();
+        entityManager.close();
+        return forums;
     }
     
     public static ForumEntity findById(Long id) {
-        return Database.getEntityManager().find(ForumEntity.class, id);
+        EntityManager entityManager = Database.getEntityManager();
+        ForumEntity forum = entityManager.find(ForumEntity.class, id);
+        entityManager.close();
+        return forum;
     }
     
     public static ForumEntity findByUrl(String url) {
-        List<ForumEntity> list = Database.getEntityManager().createNamedQuery("Forum.findByUrl")
+        EntityManager entityManager = Database.getEntityManager();
+        List<ForumEntity> list = entityManager.createNamedQuery("Forum.findByUrl")
             .setParameter("url", url).getResultList();
-        if (list.size() == 0)
+        entityManager.close();
+        if (list.isEmpty())
             return null;
         else 
             return list.get(0);
