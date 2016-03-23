@@ -1,8 +1,11 @@
 package net.materialforum.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -170,6 +173,14 @@ public class ForumEntity implements Serializable {
     
     public boolean canWritePosts(UserEntity user) {
         return checkPermission(user, "write.post");
+    }
+    
+    public ArrayList<ForumEntity> getSubforums(Collection<ForumEntity> forums, UserEntity user) {
+        ArrayList<ForumEntity> subforums = new ArrayList<>();
+        for(ForumEntity forum : forums)
+            if (forum.parent != null && Objects.equals(id, forum.parent.id) && forum.canRead(user))
+                subforums.add(forum);
+        return subforums;
     }
     
 }
