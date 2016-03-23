@@ -82,7 +82,7 @@ public class PostEntity implements Serializable {
     }
     
     public String getFormattedCreationDate() {
-        return StringUtils.formatDate(creationDate);
+        return StringUtils.formatDateElapsed(creationDate);
     }
     
 }
