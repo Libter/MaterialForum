@@ -1,12 +1,12 @@
 package net.materialforum.permissions;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import net.materialforum.utils.FileUtils;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
@@ -26,20 +26,8 @@ public class PermissionManager {
         HashMap<String,List<String>> permissions = new HashMap<>();
         HashMap<String,List<String>> parents = new HashMap<>();
         HashMap<String,String> formats = new HashMap<>();
-        
-        try {
-            File directory = new File("/etc/materialforum");
-            if (System.getProperty("os.name").toLowerCase().contains("win"))
-                directory = new File("***REMOVED***");
-            directory.mkdirs();
-            
-            File file = new File(directory, "permissions.yml");
-            file.createNewFile();
-            
-            config = provider.load(file);
-        } catch (IOException ex) {
-            Logger.getLogger(PermissionManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        config = FileUtils.getYamlConfiguration("permissions.yml");
         
         for (String key : config.getKeys()) {
             List<String> lParents = config.getStringList(key + ".parents");
