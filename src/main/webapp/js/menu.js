@@ -14,6 +14,7 @@ $(document).ready(function () {
             nick: {
                 required: true,
                 minlength: 3,
+                maxlength: 250,
                 remote: {
                     url: '/validate/register/nick/',
                     type: 'post',
@@ -26,11 +27,13 @@ $(document).ready(function () {
             },
             password: {
                 required: true,
-                minlength: 4
+                minlength: 4,
+                maxlength: 250
             },
             email: {
                 required: true,
                 minlength: 5,
+                maxlength: 250,
                 remote: {
                     url: '/validate/register/email/',
                     type: 'post',
@@ -46,15 +49,18 @@ $(document).ready(function () {
             nick: {
                 required: "Podaj swój nick!",
                 minlength: "Twój nick jest za krótki!",
+                maxlength: "Twój nick jest za długi!",
                 remote: "Ten nick jest zajęty!"
             },
             password: {
                 required: "Podaj swoje hasło!",
-                minlength: "Twoje hasło jest za krótkie!"
+                minlength: "Twoje hasło jest za krótkie!",
+                maxlength: "Twoje hasło jest za długie!"
             },
             email: {
                 required: "Podaj swój adres e-mail!",
                 email: "Podaj poprawny adres e-mail",
+                maxlength: "Twój adres e-mail jest za długi!",
                 remote: "Ten adres e-mail jest zajęty!"
             }
         }
