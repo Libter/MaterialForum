@@ -1,5 +1,6 @@
 package net.materialforum.servlets;
 
+import java.net.URLDecoder;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +24,7 @@ public class ForumServlet extends BaseServlet {
             return;
         }
 
-        String forumUrl = splitted[2];
+        String forumUrl = URLDecoder.decode(splitted[2], "utf-8");
         ForumEntity forum = ForumManager.findByUrl(forumUrl);
 
         Validator.Forum.exists(forum);
