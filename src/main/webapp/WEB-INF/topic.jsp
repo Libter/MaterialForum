@@ -16,12 +16,17 @@
             <div id="posts">
                 <c:forEach var="post" items="${posts}">
                     <div class="post">
-                        <div class="user-info">
-                            <b>${post.user.formattedNick}</b><br />
-                            <img src="${post.user.largeAvatar}" class="avatar" />
+                        <div class="body">
+                            <div class="user-info">
+                                <b>${post.user.formattedNick}</b><br />
+                                <img src="${post.user.largeAvatar}" class="avatar" />
+                            </div>
+                            <div class="text">
+                                ${post.text}
+                            </div>
                         </div>
-                        <div class="text">
-                            ${post.text}
+                        <div class="buttons">
+                            <button class="waves-effect btn-flat" onclick="edit(${post.id})">Edytuj</button>
                         </div>
                     </div>
                 </c:forEach>

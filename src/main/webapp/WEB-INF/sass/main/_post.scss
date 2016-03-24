@@ -4,6 +4,32 @@
     padding-bottom: 0.1px;
 }
 
+.post {
+    background: white;
+    margin-bottom: 12px;
+}
+
+.post .body {
+    display: table;
+    width: 100%;
+}
+
+.post .user-info {
+    display: table-cell;
+    width: 15%;
+    text-align: center;
+    font-size: 18px;
+    padding: 8px;
+    margin-right: 16px;
+}
+
+.post .text {
+    display: table-cell;
+    padding-right: 8px;
+    word-break: break-word;
+    word-wrap: break-word;
+}
+
 .post .text table {
     border-collapse: collapse;
 }
@@ -21,25 +47,6 @@
     padding: 0 40px;
 }
 
-.post {
-    display: table;
-    width: 100%;
-    background: white;
-    margin-bottom: 12px;
-}
-
-.post .user-info {
-    display: table-cell;
-    width: 15%;
-    text-align: center;
-    font-size: 18px;
-    padding: 8px;
-    margin-right: 16px;
-}
-
-.post .text {
-    display: table-cell;
-    padding-right: 8px;
-    word-break: break-word;
-    word-wrap: break-word;
+.post .buttons {
+    text-align: right;
 }
