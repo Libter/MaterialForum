@@ -21,11 +21,12 @@
     font-size: 18px;
     padding: 8px;
     margin-right: 16px;
+    vertical-align: top;
 }
 
 .post .text {
     display: table-cell;
-    padding-right: 8px;
+    padding: 8px;
     word-break: break-word;
     word-wrap: break-word;
 }
@@ -49,4 +50,10 @@
 
 .post .buttons {
     text-align: right;
+    padding-right: 6px;
+    padding-bottom: 6px;
+}
+
+.post .buttons .save {
+    display: none;
 }

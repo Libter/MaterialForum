@@ -1,6 +1,5 @@
 package net.materialforum.entities;
 
-import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityManager;
 import net.materialforum.utils.Database;
@@ -51,6 +50,16 @@ public class TopicManager {
         TopicEntity topic = entityManager.find(TopicEntity.class, id);
         entityManager.close();
         return topic;
+    }
+    
+    public static void editTitle(TopicEntity topic, String title) {
+        EntityManager entityManager = Database.getEntityManager();
+        topic.setTitle(title);
+        
+        entityManager.getTransaction().begin();
+        entityManager.merge(topic);
+        entityManager.getTransaction().commit();
+        entityManager.close();
     }
     
 }

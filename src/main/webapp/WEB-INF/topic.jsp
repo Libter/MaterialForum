@@ -4,18 +4,19 @@
 <html>
     <head>
         <%@include file="/WEB-INF/include/head.jsp" %>
-        <script src="/js/newpost.js"></script>
+        <script src="/js/topic.js"></script>
         <script src="/ckeditor/ckeditor.js"></script>
+        <script>var topicId = ${topic.id}</script>
     </head>
     <body>
         <%@ include file="/WEB-INF/include/menu.jsp" %>
         <br />
         <div id="main">
-            <h1 class="panel-header">${topic.title}</h1>
+            <h1 id="topic-header" class="panel-header" contenteditable="true">${topic.title}</h1>
 
             <div id="posts">
                 <c:forEach var="post" items="${posts}">
-                    <div class="post">
+                    <div class="post" id="post-${post.id}">
                         <div class="body">
                             <div class="user-info">
                                 <b>${post.user.formattedNick}</b><br />
@@ -26,7 +27,8 @@
                             </div>
                         </div>
                         <div class="buttons">
-                            <button class="waves-effect btn-flat" onclick="edit(${post.id})">Edytuj</button>
+                            <button class="edit waves-effect btn-flat" onclick="editPost(${post.id});">Edytuj</button>
+                            <button class="save waves-effect btn-flat" onclick="savePost(${post.id});">Zapisz</button>
                         </div>
                     </div>
                 </c:forEach>
