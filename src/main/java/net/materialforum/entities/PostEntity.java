@@ -25,23 +25,23 @@ public class PostEntity implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Long id;
        
     @OneToOne
-    @JoinColumn(name = "topicId", nullable = false)
+    @JoinColumn(name = "topicId")
     private TopicEntity topic;
     
     @OneToOne
-    @JoinColumn(name = "userId", nullable = false)
+    @JoinColumn(name = "userId")
     private UserEntity user;
     
     @Lob 
-    @Column(name = "text", nullable = false)
+    @Column(name = "text")
     private String text;
     
     @Temporal(TemporalType.TIMESTAMP) 
-    @Column(name = "creationDate", nullable = false)
+    @Column(name = "creationDate")
     private Date creationDate;
     
     public PostEntity() {

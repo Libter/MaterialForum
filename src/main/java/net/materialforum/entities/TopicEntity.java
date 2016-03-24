@@ -24,29 +24,29 @@ public class TopicEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Long id;
  
-    @Column(name = "title", nullable = false)
+    @Column(name = "title")
     private String title;
     
     @OneToOne
-    @JoinColumn(name = "forumId", nullable = false)
+    @JoinColumn(name = "forumId")
     private ForumEntity forum;
 
     @OneToOne
-    @JoinColumn(name = "lastPostId", nullable = true)
+    @JoinColumn(name = "lastPostId")
     private PostEntity lastPost;
 
     @OneToOne
-    @JoinColumn(name = "userId", nullable = false)
+    @JoinColumn(name = "userId")
     private UserEntity user;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "creationDate", nullable = false)
+    @Column(name = "creationDate")
     private Date creationDate;
 
-    @Column(name = "postCount", nullable = false)
+    @Column(name = "postCount")
     private Long postCount;
 
     public TopicEntity() {

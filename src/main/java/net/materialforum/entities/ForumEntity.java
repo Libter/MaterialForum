@@ -25,36 +25,36 @@ public class ForumEntity implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Long id;
     
     @OneToOne
-    @JoinColumn(name = "parentId", nullable = true)
+    @JoinColumn(name = "parentId")
     private ForumEntity parent;
     
-    @Column(name = "url", nullable = false, unique = true)
+    @Column(name = "url", unique = true)
     private String url;
     
-    @Column(name = "title", nullable = false)
+    @Column(name = "title")
     private String title;
     
-    @Column(name = "description", nullable = false)
+    @Column(name = "description")
     private String description;
     
-    @Column(name = "groups", nullable = false)
+    @Column(name = "groups")
     private String groups;
     
-    @Column(name = "position", nullable = false)
+    @Column(name = "position")
     private Long position;
     
     @OneToOne
-    @JoinColumn(name = "lastPostId", nullable = true)
+    @JoinColumn(name = "lastPostId")
     private PostEntity lastPost;
     
-    @Column(name = "postCount", nullable = false)
+    @Column(name = "postCount")
     private Long postCount;
     
-    @Column(name = "topicCount", nullable = false)
+    @Column(name = "topicCount")
     private Long topicCount;
 
     public ForumEntity() {

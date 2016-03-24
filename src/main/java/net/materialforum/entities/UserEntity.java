@@ -30,32 +30,32 @@ public class UserEntity implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Long id;
     
-    @Column(name = "nick", unique = true, nullable = false)
+    @Column(name = "nick", unique = true)
     private String nick;
     
-    @Column(name = "email", unique = true, nullable = false)
+    @Column(name = "email", unique = true)
     private String email;
      
-    @Column(name = "_group", nullable = false)
+    @Column(name = "_group")
     private String group;
     
-    @Column(name = "passwordHash", nullable = false)
+    @Column(name = "passwordHash")
     private String passwordHash;
     
-    @Column(name = "salt", nullable = false)
+    @Column(name = "salt")
     private String salt;
     
     @Temporal(TemporalType.TIMESTAMP) 
-    @Column(name = "registerDate", nullable = false)
+    @Column(name = "registerDate")
     private Date registerDate;
     
-    @Column(name = "postCount", nullable = false)
+    @Column(name = "postCount")
     private Long postCount;
     
-    @Column(name = "topicCount", nullable = false)
+    @Column(name = "topicCount")
     private Long topicCount;
     
     public UserEntity() {
