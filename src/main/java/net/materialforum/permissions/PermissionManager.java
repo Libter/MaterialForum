@@ -1,34 +1,24 @@
 package net.materialforum.permissions;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import net.materialforum.utils.FileUtils;
 import net.md_5.bungee.config.Configuration;
-import net.md_5.bungee.config.ConfigurationProvider;
-import net.md_5.bungee.config.YamlConfiguration;
 
 public class PermissionManager {
     
-    private static Configuration config;
-    private static final ConfigurationProvider provider = ConfigurationProvider.getProvider(YamlConfiguration.class);
     private static final HashMap<String,PermissionGroup> groups = new HashMap<>();
-    private static long lastReload;
-    
-    static {
-        reload();
-    }
-    
+    private static long lastReload = 0;
+
     private static void reload() {
         HashMap<String,List<String>> permissions = new HashMap<>();
         HashMap<String,List<String>> parents = new HashMap<>();
         HashMap<String,String> formats = new HashMap<>();
 
-        config = FileUtils.getYamlConfiguration("permissions.yml");
+        Configuration config = FileUtils.getYamlConfiguration("permissions.yml");
         
+        groups.clear();
         for (String key : config.getKeys()) {
             List<String> lParents = config.getStringList(key + ".parents");
             List<String> lPermissions = config.getStringList(key + ".permissions");

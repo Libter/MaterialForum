@@ -26,7 +26,10 @@ public class TopicEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-
+ 
+    @Column(name = "title", nullable = false)
+    private String title;
+    
     @OneToOne
     @JoinColumn(name = "forumId", nullable = false)
     private ForumEntity forum;
@@ -35,8 +38,9 @@ public class TopicEntity implements Serializable {
     @JoinColumn(name = "lastPostId", nullable = true)
     private PostEntity lastPost;
 
-    @Column(name = "title", nullable = false)
-    private String title;
+    @OneToOne
+    @JoinColumn(name = "userId", nullable = false)
+    private UserEntity user;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "creationDate", nullable = false)
@@ -60,6 +64,14 @@ public class TopicEntity implements Serializable {
 
     public void setForum(ForumEntity forum) {
         this.forum = forum;
+    }
+    
+    public UserEntity getUser() {
+        return user;
+    }
+    
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
     public PostEntity getLastPost() {

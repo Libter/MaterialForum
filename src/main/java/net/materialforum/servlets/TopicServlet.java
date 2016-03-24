@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import net.materialforum.beans.NavigationBean;
+import net.materialforum.entities.PostEntity;
 import net.materialforum.entities.PostManager;
 import net.materialforum.entities.TopicEntity;
 import net.materialforum.entities.TopicManager;
@@ -59,20 +60,29 @@ public class TopicServlet extends BaseServlet {
         switch (action) {
             case "editTitle":
                 String title = StringUtils.removeHtml(request.getParameter("title"));
+                
+                Validator.Forum.canEditTopic(topic.getForum(), user, topic);
                 Validator.lengthOrEmpty(title, 3, 255);
+                
                 TopicManager.editTitle(topic, title);
                 response.sendRedirect(topic.getLink());
                 break;
             case "editPost":
                 String newText = request.getParameter("text");
                 Long postId = Long.parseLong(request.getParameter("id"));
+                PostEntity post = PostManager.findById(postId);
+                
                 Validator.lengthOrEmpty(newText, 11, Integer.MAX_VALUE);
-                PostManager.editText(PostManager.findById(postId), newText);
+                Validator.Forum.canEditPost(topic.getForum(), user, post);
+                
+                PostManager.editText(post, newText);
                 break;
             case "add":
                 String text = request.getParameter("text");
+                
                 Validator.Forum.canWritePosts(topic.getForum(), user);
                 Validator.lengthOrEmpty(text, 11, Integer.MAX_VALUE);
+                
                 PostManager.create(topic, user, text);
                 response.sendRedirect(topic.getLink());
                 break;

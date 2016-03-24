@@ -14,6 +14,7 @@ public class TopicManager {
         TopicEntity topic = new TopicEntity();
         topic.setForum(forum);
         topic.setTitle(title);
+        topic.setUser(user);
         
         entityManager.getTransaction().begin();
         

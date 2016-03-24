@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import net.materialforum.entities.ForumEntity;
+import net.materialforum.entities.PostEntity;
 import net.materialforum.entities.TopicEntity;
 import net.materialforum.entities.UserEntity;
 
@@ -112,6 +113,16 @@ public class Validator {
         public static void canWritePosts(ForumEntity forum, UserEntity user) throws ForumError {
             if (!forum.canWritePosts(user))
                 throw new ForumError("Nie masz uprawnień do pisania postów w tym dziale!");
+        }
+        
+        public static void canEditTopic(ForumEntity forum, UserEntity user, TopicEntity topic) throws ForumError {
+            if (!forum.canEditTopic(user, topic))
+                throw new ForumError("Nie masz uprawnień do edycji tego tematu!");
+        }
+        
+        public static void canEditPost(ForumEntity forum, UserEntity user, PostEntity post) throws ForumError {
+            if (!forum.canEditPost(user, post))
+                throw new ForumError("Nie masz uprawnień do edycji tego posta!");
         }
 
     }

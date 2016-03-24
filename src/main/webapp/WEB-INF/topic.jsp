@@ -1,5 +1,5 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="utf-8"%>
+<%@page contentType="text/html" pageEncoding="utf-8" trimDirectiveWhitespaces="true"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,7 +12,8 @@
         <%@ include file="/WEB-INF/include/menu.jsp" %>
         <br />
         <div id="main">
-            <h1 id="topic-header" class="panel-header" contenteditable="true">${topic.title}</h1>
+            <h1 id="topic-header" class="panel-header" contenteditable="${topic.forum.canEditTopic(user, topic)}"
+                >${topic.title}</h1>
 
             <div id="posts">
                 <c:forEach var="post" items="${posts}">
@@ -27,8 +28,10 @@
                             </div>
                         </div>
                         <div class="buttons">
-                            <button class="edit waves-effect btn-flat" onclick="editPost(${post.id});">Edytuj</button>
-                            <button class="save waves-effect btn-flat" onclick="savePost(${post.id});">Zapisz</button>
+                            <c:if test="${topic.forum.canEditPost(user, post)}">
+                                <button class="edit waves-effect btn-flat" onclick="editPost(${post.id});">Edytuj</button>
+                                <button class="save waves-effect btn-flat" onclick="savePost(${post.id});">Zapisz</button>
+                            </c:if>
                         </div>
                     </div>
                 </c:forEach>

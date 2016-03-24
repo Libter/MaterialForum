@@ -18,7 +18,7 @@ import javax.persistence.OneToOne;
 
 @Entity(name = "forums")
 @NamedQueries({
-    @NamedQuery(name="Forum.findAll", query="SELECT forum FROM forums forum ORDER BY position"),
+    @NamedQuery(name="Forum.findAll", query="SELECT forum FROM forums forum ORDER BY forum.position"),
     @NamedQuery(name="Forum.findByUrl", query="SELECT forum FROM forums forum WHERE forum.url = :url")
 })
 public class ForumEntity implements Serializable {
@@ -173,6 +173,24 @@ public class ForumEntity implements Serializable {
     
     public boolean canWritePosts(UserEntity user) {
         return checkPermission(user, "write.post");
+    }
+    
+    public boolean canEditTopic(UserEntity user, TopicEntity topic) {
+        if (user == null)
+            user = UserEntity.guest();
+        if (Objects.equals(topic.getUser().getId(), user.getId()))
+            return checkPermission(user, "edit.topic");
+        else
+            return checkPermission(user, "moderation.edit.topic");
+    }
+    
+    public boolean canEditPost(UserEntity user, PostEntity post) {
+        if (user == null)
+            user = UserEntity.guest();
+        if (Objects.equals(post.getUser().getId(), user.getId()))
+            return checkPermission(user, "edit.post");
+        else
+            return checkPermission(user, "moderation.edit.post");
     }
     
     public ArrayList<ForumEntity> getSubforums(Collection<ForumEntity> forums, UserEntity user) {
