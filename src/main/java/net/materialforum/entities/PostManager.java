@@ -51,5 +51,22 @@ public class PostManager {
         entityManager.close();
         return posts;
     }
+
+    public static PostEntity findById(Long id) {
+        EntityManager entityManager = Database.getEntityManager();
+        PostEntity topic = entityManager.find(PostEntity.class, id);
+        entityManager.close();
+        return topic;
+    }
+    
+    public static void editText(PostEntity post, String text) {
+        EntityManager entityManager = Database.getEntityManager();
+        post.setText(text);
+        
+        entityManager.getTransaction().begin();
+        entityManager.merge(post);
+        entityManager.getTransaction().commit();
+        entityManager.close();
+    }
     
 }

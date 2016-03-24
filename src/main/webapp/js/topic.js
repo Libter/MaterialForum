@@ -63,8 +63,21 @@ function savePost(id) {
     var post = $('#post-' + id);
     var postText = post.find('.text');
     var postEditId = 'post-edit-' + id;
+    
+    var text = CKEDITOR.instances[postEditId].getData();
 
-    postText.html(CKEDITOR.instances[postEditId].getData());
-    post.find('.buttons .edit').show();
-    post.find('.buttons .save').hide();
+    $.ajax({
+        url: '/topic/' + topicId + './editPost/',
+        method: 'post',
+        data: {
+            text: text,
+            id: id
+        },
+        success: function() {
+            postText.html(text);
+            post.find('.buttons .edit').show();
+            post.find('.buttons .save').hide();
+        }
+    });
+    
 }
