@@ -18,7 +18,6 @@ public class ForumServlet extends BaseServlet {
     @Override
     protected void get(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String[] splitted = request.getRequestURI().split("/");
-
         if (splitted.length < 3) {
             response.sendRedirect("/");
             return;

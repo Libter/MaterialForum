@@ -16,6 +16,11 @@ public class TopicServlet extends BaseServlet {
     @Override
     protected void get(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String[] splitted = request.getRequestURI().split("/");
+        if (splitted.length < 3) {
+            response.sendRedirect("/");
+            return;
+        }
+        
         String topicUrl = splitted[2];
         Long topicId = Long.parseLong(topicUrl.split("\\.")[0]);
 
@@ -35,6 +40,11 @@ public class TopicServlet extends BaseServlet {
     @Override
     protected void post(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String[] splitted = request.getRequestURI().split("/");
+        if (splitted.length < 3) {
+            response.sendRedirect("/");
+            return;
+        }
+        
         String topicUrl = splitted[2];
         Long topicId = Long.parseLong(topicUrl.split("\\.")[0]);
 
