@@ -6,6 +6,7 @@ import java.net.URLEncoder;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,10 +16,12 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import net.materialforum.utils.Database;
 
 @Entity(name = "topics")
 @NamedQueries({
-    @NamedQuery(name = "Topic.findByForumId", query = "SELECT topic FROM topics topic WHERE topic.forum.id = :forumId ORDER BY topic.lastPost.creationDate DESC")
+    @NamedQuery(name = "Topic.findByForumId", query = "SELECT topic FROM topics topic WHERE topic.forum.id = :forumId ORDER BY topic.lastPost.creationDate DESC"),
+    @NamedQuery(name = "Topic.getPostCount", query = "SELECT COUNT(post) AS postCount FROM posts post WHERE post.topic = :topic")
 })
 public class TopicEntity implements Serializable {
 
@@ -46,12 +49,8 @@ public class TopicEntity implements Serializable {
     @Column(name = "creationDate")
     private Date creationDate;
 
-    @Column(name = "postCount")
-    private Long postCount;
-
     public TopicEntity() {
         creationDate = new Date();
-        postCount = 0L;
     }
 
     public Long getId() {
@@ -95,15 +94,11 @@ public class TopicEntity implements Serializable {
     }
 
     public Long getPostCount() {
-        return postCount;
-    }
-
-    public void recountPostCount() {
-        //TODO: implement
-    }
-
-    public void incrementPostCount() {
-        postCount += 1;
+        EntityManager entityManager = Database.getEntityManager();
+        Long count = ((Number) entityManager.createNamedQuery("Topic.getPostCount")
+            .setParameter("topic", this).getSingleResult()).longValue();
+        entityManager.close();
+        return count;
     }
 
     public String getUrl() {

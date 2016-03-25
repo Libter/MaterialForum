@@ -110,12 +110,16 @@ public class ForumEntity implements Serializable {
         this.lastPost = lastPost;
     }
     
+    public Long getPosition() {
+        return position;
+    }
+    
+    public void setPosition(Long position) {
+        this.position = position;
+    }
+    
     public Long getPostCount() {
         return postCount;
-    }
-
-    public void recountPostCount() {
-        //TODO: implement
     }
     
     public void incrementPostCount() {
@@ -124,10 +128,6 @@ public class ForumEntity implements Serializable {
     
     public Long getTopicCount() {
         return topicCount;
-    }
-
-    public void recountTopicCount() {
-        //TODO: implement
     }
     
     public void incrementTopicCount() {

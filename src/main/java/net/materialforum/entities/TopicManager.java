@@ -18,9 +18,6 @@ public class TopicManager {
         
         entityManager.getTransaction().begin();
         
-        user.incrementTopicCount();
-        entityManager.merge(user);
-        
         forum.incrementTopicCount();
         entityManager.merge(forum);
         while ((forum = forum.getParent()) != null) {

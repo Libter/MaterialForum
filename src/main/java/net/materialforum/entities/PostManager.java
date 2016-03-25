@@ -23,11 +23,7 @@ public class PostManager {
         entityManager.persist(post);
         
         topic.setLastPost(post);
-        topic.incrementPostCount();
         entityManager.merge(topic);
-        
-        user.incrementPostCount();
-        entityManager.merge(user);
         
         forum.setLastPost(post);
         forum.incrementPostCount();

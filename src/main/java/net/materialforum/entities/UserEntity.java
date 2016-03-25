@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,11 +21,14 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import net.materialforum.permissions.PermissionManager;
+import net.materialforum.utils.Database;
 
 @Entity(name = "users")
 @NamedQueries({
     @NamedQuery(name = "User.findByNick", query = "SELECT user FROM users user WHERE user.nick = :nick"),
-    @NamedQuery(name = "User.findByEmail", query = "SELECT user FROM users user WHERE user.email = :email")
+    @NamedQuery(name = "User.findByEmail", query = "SELECT user FROM users user WHERE user.email = :email"),
+    @NamedQuery(name = "User.getPostCount", query = "SELECT COUNT(post) AS postCount FROM posts post WHERE post.user = :user"),
+    @NamedQuery(name = "User.getTopicCount", query = "SELECT COUNT(topic) AS topicCount FROM topics topic WHERE topic.user = :user")
 })
 public class UserEntity implements Serializable {
     
@@ -52,19 +56,11 @@ public class UserEntity implements Serializable {
     @Column(name = "registerDate")
     private Date registerDate;
     
-    @Column(name = "postCount")
-    private Long postCount;
-    
-    @Column(name = "topicCount")
-    private Long topicCount;
-    
     public UserEntity() {
         registerDate = new Date();
         byte[] saltBytes = new byte[32];
         new SecureRandom().nextBytes(saltBytes);
         salt = DatatypeConverter.printBase64Binary(saltBytes);
-        postCount = 0L;
-        topicCount = 0L;
         group = "user";
     }
     
@@ -122,27 +118,19 @@ public class UserEntity implements Serializable {
     }
     
     public Long getPostCount() {
-        return postCount;
-    }
-
-    public void recountPostCount() {
-        //TODO: implement
-    }
-    
-    public void incrementPostCount() {
-        postCount += 1;
+        EntityManager entityManager = Database.getEntityManager();
+        Long count = ((Number) entityManager.createNamedQuery("User.getPostCount")
+            .setParameter("user", this).getSingleResult()).longValue();
+        entityManager.close();
+        return count;
     }
     
     public Long getTopicCount() {
-        return topicCount;
-    }
-
-    public void recountTopicCount() {
-        //TODO: implement
-    }
-    
-    public void incrementTopicCount() {
-        topicCount += 1;
+        EntityManager entityManager = Database.getEntityManager();
+        Long count = ((Number) entityManager.createNamedQuery("User.getTopicCount")
+            .setParameter("user", this).getSingleResult()).longValue();
+        entityManager.close();
+        return count;
     }
     
     private String getAvatar(int size) {
