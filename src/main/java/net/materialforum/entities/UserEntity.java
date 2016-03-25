@@ -21,6 +21,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import net.materialforum.permissions.PermissionManager;
+import net.materialforum.utils.CryptoUtils;
 import net.materialforum.utils.Database;
 
 @Entity(name = "users")
@@ -36,85 +37,40 @@ public class UserEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+    public Long getId() { return id; }
     
     @Column(name = "nick", unique = true)
     private String nick;
+    public String getNick() { return nick; }
+    public void setNick(String nick) { this.nick = nick; }
     
     @Column(name = "email", unique = true)
     private String email;
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
      
     @Column(name = "_group")
-    private String group;
+    private String group = "user";
+    public String getGroup() { return group; }
+    public void setGroup(String group) { this.group = group;  }
     
     @Column(name = "passwordHash")
     private String passwordHash;
+    public String getPasswordHash() { return passwordHash; }
+    public void setPassword(String password) { passwordHash = CryptoUtils.hashPassword(password, salt); }
     
     @Column(name = "salt")
-    private String salt;
+    private String salt = CryptoUtils.randomSalt();
     
     @Temporal(TemporalType.TIMESTAMP) 
     @Column(name = "registerDate")
-    private Date registerDate;
-    
-    public UserEntity() {
-        registerDate = new Date();
-        byte[] saltBytes = new byte[32];
-        new SecureRandom().nextBytes(saltBytes);
-        salt = DatatypeConverter.printBase64Binary(saltBytes);
-        group = "user";
-    }
+    private Date registerDate = new Date();
+    public Date getRegisterDate() { return registerDate; }
     
     public static UserEntity guest() {
         UserEntity user = new UserEntity();
         user.setGroup("guest");
         return user;
-    }
-    
-    public Long getId() {
-        return id;
-    }
-    
-    public String getNick() {
-        return nick;
-    }
-
-    public void setNick(String nick) {
-        this.nick = nick;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-    
-    public String getGroup() {
-        return group;
-    }
-
-    public void setGroup(String group) {
-        this.group = group;
-    }
-
-    public String getPasswordHash() {
-        return passwordHash;
-    }
-
-    public void setPassword(String password) {
-        try {
-            String codeSalt = "Cwn9x0JA7X3kkQL2uLVO";
-            String saltedPassword = password + salt + codeSalt;
-            byte[] hash = MessageDigest.getInstance("SHA-512").digest(saltedPassword.getBytes("utf-8"));
-            this.passwordHash = DatatypeConverter.printBase64Binary(hash);
-        } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
-            Logger.getLogger(UserEntity.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public Date getRegisterDate() {
-        return registerDate;
     }
     
     public Long getPostCount() {
@@ -134,13 +90,7 @@ public class UserEntity implements Serializable {
     }
     
     private String getAvatar(int size) {
-        try {
-            byte[] byteHash = MessageDigest.getInstance("MD5").digest(email.trim().toLowerCase().getBytes("utf-8"));
-            String hash = new BigInteger(1, byteHash).toString(16);
-            while(hash.length() < 32)
-                hash = "0" + hash;
-            return "http://www.gravatar.com/avatar/" + hash + "?d=retro&s=" + size;
-        } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) { return null; }
+        return "http://www.gravatar.com/avatar/" + CryptoUtils.md5(email.trim().toLowerCase()) + "?d=retro&s=" + size;
     }
     
     public String getSmallAvatar() {

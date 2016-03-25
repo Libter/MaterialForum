@@ -1,8 +1,12 @@
 package net.materialforum.utils;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class StringUtils {
 
@@ -54,6 +58,12 @@ public class StringUtils {
 
     public static String removeHtml(String input) {
         return input.replace("<", "&lt;").replace(">", "&gt;");
+    }
+    
+    public static String encodeUrl(String url) {
+        try {
+            return URLEncoder.encode(url, "utf-8");
+        } catch (UnsupportedEncodingException ex) { return null; }
     }
 
 }

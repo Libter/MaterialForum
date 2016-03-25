@@ -27,59 +27,31 @@ public class PostEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+    public Long getId() { return id; }
        
     @OneToOne
     @JoinColumn(name = "topicId")
     private TopicEntity topic;
+    public TopicEntity getTopic() { return topic; }
+    public void setTopic(TopicEntity topic) { this.topic = topic; }
     
     @OneToOne
     @JoinColumn(name = "userId")
     private UserEntity user;
+    public UserEntity getUser() { return user; }
+    public void setUser(UserEntity user) { this.user = user; }
     
     @Lob 
     @Column(name = "text")
     private String text;
+    public String getText() { return EbayPolicyExample.POLICY_DEFINITION.sanitize(text); }
+    public void setText(String text) { this.text = text; }
     
     @Temporal(TemporalType.TIMESTAMP) 
     @Column(name = "creationDate")
-    private Date creationDate;
-    
-    public PostEntity() {
-        creationDate = new Date();
-    }
+    private Date creationDate = new Date();
+    public Date getCreationDate() { return creationDate; }
 
-    public Long getId() {
-        return id;
-    }
-    
-    public UserEntity getUser() {
-        return user;
-    }
-    
-    public void setUser(UserEntity user) {
-        this.user = user;
-    }
-    
-    public TopicEntity getTopic() {
-        return topic;
-    }
-
-    public void setTopic(TopicEntity topic) {
-        this.topic = topic;
-    }
-
-    public String getText() {
-        return EbayPolicyExample.POLICY_DEFINITION.sanitize(text);
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public Date getCreationDate() {
-        return creationDate;
-    }
-    
     public String getFormattedCreationDate() {
         return StringUtils.formatDateElapsed(creationDate);
     }

@@ -17,6 +17,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import net.materialforum.utils.Database;
+import net.materialforum.utils.StringUtils;
 
 @Entity(name = "topics")
 @NamedQueries({
@@ -29,69 +30,35 @@ public class TopicEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+    public Long getId() { return id; }
  
     @Column(name = "title")
     private String title;
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
     
     @OneToOne
     @JoinColumn(name = "forumId")
     private ForumEntity forum;
+    public ForumEntity getForum() { return forum; }
+    public void setForum(ForumEntity forum) { this.forum = forum; }
 
     @OneToOne
     @JoinColumn(name = "lastPostId")
     private PostEntity lastPost;
+    public PostEntity getLastPost() { return lastPost; }
+    public void setLastPost(PostEntity lastPost) { this.lastPost = lastPost; }
 
     @OneToOne
     @JoinColumn(name = "userId")
     private UserEntity user;
+    public UserEntity getUser() { return user; }
+    public void setUser(UserEntity user) { this.user = user; }
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "creationDate")
-    private Date creationDate;
-
-    public TopicEntity() {
-        creationDate = new Date();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public ForumEntity getForum() {
-        return forum;
-    }
-
-    public void setForum(ForumEntity forum) {
-        this.forum = forum;
-    }
-    
-    public UserEntity getUser() {
-        return user;
-    }
-    
-    public void setUser(UserEntity user) {
-        this.user = user;
-    }
-
-    public PostEntity getLastPost() {
-        return lastPost;
-    }
-
-    public void setLastPost(PostEntity lastPost) {
-        this.lastPost = lastPost;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Date getCreationDate() {
-        return creationDate;
-    }
+    private Date creationDate = new Date();
+    public Date getCreationDate() { return creationDate; }
 
     public Long getPostCount() {
         EntityManager entityManager = Database.getEntityManager();
@@ -106,11 +73,7 @@ public class TopicEntity implements Serializable {
     }
 
     public String getLink() {
-        try {
-            return "/topic/" + URLEncoder.encode(getUrl(), "utf-8") + "/";
-        } catch (UnsupportedEncodingException ex) {
-            return null;
-        }
+        return "/topic/" + StringUtils.encodeUrl(getUrl()) + "/";
     }
 
     public String getAddLink() {
