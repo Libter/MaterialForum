@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,11 +16,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
+import net.materialforum.utils.Database;
 
 @Entity(name = "forums")
 @NamedQueries({
-    @NamedQuery(name="Forum.findAll", query="SELECT forum FROM forums forum ORDER BY forum.position"),
-    @NamedQuery(name="Forum.findByUrl", query="SELECT forum FROM forums forum WHERE forum.url = :url")
+    @NamedQuery(name = "Forum.findAll", query = "SELECT forum FROM forums forum ORDER BY forum.position"),
+    @NamedQuery(name = "Forum.findByUrl", query = "SELECT forum FROM forums forum WHERE forum.url = :url"),
+    @NamedQuery(name = "Forum.findChildren", query = "SELECT forum FROM forums forum WHERE forum.parent = :parent ORDER BY forum.position")
 })
 public class ForumEntity implements Serializable {
     
@@ -193,11 +196,19 @@ public class ForumEntity implements Serializable {
             return checkPermission(user, "moderation.edit.post");
     }
     
-    public ArrayList<ForumEntity> getSubforums(Collection<ForumEntity> forums, UserEntity user) {
+    public List<ForumEntity> getChildren() {
+        EntityManager entityManager = Database.getEntityManager();
+        List<ForumEntity> list = entityManager.createNamedQuery("Forum.findChildren")
+            .setParameter("parent", this).getResultList(); 
+        entityManager.close();
+        return list;
+    }
+    
+    public ArrayList<ForumEntity> getSubforums(UserEntity user) {
         ArrayList<ForumEntity> subforums = new ArrayList<>();
-        for(ForumEntity forum : forums)
-            if (forum.parent != null && Objects.equals(id, forum.parent.id) && forum.canRead(user))
-                subforums.add(forum);
+        for(ForumEntity subforum : getChildren())
+            if (Objects.equals(id, subforum.parent.id) && subforum.canRead(user))
+                subforums.add(subforum);
         return subforums;
     }
     
