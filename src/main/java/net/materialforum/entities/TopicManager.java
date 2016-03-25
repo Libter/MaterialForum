@@ -18,13 +18,6 @@ public class TopicManager {
         
         entityManager.getTransaction().begin();
         
-        forum.incrementTopicCount();
-        entityManager.merge(forum);
-        while ((forum = forum.getParent()) != null) {
-            forum.incrementTopicCount();
-            entityManager.merge(forum);
-        }
-        
         entityManager.persist(topic);
         
         entityManager.getTransaction().commit();
@@ -41,13 +34,6 @@ public class TopicManager {
             .setParameter("forumId", forumId).getResultList();
         entityManager.close();
         return topics;
-    }
-    
-    public static TopicEntity findById(Long id) {
-        EntityManager entityManager = Database.getEntityManager();
-        TopicEntity topic = entityManager.find(TopicEntity.class, id);
-        entityManager.close();
-        return topic;
     }
     
     public static void editTitle(TopicEntity topic, String title) {

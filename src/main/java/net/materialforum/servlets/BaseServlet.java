@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import net.materialforum.entities.UserEntity;
-import net.materialforum.entities.UserManager;
+import net.materialforum.utils.Database;
 import net.materialforum.utils.Validator.ForumError;
 
 public abstract class BaseServlet extends HttpServlet {
@@ -21,7 +21,7 @@ public abstract class BaseServlet extends HttpServlet {
         
         Long userId = (Long) request.getSession().getAttribute("userId");
         if (userId != null)
-            user = UserManager.findById(userId);
+            user = Database.getById(UserEntity.class, userId);
         else
             user = null;
         request.setAttribute("user", user);

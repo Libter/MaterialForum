@@ -122,19 +122,20 @@ public class ForumEntity implements Serializable {
     }
     
     public Long getPostCount() {
-        return postCount;
-    }
-    
-    public void incrementPostCount() {
-        postCount += 1;
+        Long count = 0L;
+        for (TopicEntity topic : TopicManager.getTopics(id))
+            count += topic.getPostCount();
+        for (ForumEntity child : getChildren())
+            count += child.getPostCount();
+        return count;
     }
     
     public Long getTopicCount() {
-        return topicCount;
-    }
-    
-    public void incrementTopicCount() {
-        topicCount += 1;
+        Long count = 0L;
+        count += TopicManager.getTopics(id).size();
+        for (ForumEntity child : getChildren())
+            count += child.getTopicCount();
+        return count;
     }
     
     public String getLink() {

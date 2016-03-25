@@ -26,11 +26,9 @@ public class PostManager {
         entityManager.merge(topic);
         
         forum.setLastPost(post);
-        forum.incrementPostCount();
         entityManager.merge(forum);
         while ((forum = forum.getParent()) != null) {
             forum.setLastPost(post);
-            forum.incrementPostCount();
             entityManager.merge(forum);
         }
         
@@ -46,13 +44,6 @@ public class PostManager {
             .setParameter("topicId", topic.getId()).getResultList();
         entityManager.close();
         return posts;
-    }
-
-    public static PostEntity findById(Long id) {
-        EntityManager entityManager = Database.getEntityManager();
-        PostEntity topic = entityManager.find(PostEntity.class, id);
-        entityManager.close();
-        return topic;
     }
     
     public static void editText(PostEntity post, String text) {

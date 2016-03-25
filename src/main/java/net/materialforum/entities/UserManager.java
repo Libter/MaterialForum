@@ -58,11 +58,4 @@ public class UserManager {
         return users;
     }
     
-    public static UserEntity findById(Long id) {
-        EntityManager entityManager = Database.getEntityManager();
-        UserEntity user = entityManager.find(UserEntity.class, id);
-        entityManager.close();
-        return user;
-    }
-    
 }

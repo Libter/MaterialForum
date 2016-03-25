@@ -4,6 +4,7 @@ import java.util.HashMap;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import net.materialforum.entities.PostEntity;
 import net.md_5.bungee.config.Configuration;
 
 public class Database {
@@ -34,6 +35,13 @@ public class Database {
         manager.getTransaction().begin();
         manager.getTransaction().commit();
         return manager;
+    }
+    
+    public static <T> T getById(Class<T> c, Long id) {
+        EntityManager entityManager = Database.getEntityManager();
+        T object = entityManager.find(c, id);
+        entityManager.close();
+        return object;
     }
 
 }

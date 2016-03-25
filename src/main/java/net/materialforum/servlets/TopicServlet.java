@@ -28,7 +28,7 @@ public class TopicServlet extends BaseServlet {
         String topicUrl = splitted[2];
         Long topicId = Long.parseLong(topicUrl.split("\\.")[0]);
 
-        TopicEntity topic = TopicManager.findById(topicId);
+        TopicEntity topic = Database.getById(TopicEntity.class, topicId);
         Validator.Topic.exists(topic);
         Validator.Forum.canRead(topic.getForum(), user);
         if (!URLEncoder.encode(topic.getUrl(), "utf-8").equals(topicUrl)) {
@@ -53,7 +53,7 @@ public class TopicServlet extends BaseServlet {
         String action = splitted[3];
         Long topicId = Long.parseLong(topicUrl.split("\\.")[0]);
 
-        TopicEntity topic = TopicManager.findById(topicId);
+        TopicEntity topic = Database.getById(TopicEntity.class, topicId);
         Validator.Topic.exists(topic);
         Validator.Forum.canRead(topic.getForum(), user);
         
@@ -70,7 +70,7 @@ public class TopicServlet extends BaseServlet {
             case "editPost":
                 String newText = request.getParameter("text");
                 Long postId = Long.parseLong(request.getParameter("id"));
-                PostEntity post = PostManager.findById(postId);
+                PostEntity post = Database.getById(PostEntity.class, postId);
                 
                 Validator.lengthOrEmpty(newText, 11, Integer.MAX_VALUE);
                 Validator.Forum.canEditPost(topic.getForum(), user, post);
