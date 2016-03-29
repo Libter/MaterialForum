@@ -21,8 +21,8 @@ import net.materialforum.utils.Database;
 
 @Entity(name = "forums")
 @NamedQueries({
-    @NamedQuery(name = "Forum.findAll", query = "SELECT forum FROM forums forum ORDER BY forum.position"),
-    @NamedQuery(name = "Forum.findByUrl", query = "SELECT forum FROM forums forum WHERE forum.url = :url")
+    @NamedQuery(name = "Forum.findAll", query = "FROM forums forum ORDER BY forum.position"),
+    @NamedQuery(name = "Forum.findByUrl", query = "FROM forums forum WHERE forum.url = :url")
 })
 public class ForumEntity implements Serializable {
     

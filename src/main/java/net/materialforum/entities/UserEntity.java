@@ -18,8 +18,8 @@ import net.materialforum.utils.CryptoUtils;
 
 @Entity(name = "users")
 @NamedQueries({
-    @NamedQuery(name = "User.findByNick", query = "SELECT user FROM users user WHERE user.nick = :nick"),
-    @NamedQuery(name = "User.findByEmail", query = "SELECT user FROM users user WHERE user.email = :email")
+    @NamedQuery(name = "User.findByNick", query = "FROM users user WHERE user.nick = :nick"),
+    @NamedQuery(name = "User.findByEmail", query = "FROM users user WHERE user.email = :email")
 })
 public class UserEntity implements Serializable {
     
