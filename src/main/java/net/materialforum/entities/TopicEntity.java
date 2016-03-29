@@ -55,7 +55,7 @@ public class TopicEntity implements Serializable {
     private Date creationDate = new Date();
     public Date getCreationDate() { return creationDate; }
       
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "topic")
     private List<PostEntity> posts;
     public List<PostEntity> getPosts() { return posts; }
 
