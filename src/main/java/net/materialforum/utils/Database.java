@@ -2,10 +2,12 @@ package net.materialforum.utils;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import net.md_5.bungee.config.Configuration;
 
 public class Database {
@@ -16,12 +18,13 @@ public class Database {
     
     static {
         Configuration config = FileUtils.getYamlConfiguration("database.yml");
-        HashMap<String, Object> properties = new HashMap<>();
+        HashMap<String, String> properties = new HashMap<>();
         
         properties.put("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
         properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
         properties.put("hibernate.cache.provider_class", "org.hibernate.cache.NoCacheProvider");
         properties.put("hibernate.hbm2ddl.auto", "update");
+        properties.put("hibernate.enable_lazy_load_no_trans", "true");
         
         properties.put("hibernate.connection.username", config.getString("user"));
         properties.put("hibernate.connection.password", config.getString("password"));
@@ -47,7 +50,11 @@ public class Database {
     
     public static <T> List<T> namedQueryList(Class<T> c, String name, HashMap<String,Object> params) {
         EntityManager entityManager = Database.getEntityManager();
-        List<T> list = entityManager.createNamedQuery(name).getResultList();
+        Query query = entityManager.createNamedQuery(name);
+        for (Entry<String,Object> entry : params.entrySet())
+            query.setParameter(entry.getKey(), entry.getValue());
+        
+        List<T> list = query.getResultList();
         entityManager.close();
         return list;
     }
@@ -55,8 +62,12 @@ public class Database {
     public static <T> T namedQuerySingle(Class<T> c, String name, HashMap<String,Object> params) {
         T object;
         EntityManager entityManager = Database.getEntityManager();
+        Query query = entityManager.createNamedQuery(name);
+        for (Entry<String,Object> entry : params.entrySet())
+            query.setParameter(entry.getKey(), entry.getValue());
+        
         try {
-            object = (T) entityManager.createNamedQuery(name).getSingleResult();
+            object = (T) query.getSingleResult();
         } catch(NoResultException e) {
             object = null;
         }
