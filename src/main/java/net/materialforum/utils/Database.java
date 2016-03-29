@@ -51,8 +51,10 @@ public class Database {
     public static <T> List<T> namedQueryList(Class<T> c, String name, HashMap<String,Object> params) {
         EntityManager entityManager = Database.getEntityManager();
         Query query = entityManager.createNamedQuery(name);
-        for (Entry<String,Object> entry : params.entrySet())
-            query.setParameter(entry.getKey(), entry.getValue());
+        
+        if (params != null)
+            for (Entry<String,Object> entry : params.entrySet())
+                query.setParameter(entry.getKey(), entry.getValue());
         
         List<T> list = query.getResultList();
         entityManager.close();
@@ -63,8 +65,10 @@ public class Database {
         T object;
         EntityManager entityManager = Database.getEntityManager();
         Query query = entityManager.createNamedQuery(name);
-        for (Entry<String,Object> entry : params.entrySet())
-            query.setParameter(entry.getKey(), entry.getValue());
+        
+        if (params != null)
+            for (Entry<String,Object> entry : params.entrySet())
+                query.setParameter(entry.getKey(), entry.getValue());
         
         try {
             object = (T) query.getSingleResult();
