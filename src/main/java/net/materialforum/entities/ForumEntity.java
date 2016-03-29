@@ -161,7 +161,7 @@ public class ForumEntity implements Serializable {
     
     public static ForumEntity findByUrl(String url) {
         HashMap<String, Object> params = new HashMap<>();
-        params.put(":url", url);
+        params.put("url", url);
         return Database.namedQuerySingle(ForumEntity.class, "Forum.findByUrl", params);
     }
     
