@@ -1,10 +1,11 @@
 package net.materialforum.utils;
 
 import java.util.HashMap;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
-import net.materialforum.entities.PostEntity;
 import net.md_5.bungee.config.Configuration;
 
 public class Database {
@@ -42,6 +43,33 @@ public class Database {
         T object = entityManager.find(c, id);
         entityManager.close();
         return object;
+    }
+    
+    public static <T> List<T> namedQueryList(Class<T> c, String name, HashMap<String,Object> params) {
+        EntityManager entityManager = Database.getEntityManager();
+        List<T> list = entityManager.createNamedQuery(name).getResultList();
+        entityManager.close();
+        return list;
+    }
+    
+    public static <T> T namedQuerySingle(Class<T> c, String name, HashMap<String,Object> params) {
+        T object;
+        EntityManager entityManager = Database.getEntityManager();
+        try {
+            object = (T) entityManager.createNamedQuery(name).getSingleResult();
+        } catch(NoResultException e) {
+            object = null;
+        }
+        entityManager.close();
+        return object;
+    }
+    
+    public static void merge(Object obj) {
+        EntityManager entityManager = Database.getEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.merge(obj);
+        entityManager.getTransaction().commit();
+        entityManager.close();
     }
 
 }

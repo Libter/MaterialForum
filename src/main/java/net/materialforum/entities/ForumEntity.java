@@ -3,26 +3,26 @@ package net.materialforum.entities;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import net.materialforum.utils.Database;
 
 @Entity(name = "forums")
 @NamedQueries({
     @NamedQuery(name = "Forum.findAll", query = "SELECT forum FROM forums forum ORDER BY forum.position"),
-    @NamedQuery(name = "Forum.findByUrl", query = "SELECT forum FROM forums forum WHERE forum.url = :url"),
-    @NamedQuery(name = "Forum.findChildren", query = "SELECT forum FROM forums forum WHERE forum.parent = :parent ORDER BY forum.position")
+    @NamedQuery(name = "Forum.findByUrl", query = "SELECT forum FROM forums forum WHERE forum.url = :url")
 })
 public class ForumEntity implements Serializable {
     
@@ -32,8 +32,8 @@ public class ForumEntity implements Serializable {
     private Long id;
     public Long getId() { return id; }
     
-    @OneToOne
-    @JoinColumn(name = "parentId")
+    @ManyToOne
+    @JoinColumn(name = "parent")
     private ForumEntity parent;
     public ForumEntity getParent() { return parent; }
     public void setParent(ForumEntity parent) { this.parent = parent; }
@@ -59,7 +59,7 @@ public class ForumEntity implements Serializable {
     public void setPosition(Long position) { this.position = position; }
     
     @OneToOne
-    @JoinColumn(name = "lastPostId")
+    @JoinColumn(name = "lastPost")
     private PostEntity lastPost;
     public PostEntity getLastPost() { return lastPost; }
     public void setLastPost(PostEntity lastPost) { this.lastPost = lastPost; }
@@ -75,9 +75,17 @@ public class ForumEntity implements Serializable {
         groups = sb.toString();
     }
     
+    @OneToMany(mappedBy="parent")
+    private List<ForumEntity> children;
+    public List<ForumEntity> getChildren() { return children; }
+    
+    @OneToMany(mappedBy = "forum")
+    private List<TopicEntity> topics;
+    public List<TopicEntity> getTopics() { return topics; }
+    
     public Long getPostCount() {
         Long count = 0L;
-        for (TopicEntity topic : TopicManager.getTopics(id))
+        for (TopicEntity topic : topics)
             count += topic.getPostCount();
         for (ForumEntity child : getChildren())
             count += child.getPostCount();
@@ -86,7 +94,7 @@ public class ForumEntity implements Serializable {
     
     public Long getTopicCount() {
         Long count = 0L;
-        count += TopicManager.getTopics(id).size();
+        count += topics.size();
         for (ForumEntity child : getChildren())
             count += child.getTopicCount();
         return count;
@@ -139,20 +147,23 @@ public class ForumEntity implements Serializable {
             return checkPermission(user, "moderation.edit.post");
     }
     
-    public List<ForumEntity> getChildren() {
-        EntityManager entityManager = Database.getEntityManager();
-        List<ForumEntity> list = entityManager.createNamedQuery("Forum.findChildren")
-            .setParameter("parent", this).getResultList(); 
-        entityManager.close();
-        return list;
-    }
-    
-    public ArrayList<ForumEntity> getSubforums(UserEntity user) {
-        ArrayList<ForumEntity> subforums = new ArrayList<>();
-        for(ForumEntity subforum : getChildren())
-            if (Objects.equals(id, subforum.parent.id) && subforum.canRead(user))
+    public List<ForumEntity> getChildren(UserEntity user) {
+        List<ForumEntity> subforums = new ArrayList<>();
+        for(ForumEntity subforum : children)
+            if (subforum.canRead(user))
                 subforums.add(subforum);
         return subforums;
     }
+    
+    public static List<ForumEntity> getAllForums() {
+        return Database.namedQueryList(ForumEntity.class, "Forum.findAll", null);
+    }
+    
+    public static ForumEntity findByUrl(String url) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put(":url", url);
+        return Database.namedQuerySingle(ForumEntity.class, "Forum.findByUrl", params);
+    }
+    
     
 }

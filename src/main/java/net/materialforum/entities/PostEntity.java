@@ -4,23 +4,20 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import net.materialforum.utils.Database;
 import net.materialforum.utils.StringUtils;
 import org.owasp.html.examples.EbayPolicyExample;
 
 @Entity(name = "posts")
-@NamedQueries({
-    @NamedQuery(name = "Post.findByTopicId", query = "SELECT post FROM posts post WHERE post.topic.id = :topicId ORDER BY post.creationDate")
-})
 public class PostEntity implements Serializable {
     
     @Id
@@ -29,14 +26,14 @@ public class PostEntity implements Serializable {
     private Long id;
     public Long getId() { return id; }
        
-    @OneToOne
-    @JoinColumn(name = "topicId")
+    @ManyToOne
+    @JoinColumn(name = "topic")
     private TopicEntity topic;
     public TopicEntity getTopic() { return topic; }
     public void setTopic(TopicEntity topic) { this.topic = topic; }
     
-    @OneToOne
-    @JoinColumn(name = "userId")
+    @ManyToOne
+    @JoinColumn(name = "user")
     private UserEntity user;
     public UserEntity getUser() { return user; }
     public void setUser(UserEntity user) { this.user = user; }
@@ -54,6 +51,28 @@ public class PostEntity implements Serializable {
 
     public String getFormattedCreationDate() {
         return StringUtils.formatDateElapsed(creationDate);
+    }
+    
+    public void create() {
+        EntityManager entityManager = Database.getEntityManager();
+        
+        ForumEntity forum = topic.getForum();
+        
+        entityManager.getTransaction().begin();
+        entityManager.persist(this);
+        
+        topic.setLastPost(this);
+        entityManager.merge(topic);
+        
+        forum.setLastPost(this);
+        entityManager.merge(forum);
+        while ((forum = forum.getParent()) != null) {
+            forum.setLastPost(this);
+            entityManager.merge(forum);
+        }
+        
+        entityManager.getTransaction().commit();
+        entityManager.close();
     }
     
 }

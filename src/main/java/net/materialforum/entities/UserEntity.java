@@ -1,35 +1,25 @@
 package net.materialforum.entities;
 
-import javax.xml.bind.DatatypeConverter;
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import net.materialforum.permissions.PermissionManager;
 import net.materialforum.utils.CryptoUtils;
-import net.materialforum.utils.Database;
 
 @Entity(name = "users")
 @NamedQueries({
     @NamedQuery(name = "User.findByNick", query = "SELECT user FROM users user WHERE user.nick = :nick"),
-    @NamedQuery(name = "User.findByEmail", query = "SELECT user FROM users user WHERE user.email = :email"),
-    @NamedQuery(name = "User.getPostCount", query = "SELECT COUNT(post) AS postCount FROM posts post WHERE post.user = :user"),
-    @NamedQuery(name = "User.getTopicCount", query = "SELECT COUNT(topic) AS topicCount FROM topics topic WHERE topic.user = :user")
+    @NamedQuery(name = "User.findByEmail", query = "SELECT user FROM users user WHERE user.email = :email")
 })
 public class UserEntity implements Serializable {
     
@@ -67,26 +57,26 @@ public class UserEntity implements Serializable {
     private Date registerDate = new Date();
     public Date getRegisterDate() { return registerDate; }
     
+    @OneToMany(mappedBy = "user")
+    private List<TopicEntity> topics;
+    public List<TopicEntity> getTopics() { return topics; }
+    
+    @OneToMany(mappedBy = "user")
+    private List<PostEntity> posts;
+    public List<PostEntity> getPosts() { return posts; }
+    
     public static UserEntity guest() {
         UserEntity user = new UserEntity();
         user.setGroup("guest");
         return user;
     }
     
-    public Long getPostCount() {
-        EntityManager entityManager = Database.getEntityManager();
-        Long count = ((Number) entityManager.createNamedQuery("User.getPostCount")
-            .setParameter("user", this).getSingleResult()).longValue();
-        entityManager.close();
-        return count;
+    public int getPostCount() {
+        return posts.size();
     }
     
-    public Long getTopicCount() {
-        EntityManager entityManager = Database.getEntityManager();
-        Long count = ((Number) entityManager.createNamedQuery("User.getTopicCount")
-            .setParameter("user", this).getSingleResult()).longValue();
-        entityManager.close();
-        return count;
+    public int getTopicCount() {
+        return topics.size();
     }
     
     private String getAvatar(int size) {

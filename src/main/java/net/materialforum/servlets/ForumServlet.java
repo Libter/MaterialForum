@@ -7,9 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.materialforum.beans.NavigationBean;
 import net.materialforum.entities.ForumEntity;
 import net.materialforum.entities.TopicEntity;
-import net.materialforum.entities.TopicManager;
 import net.materialforum.utils.Validator;
-import net.materialforum.entities.ForumManager;
 import net.materialforum.utils.StringUtils;
 
 @WebServlet("/forum/*")
@@ -24,7 +22,7 @@ public class ForumServlet extends BaseServlet {
         }
 
         String forumUrl = URLDecoder.decode(splitted[2], "utf-8");
-        ForumEntity forum = ForumManager.findByUrl(forumUrl);
+        ForumEntity forum = ForumEntity.findByUrl(forumUrl);
 
         Validator.Forum.exists(forum);
         Validator.Forum.canRead(forum, user);
@@ -39,8 +37,8 @@ public class ForumServlet extends BaseServlet {
                 request.getRequestDispatcher("/WEB-INF/newtopic.jsp").forward(request, response);
             }
         } else {
-            request.setAttribute("forums", ForumManager.getForums());
-            request.setAttribute("topics", TopicManager.getTopics(forum.getId()));
+            request.setAttribute("forums", ForumEntity.getAllForums());
+            request.setAttribute("topics", forum.getTopics());
             request.setAttribute("navigation", NavigationBean.forum(forum));
             request.getRequestDispatcher("/WEB-INF/forum.jsp").forward(request, response);
         }
@@ -54,7 +52,7 @@ public class ForumServlet extends BaseServlet {
         if (splitted.length > 3) {
             String action = splitted[3];
             if (action.equals("add")) {
-                ForumEntity forum = ForumManager.findByUrl(forumUrl);
+                ForumEntity forum = ForumEntity.findByUrl(forumUrl);
                 String title = StringUtils.removeHtml(request.getParameter("title"));
                 String text = request.getParameter("text");
 
@@ -64,7 +62,11 @@ public class ForumServlet extends BaseServlet {
                 Validator.lengthOrEmpty(title, 3, 255);
                 Validator.lengthOrEmpty(text, 11, Integer.MAX_VALUE);
 
-                TopicEntity topic = TopicManager.create(forum, user, title, text);
+                TopicEntity topic = new TopicEntity();
+                topic.setForum(forum);
+                topic.setUser(user);
+                topic.setTitle(title);
+                topic.create(text);
 
                 response.sendRedirect(topic.getLink());
             }

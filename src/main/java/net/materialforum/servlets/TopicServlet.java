@@ -1,15 +1,12 @@
 package net.materialforum.servlets;
 
 import java.net.URLEncoder;
-import javax.persistence.EntityManager;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import net.materialforum.beans.NavigationBean;
 import net.materialforum.entities.PostEntity;
-import net.materialforum.entities.PostManager;
 import net.materialforum.entities.TopicEntity;
-import net.materialforum.entities.TopicManager;
 import net.materialforum.utils.Database;
 import net.materialforum.utils.StringUtils;
 import net.materialforum.utils.Validator;
@@ -35,7 +32,7 @@ public class TopicServlet extends BaseServlet {
             response.sendRedirect(topic.getLink());
         } else {
             request.setAttribute("topic", topic);
-            request.setAttribute("posts", PostManager.getPosts(topic));
+            request.setAttribute("posts", topic.getPosts());
             request.setAttribute("navigation", NavigationBean.topic(topic));
             request.getRequestDispatcher("/WEB-INF/topic.jsp").forward(request, response);
         }
@@ -64,7 +61,9 @@ public class TopicServlet extends BaseServlet {
                 Validator.Forum.canEditTopic(topic.getForum(), user, topic);
                 Validator.lengthOrEmpty(title, 3, 255);
                 
-                TopicManager.editTitle(topic, title);
+                topic.setTitle(title);
+                Database.merge(topic);
+
                 response.sendRedirect(topic.getLink());
                 break;
             case "editPost":
@@ -75,7 +74,8 @@ public class TopicServlet extends BaseServlet {
                 Validator.lengthOrEmpty(newText, 11, Integer.MAX_VALUE);
                 Validator.Forum.canEditPost(topic.getForum(), user, post);
                 
-                PostManager.editText(post, newText);
+                post.setText(newText);
+                Database.merge(post);
                 break;
             case "add":
                 String text = request.getParameter("text");
@@ -83,7 +83,12 @@ public class TopicServlet extends BaseServlet {
                 Validator.Forum.canWritePosts(topic.getForum(), user);
                 Validator.lengthOrEmpty(text, 11, Integer.MAX_VALUE);
                 
-                PostManager.create(topic, user, text);
+                PostEntity newPost = new PostEntity();
+                newPost.setTopic(topic);
+                newPost.setUser(user);
+                newPost.setText(text);
+                newPost.create();
+
                 response.sendRedirect(topic.getLink());
                 break;
         }
