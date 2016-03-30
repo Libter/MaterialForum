@@ -1,5 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
+<%@page contentType="text/html" pageEncoding="utf-8" %>
 
 <c:set var="subforums" value="${forum.getChildren(user)}" />
 <c:if test="${!empty forum && !empty subforums && forum.canRead(user)}">

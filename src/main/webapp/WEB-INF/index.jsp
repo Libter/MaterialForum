@@ -1,9 +1,9 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="utf-8"%>
+<%@page contentType="text/html" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html>
     <head>
-        <%@include file="/WEB-INF/include/head.jsp" %>
+        <%@ include file="/WEB-INF/include/head.jsp" %>
     </head>
     <body>
         <%@ include file="/WEB-INF/include/menu.jsp" %>
@@ -18,58 +18,11 @@
                 </c:forEach> 
             </div>
             <div class="table-cell sidebar">
-                <div class="widget">
-                    <h1 class="widget-header">Ostatnio aktywne tematy</h1>
-                    <div class="widget-content">
-                        <c:forEach var="topic" items="${widgets.lastActiveTopics}">
-                            <div class="table widget-row">
-                                <div class="table-cell widget-avatar">
-                                    <img class="circle" src="${topic.lastPost.user.getAvatar(38)}" />
-                                </div>
-                                <div class="table-cell widget-topic">
-                                    <a href="${topic.link}">${topic.getEllipsizedTitle(35)}</a><br />
-                                    ${topic.user.formattedNick}
-                                </div>
-                            </div>
-                        </c:forEach>
-                    </div>
-                </div>
+                <%@ include file="/WEB-INF/include/widgets/lastActiveTopics.jsp" %>
                 <br />
-                <div class="widget">
-                    <h1 class="widget-header">Najnowsze tematy</h1>
-                    <div class="widget-content">
-                        <c:forEach var="topic" items="${widgets.lastTopics}">
-                            <div class="table widget-row">
-                                <div class="table-cell widget-avatar">
-                                    <img class="circle" src="${topic.lastPost.user.getAvatar(38)}" />
-                                </div>
-                                <div class="table-cell widget-topic">
-                                    <a href="${topic.link}">${topic.getEllipsizedTitle(35)}</a><br />
-                                    ${topic.user.formattedNick}
-                                </div>
-                            </div>
-                        </c:forEach>
-                    </div>
-                </div>
+                <%@ include file="/WEB-INF/include/widgets/lastTopics.jsp" %>
                 <br />
-                <div class="widget">
-                    <h1 class="widget-header">Najaktywniejsi użytkownicy</h1>
-                    <div class="table widget-content">
-                        <c:forEach var="user" items="${widgets.topPosters}">
-                            <div class="table-row widget-row">
-                                <div class="table-cell widget-avatar">
-                                    <img class="circle" src="${user.getAvatar(38)}" />
-                                </div>
-                                <div class="table-cell widget-user">
-                                    ${user.formattedNick}
-                                </div>
-                                <div class="table-cell widget-right">
-                                    ${user.postCount}
-                                </div>
-                            </div>
-                        </c:forEach>
-                    </div>
-                </div>
+                <%@ include file="/WEB-INF/include/widgets/topPosters.jsp" %>
             </div>
         </div>
     </body>
