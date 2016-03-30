@@ -82,7 +82,7 @@ public class ForumEntity implements Serializable {
     public List<ForumEntity> getChildren() { return children; }
     
     @OneToMany(mappedBy = "forum")
-    @OrderBy("lastPost.creationDate DESC")
+    @OrderBy("lastPost DESC")
     private List<TopicEntity> topics;
     public List<TopicEntity> getTopics() { return topics; }
     
