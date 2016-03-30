@@ -5,8 +5,6 @@ import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class StringUtils {
 
@@ -48,6 +46,9 @@ public class StringUtils {
     }
     
     public static String plurar(long number, String single, String some, String more) {
+        if (number > 20 && number % 10 > 1 && number % 10 < 5)
+            return String.format(some, number);
+        
         if (number < 2)
             return String.format(single, number);
         else if (number < 5)

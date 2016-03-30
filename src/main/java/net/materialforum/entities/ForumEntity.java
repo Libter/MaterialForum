@@ -17,6 +17,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import net.materialforum.utils.Database;
 
 @Entity(name = "forums")
@@ -76,10 +77,12 @@ public class ForumEntity implements Serializable {
     }
     
     @OneToMany(mappedBy="parent")
+    @OrderBy("position")
     private List<ForumEntity> children;
     public List<ForumEntity> getChildren() { return children; }
     
     @OneToMany(mappedBy = "forum")
+    @OrderBy("lastPost.creationDate DESC")
     private List<TopicEntity> topics;
     public List<TopicEntity> getTopics() { return topics; }
     

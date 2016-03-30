@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import net.materialforum.utils.Database;
@@ -56,6 +57,7 @@ public class TopicEntity implements Serializable {
     public Date getCreationDate() { return creationDate; }
       
     @OneToMany(mappedBy = "topic")
+    @OrderBy("creationDate")
     private List<PostEntity> posts;
     public List<PostEntity> getPosts() { return posts; }
 
