@@ -17,7 +17,7 @@
     height: 48px;
 }
 
-.widget-row .table-cell {
+.widget-row > .table-cell {
     vertical-align: middle !important;
 }
 

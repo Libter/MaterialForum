@@ -1,6 +1,4 @@
-@import url("widget.css");
-@import url("panel.css");
-@import url("post.css");
+
 
 body {
     background: #eee;
@@ -68,8 +66,4 @@ a:hover {
 
 .subsubforum {
     font-size: 14px;
-}
-
-.avatar, .avatar > img {
-    border-radius: 50%;
 }

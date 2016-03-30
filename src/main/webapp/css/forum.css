@@ -1,51 +1,52 @@
-.panel-entry { 
-    display: table;
-    width: 100%;
-    padding: 8px;
+.forum-row { 
     height: 64px;
 }
 
-.panel-entry > div {
-    display: table-cell;
-    vertical-align: middle;
+.forum-row > .table-cell {
+    vertical-align: middle !important;
 }
 
-.panel-entry > .count {
+.forum-row > .topic {
+    padding-left: 8px;
+}
+
+.forum-row > .count {
     width: 10%;
     text-align: center;
 }
 
-.panel-entry > .lastpost {
+.forum-row > .lastpost {
     width: 25%;
     font-size: 13px;
     padding: 0 10px;
 }
 
-.panel-entry > .avatar {
+.forum-row > .avatar {
     width: 48px;
+    font-size: 0;
 }
 
-.panel-entry h2, .panel-entry h1 {
+.forum-row h2, .forum-row h1 {
     font-size: 16px;
     font-weight: bold;
     margin: 0;
     line-height: initial;
 }
 
-.panel-entry h3 {
+.forum-row h3 {
     font-size: 13px;
     margin: 0;
 }
 
-.panel-entry.even {
+.forum-row.even {
     background: #fcfcfc;
 }
 
-.panel-entry.odd {
+.forum-row.odd {
     background: #f6f6f6;
 }
 
-.panel-header {
+.forum-header {
     padding: 11px 15px 11px 15px;
     font-size: 16px;
     background: #212121;
@@ -53,11 +54,11 @@
     color: white;
 } 
 
-.panel-header a {
+.forum-header a {
     color: white;
 }
 
-.panel-content {
+.forum-content {
     border: 1px solid #ccc;
     border-top: none;
 }

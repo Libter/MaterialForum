@@ -12,7 +12,7 @@
         <%@ include file="/WEB-INF/include/menu.jsp" %>
         <br />
         <div id="main">
-            <h1 id="topic-header" class="panel-header" contenteditable="${topic.forum.canEditTopic(user, topic)}"
+            <h1 id="topic-header" class="forum-header" contenteditable="${topic.forum.canEditTopic(user, topic)}"
                 >${topic.title}</h1>
 
             <div id="posts">
@@ -21,7 +21,7 @@
                         <div class="body">
                             <div class="user-info">
                                 <b>${post.user.formattedNick}</b><br />
-                                <img src="${post.user.largeAvatar}" class="avatar" />
+                                <img class="circle" src="${post.user.largeAvatar}" />
                             </div>
                             <div class="text">
                                 ${post.text}

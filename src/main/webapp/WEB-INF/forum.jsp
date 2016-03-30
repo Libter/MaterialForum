@@ -12,20 +12,20 @@
             <%@ include file="/WEB-INF/include/forumlist.jsp" %>
             <br />
             <c:if test="${!empty forum.parent}">
-                <h1 class="panel-header">Tematy</h1>
-                <div class="panel-content">
+                <h1 class="forum-header">Tematy</h1>
+                <div class="table forum-content">
                     <c:forEach var="topic" items="${topics}" varStatus="topicStatus">
-                        <div class="panel-entry ${topicStatus.index % 2 == 0 ? 'even' : 'odd'}">
-                            <div>
+                        <div class="table-row forum-row ${topicStatus.index % 2 == 0 ? 'even' : 'odd'}">
+                            <div class="table-cell topic">
                                 <h1><a href="${topic.link}">${topic.title}</a></h1>
                             </div>
-                            <div class="count">
+                            <div class="table-cell count">
                                 ${topic.postCount} postów
                             </div>
-                            <div class="avatar">
-                                <img src="${topic.lastPost.user.mediumAvatar}" />
+                            <div class="table-cell avatar">
+                                <img class="circle" src="${topic.lastPost.user.mediumAvatar}" />
                             </div>
-                            <div class="lastpost">
+                            <div class="table-cell lastpost">
                                 ${topic.lastPost.user.formattedNick}<br />
                                 ${topic.lastPost.formattedCreationDate}
                             </div>
