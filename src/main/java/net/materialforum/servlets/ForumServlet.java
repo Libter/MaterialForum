@@ -4,7 +4,7 @@ import java.net.URLDecoder;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import net.materialforum.beans.NavigationBean;
+import net.materialforum.beans.Navigation;
 import net.materialforum.entities.ForumEntity;
 import net.materialforum.entities.TopicEntity;
 import net.materialforum.utils.Validator;
@@ -33,13 +33,13 @@ public class ForumServlet extends BaseServlet {
             String action = splitted[3];
             if (action.equals("add")) {
                 Validator.Forum.canWriteTopics(forum, user);
-                request.setAttribute("navigation", NavigationBean.forumAddTopic(forum));
+                request.setAttribute("navigation", Navigation.forumAddTopic(forum));
                 request.getRequestDispatcher("/WEB-INF/newtopic.jsp").forward(request, response);
             }
         } else {
             request.setAttribute("forums", ForumEntity.getAllForums());
             request.setAttribute("topics", forum.getTopics());
-            request.setAttribute("navigation", NavigationBean.forum(forum));
+            request.setAttribute("navigation", Navigation.forum(forum));
             request.getRequestDispatcher("/WEB-INF/forum.jsp").forward(request, response);
         }
     }

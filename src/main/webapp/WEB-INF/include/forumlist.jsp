@@ -22,7 +22,7 @@
                     </div>
                     <div class="avatar">
                         <c:if test="${!empty subforum.lastPost}">
-                            <img src="${subforum.lastPost.user.smallAvatar}" />
+                            <img src="${subforum.lastPost.user.mediumAvatar}" />
                         </c:if>
                     </div>
                     <div class="lastpost">

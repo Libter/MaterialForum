@@ -79,11 +79,11 @@ public class UserEntity implements Serializable {
         return topics.size();
     }
     
-    private String getAvatar(int size) {
+    public String getAvatar(int size) {
         return "http://www.gravatar.com/avatar/" + CryptoUtils.md5(email.trim().toLowerCase()) + "?d=retro&s=" + size;
     }
     
-    public String getSmallAvatar() {
+    public String getMediumAvatar() {
         return getAvatar(48);
     }
     

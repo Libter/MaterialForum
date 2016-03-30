@@ -4,7 +4,7 @@ import java.net.URLEncoder;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import net.materialforum.beans.NavigationBean;
+import net.materialforum.beans.Navigation;
 import net.materialforum.entities.PostEntity;
 import net.materialforum.entities.TopicEntity;
 import net.materialforum.utils.Database;
@@ -33,7 +33,7 @@ public class TopicServlet extends BaseServlet {
         } else {
             request.setAttribute("topic", topic);
             request.setAttribute("posts", topic.getPosts());
-            request.setAttribute("navigation", NavigationBean.topic(topic));
+            request.setAttribute("navigation", Navigation.topic(topic));
             request.getRequestDispatcher("/WEB-INF/topic.jsp").forward(request, response);
         }
     }

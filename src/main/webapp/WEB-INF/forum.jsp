@@ -23,7 +23,7 @@
                                 ${topic.postCount} postów
                             </div>
                             <div class="avatar">
-                                <img src="${topic.lastPost.user.smallAvatar}" />
+                                <img src="${topic.lastPost.user.mediumAvatar}" />
                             </div>
                             <div class="lastpost">
                                 ${topic.lastPost.user.formattedNick}<br />
