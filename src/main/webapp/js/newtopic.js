@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $("#newTopicForm").validate({
+    $('#newTopicForm').validate({
         ignore: [],
         rules: {
             title: {
@@ -16,13 +16,13 @@ $(document).ready(function () {
         },
         messages: {
             title: {
-                required: "Podaj tytuł!",
-                minlength: "Podany tytuł jest za krótki!",
-                maxlength: "Podany tytuł jest za długi!"
+                required: 'Podaj tytuł!',
+                minlength: 'Podany tytuł jest za krótki!',
+                maxlength: 'Podany tytuł jest za długi!'
             },
             text: {
-                required: "Treść tematu nie może być pusta!",
-                minlength: "Wpisana treść jest za krótka!"
+                required: 'Treść tematu nie może być pusta!',
+                minlength: 'Wpisana treść jest za krótka!'
             }
         }
     });

@@ -1,20 +1,27 @@
 $(document).ready(function () {
     CKEDITOR.disableAutoInline = true;
 
-    $("#topic-header").on('keydown', function (e) {
-        if (e.keyCode == 13)
-        {
+    var header = $('#topic-header');
+
+    header.on('keydown', function (e) {
+        if (e.keyCode == 13) {
             e.preventDefault();
-            $("#topic-header").blur();
+            $('#topic-header').blur();
             editTitle();
         }
     });
 
-    $("#topic-header").on('focusout', function () {
+    header.on('paste', function (e) {
+        e.preventDefault();
+        var text = (e.originalEvent || e).clipboardData.getData('text/plain');
+        document.execCommand('insertText', false, text);
+    });
+
+    header.on('focusout', function () {
         editTitle();
     });
 
-    $("#newPostForm").validate({
+    $('#newPostForm').validate({
         ignore: [],
         rules: {
             text: {
@@ -26,8 +33,8 @@ $(document).ready(function () {
         },
         messages: {
             text: {
-                required: "Treść tematu nie może być pusta!",
-                minlength: "Wpisana treść jest za krótka!"
+                required: 'Treść tematu nie może być pusta!',
+                minlength: 'Wpisana treść jest za krótka!'
             }
         }
     });
@@ -35,14 +42,14 @@ $(document).ready(function () {
 
 function editTitle() {
     var form = document.createElement('form');
-    form.method= 'post';
+    form.method = 'post';
     form.action = '/topic/' + topicId + './editTitle/';
-    
+
     var input = document.createElement('input');
     input.type = 'hidden';
     input.name = 'title';
-    input.value = $("#topic-header").html();
-    
+    input.value = $('#topic-header').html();
+
     form.appendChild(input);
     document.body.appendChild(form);
     form.submit();
@@ -63,7 +70,7 @@ function savePost(id) {
     var post = $('#post-' + id);
     var postText = post.find('.text');
     var postEditId = 'post-edit-' + id;
-    
+
     var text = CKEDITOR.instances[postEditId].getData();
 
     $.ajax({
@@ -73,11 +80,11 @@ function savePost(id) {
             text: text,
             id: id
         },
-        success: function() {
+        success: function () {
             postText.html(text);
             post.find('.buttons .edit').show();
             post.find('.buttons .save').hide();
         }
     });
-    
+
 }

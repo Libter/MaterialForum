@@ -9,7 +9,7 @@ $(document).ready(function () {
         }
     });
 
-    $("#registerForm").validate({
+    $('#registerForm').validate({
         rules: {
             nick: {
                 required: true,
@@ -47,26 +47,26 @@ $(document).ready(function () {
         },
         messages: {
             nick: {
-                required: "Podaj swój nick!",
-                minlength: "Twój nick jest za krótki!",
-                maxlength: "Twój nick jest za długi!",
-                remote: "Ten nick jest zajęty!"
+                required: 'Podaj swój nick!',
+                minlength: 'Twój nick jest za krótki!',
+                maxlength: 'Twój nick jest za długi!',
+                remote: 'Ten nick jest zajęty!'
             },
             password: {
-                required: "Podaj swoje hasło!",
-                minlength: "Twoje hasło jest za krótkie!",
-                maxlength: "Twoje hasło jest za długie!"
+                required: 'Podaj swoje hasło!',
+                minlength: 'Twoje hasło jest za krótkie!',
+                maxlength: 'Twoje hasło jest za długie!'
             },
             email: {
-                required: "Podaj swój adres e-mail!",
-                email: "Podaj poprawny adres e-mail",
-                maxlength: "Twój adres e-mail jest za długi!",
-                remote: "Ten adres e-mail jest zajęty!"
+                required: 'Podaj swój adres e-mail!',
+                email: 'Podaj poprawny adres e-mail',
+                maxlength: 'Twój adres e-mail jest za długi!',
+                remote: 'Ten adres e-mail jest zajęty!'
             }
         }
     });
     
-    $("#loginForm").validate({
+    $('#loginForm').validate({
         rules: {
             nickOrEmail: {
                 required: true,
@@ -98,12 +98,12 @@ $(document).ready(function () {
         },
         messages: {
             nickOrEmail: {
-                required: "Podaj swój nick lub adres e-mail!",
-                remote: "Nie istnieje użytkownik o takim nicku lub adresie e-mail!"
+                required: 'Podaj swój nick lub adres e-mail!',
+                remote: 'Nie istnieje użytkownik o takim nicku lub adresie e-mail!'
             },
             password: {
-                required: "Podaj swoje hasło!",
-                remote: "Nieprawidłowe hasło!"
+                required: 'Podaj swoje hasło!',
+                remote: 'Nieprawidłowe hasło!'
             }
         }
     });
