@@ -2,6 +2,7 @@
     background: #fcfcfc;
     border: 1px solid #ccc;
     border-top: none;
+    padding: 6px;
 }
 
 .widget-header {
@@ -13,16 +14,27 @@
 }
 
 .widget-row {
-    padding: 8px;
     height: 48px;
-    display: table;
+}
+
+.widget-row .table-cell {
+    vertical-align: middle !important;
 }
 
 .widget-avatar {
     width: 44px;
+    font-size: 0;
 }
 
-.widget-text {
-    vertical-align: top;
+.widget-topic {
     font-size: 13px;
+}
+
+.widget-user {
+    font-size: 16px;
+}
+
+.widget-right {
+    text-align: right;
+    font-size: 16px;
 }
