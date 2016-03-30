@@ -17,6 +17,10 @@ label.error:after {
     color: #F44336;
 }
 
+a:hover {
+    color: #d81b60
+}
+
 #main {
     width: 1200px;
     margin: auto auto;
