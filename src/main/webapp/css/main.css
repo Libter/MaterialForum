@@ -1,4 +1,6 @@
 @import url("widget.css");
+@import url("panel.css");
+@import url("post.css");
 
 body {
     background: #eee;
