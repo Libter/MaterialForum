@@ -8,8 +8,8 @@
                     <img class="circle" src="${topic.lastPost.user.getAvatar(38)}" />
                 </div>
                 <div class="table-cell widget-topic">
-                    <a href="${topic.link}">${topic.getEllipsizedTitle(35)}</a><br />
-                    ${topic.user.formattedNick}
+                    <a href="${topic.link}">${topic.getEllipsizedTitle(30)}</a><br />
+                    ${topic.lastPost.user.formattedNick}
                 </div>
             </div>
         </c:forEach>

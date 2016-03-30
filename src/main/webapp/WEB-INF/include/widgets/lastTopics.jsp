@@ -8,7 +8,7 @@
                     <img class="circle" src="${topic.lastPost.user.getAvatar(38)}" />
                 </div>
                 <div class="table-cell widget-topic">
-                    <a href="${topic.link}">${topic.getEllipsizedTitle(35)}</a><br />
+                    <a href="${topic.link}">${topic.getEllipsizedTitle(30)}</a><br />
                     ${topic.user.formattedNick}
                 </div>
             </div>
