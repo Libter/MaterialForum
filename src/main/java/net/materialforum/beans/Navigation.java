@@ -17,7 +17,7 @@ public class Navigation {
     
     public static ArrayList<Navigation> index() {
         ArrayList<Navigation> beans = new ArrayList<>();
-        beans.add(new Navigation("Forum", "/"));
+        beans.add(new Navigation("<i class=\"fa fa-home\"></i>", "/"));
         return beans;
     }
     

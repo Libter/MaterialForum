@@ -23,8 +23,11 @@
                                 <b>${post.user.formattedNick}</b><br />
                                 <img class="circle" src="${post.user.largeAvatar}" />
                             </div>
-                            <div class="text">
-                                ${post.text}
+                            <div class="content">
+                                <div class="date">Napisano ${post.formattedCreationDate}</div>
+                                <div class="text">
+                                    ${post.text}
+                                </div>
                             </div>
                         </div>
                         <div class="buttons">

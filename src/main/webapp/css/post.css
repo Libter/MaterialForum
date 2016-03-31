@@ -24,11 +24,21 @@
     vertical-align: top;
 }
 
-.post .text {
+.post .date {
+    font-size: 13px;
+    color: #aaa;
+    padding-top: 4px;
+}
+
+.post .content {
     display: table-cell;
     padding: 8px;
+}
+
+.post .text {
     word-break: break-word;
     word-wrap: break-word;
+    font-size: 14px;
 }
 
 .post .text table {
@@ -46,10 +56,6 @@
 
 .post .text ul {
     padding: 0 40px;
-}
-
-.post .text p {
-    margin-top: 0;
 }
 
 .post .text table {
