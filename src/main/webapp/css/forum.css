@@ -1,5 +1,5 @@
 .forum-row { 
-    height: 64px;
+    height: 70px;
 }
 
 .forum-row > .table-cell {
@@ -16,6 +16,7 @@
 }
 
 .forum-row > .lastpost {
+    box-sizing: initial;
     width: 250px;
     font-size: 13px;
     padding: 0 10px;
