@@ -4,7 +4,7 @@
 
     <groupId>com.programmerpeter.javaee</groupId>
     <artifactId>MaterialForum</artifactId>
-    <version>0.1.3</version>
+    <version>0.1.4</version>
     <packaging>war</packaging>
 
     <name>MaterialForum</name>
