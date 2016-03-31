@@ -48,6 +48,14 @@
     padding: 0 40px;
 }
 
+.post .text p {
+    margin-top: 0;
+}
+
+.post .text table {
+    table-layout: fixed;
+}
+
 .post .buttons {
     text-align: right;
     padding-right: 6px;
