@@ -24,4 +24,5 @@ CKEDITOR.editorConfig = function (config) {
     config.skin = 'minimalist';
     config.disableNativeSpellChecker = false;
     config.extraPlugins = 'SimpleLink,SimpleImage,autolink';
+    config.allowedContent = true;
 };

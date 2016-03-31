@@ -57,7 +57,10 @@ public class PostEntity implements Serializable {
         EntityManager entityManager = Database.getEntityManager();
         
         entityManager.getTransaction().begin();
+        
         entityManager.persist(this);
+        topic.setLastPost(this);
+        entityManager.merge(topic);
         
         entityManager.getTransaction().commit();
         entityManager.close();

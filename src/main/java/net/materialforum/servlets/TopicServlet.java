@@ -73,8 +73,6 @@ public class TopicServlet extends BaseServlet {
                 newPost.setUser(user);
                 newPost.setText(text);
                 newPost.create();
-                
-                topic.refreshLastPost();
 
                 response.sendRedirect(topic.getLink());
                 break;
