@@ -23,7 +23,7 @@ public class Database {
         properties.put("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
         properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
         properties.put("hibernate.cache.provider_class", "org.hibernate.cache.NoCacheProvider");
-        properties.put("hibernate.hbm2ddl.auto", "none");
+        properties.put("hibernate.hbm2ddl.auto", "update");
         properties.put("hibernate.enable_lazy_load_no_trans", "true");
         
         properties.put("hibernate.connection.username", config.getString("user"));

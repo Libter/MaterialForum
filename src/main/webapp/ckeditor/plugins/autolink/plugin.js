@@ -137,7 +137,7 @@ CKEDITOR.plugins.add('autolink', {
                     a.href = a.innerHTML.replace(/<[^>]+>/g, '');
                     
                     a.innerHTML = a.href.replace(/^(https?|ftp):\/\//, '');
-                    a.innerHTML = a.innerHTML.replace(document.location.host, '')
+                    a.innerHTML = a.innerHTML.replace(document.location.host, '');
                     
                     href = a.getAttribute("href").replace(new RegExp(fillChar, 'g'), '');
                     href = /^(?:https?:\/\/)/ig.test(href) ? href : "http://" + href;
