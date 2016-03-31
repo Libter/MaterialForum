@@ -146,6 +146,8 @@ public class ForumEntity implements Serializable {
     public boolean canEditTopic(UserEntity user, TopicEntity topic) { return checkPermission(user, topic, "edit.topic"); } 
     public boolean canEditPost(UserEntity user, PostEntity post) { return checkPermission(user, post, "edit.post"); }
     
+    public boolean canMoveTopic(UserEntity user, TopicEntity topic) { return checkPermission(user, topic, "move.topic"); } 
+    
     public boolean canDeleteTopic(UserEntity user, TopicEntity topic) { return checkPermission(user, topic, "delete.topic"); } 
     public boolean canDeletePost(UserEntity user, PostEntity post) { return checkPermission(user, post, "delete.post"); }
     

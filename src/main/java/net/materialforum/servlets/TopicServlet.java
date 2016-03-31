@@ -54,19 +54,47 @@ public class TopicServlet extends BaseServlet {
 
         TopicEntity topic = Database.getById(TopicEntity.class, topicId);
         Validator.Topic.exists(topic);
-        
+
         ForumEntity forum = topic.getForum();
         Validator.Forum.canRead(forum, user);
-        
-        Long postId; PostEntity post;
-        
+
+        Long postId;
+        PostEntity post;
+
         switch (action) {
+            case "add":
+                String text = request.getParameter("text");
+
+                Validator.Forum.canWritePosts(forum, user);
+                Validator.lengthOrEmpty(text, 11, Integer.MAX_VALUE);
+
+                PostEntity newPost = new PostEntity();
+                newPost.setTopic(topic);
+                newPost.setUser(user);
+                newPost.setText(text);
+                newPost.create();
+
+                response.sendRedirect(topic.getLink());
+                break;
+            case "move":
+                String forumId = request.getParameter("forum");
+                Validator.empty(forumId);
+                
+                ForumEntity toForum = Database.getById(ForumEntity.class, Long.parseLong(forumId));
+                Validator.Forum.exists(toForum);
+                Validator.Forum.canRead(toForum, user);
+
+                topic.setForum(toForum);
+                Database.merge(topic);
+                
+                response.sendRedirect(topic.getLink());
+                break;
             case "editTitle":
                 String title = StringUtils.removeHtml(request.getParameter("value"));
-                
+
                 Validator.Forum.canEditTopic(forum, user, topic);
                 Validator.lengthOrEmpty(title, 3, 255);
-                
+
                 topic.setTitle(title);
                 Database.merge(topic);
 
@@ -76,36 +104,22 @@ public class TopicServlet extends BaseServlet {
                 String newText = request.getParameter("text");
                 postId = Long.parseLong(request.getParameter("id"));
                 post = Database.getById(PostEntity.class, postId);
-                
+
                 Validator.lengthOrEmpty(newText, 11, Integer.MAX_VALUE);
                 Validator.Forum.canEditPost(forum, user, post);
-                
+
                 post.setText(newText);
                 Database.merge(post);
                 break;
-            case "add":
-                String text = request.getParameter("text");
-                
-                Validator.Forum.canWritePosts(forum, user);
-                Validator.lengthOrEmpty(text, 11, Integer.MAX_VALUE);
-                
-                PostEntity newPost = new PostEntity();
-                newPost.setTopic(topic);
-                newPost.setUser(user);
-                newPost.setText(text);
-                newPost.create();
-
-                response.sendRedirect(topic.getLink());
-                break;
             case "deleteTopic":
-                Validator.Forum.canDeleteTopic(forum, user, topic); 
+                Validator.Forum.canDeleteTopic(forum, user, topic);
                 Database.remove(topic);
                 response.sendRedirect(forum.getLink());
                 break;
             case "deletePost":
                 postId = Long.parseLong(request.getParameter("id"));
                 post = Database.getById(PostEntity.class, postId);
-                Validator.Forum.canDeletePost(forum, user, post); 
+                Validator.Forum.canDeletePost(forum, user, post);
                 Database.remove(post);
                 break;
         }

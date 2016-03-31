@@ -33,6 +33,9 @@
                         <div class="buttons">
                             <c:choose>
                                 <c:when test="${postStatus.index == 0}">
+                                    <c:if test="${topic.forum.canMoveTopic(user, topic)}">
+                                        <button class="waves-effect btn-flat modal-trigger" href="#moveTopic">Przenieś</button>
+                                    </c:if>
                                     <c:if test="${topic.forum.canDeleteTopic(user, topic)}">
                                         <button class="waves-effect btn-flat" onclick="deleteTopic();">Usuń</button>
                                     </c:if>
@@ -63,6 +66,10 @@
                         Odpowiedz <i class="material-icons right">send</i> 
                     </button>
                 </form>
+            </c:if>
+
+            <c:if test="${topic.forum.canMoveTopic(user, topic)}">
+                <%@ include file="/WEB-INF/include/modals/moveTopic.jsp" %>
             </c:if>
         </div>
     </body>

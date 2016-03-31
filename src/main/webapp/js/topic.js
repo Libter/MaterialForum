@@ -1,6 +1,8 @@
 $(document).ready(function () {
     CKEDITOR.disableAutoInline = true;
 
+    $('select').material_select();
+
     var header = $('#topic-header');
 
     header.on('keydown', function (e) {

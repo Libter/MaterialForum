@@ -77,6 +77,10 @@ public class TopicEntity implements Serializable {
     public String getAddLink() {
         return getLink() + "add/";
     }
+    
+    public String getMoveLink() {
+        return getLink() + "move/";
+    }
 
     public String getEllipsizedTitle(int count) {
         if (title.length() < count)

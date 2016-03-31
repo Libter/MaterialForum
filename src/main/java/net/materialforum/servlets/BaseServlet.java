@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import net.materialforum.entities.ForumEntity;
 import net.materialforum.entities.UserEntity;
 import net.materialforum.utils.Database;
 import net.materialforum.utils.Validator.ForumError;
@@ -25,6 +26,7 @@ public abstract class BaseServlet extends HttpServlet {
         else
             user = null;
         request.setAttribute("user", user);
+        request.setAttribute("forums", ForumEntity.getAllForums());
     }
     
     protected void get(HttpServletRequest request, HttpServletResponse response) throws Exception { }
