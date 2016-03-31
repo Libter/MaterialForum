@@ -45,6 +45,10 @@ public class TopicEntity implements Serializable {
     private PostEntity lastPost;
     public PostEntity getLastPost() { return lastPost; }
     public void setLastPost(PostEntity lastPost) { this.lastPost = lastPost; }
+    public void refreshLastPost() { 
+        this.lastPost = posts.get(posts.size() - 1); 
+        Database.merge(this);
+    }
 
     @ManyToOne
     @JoinColumn(name = "user")

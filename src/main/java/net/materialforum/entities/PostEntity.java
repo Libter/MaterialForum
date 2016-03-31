@@ -56,20 +56,8 @@ public class PostEntity implements Serializable {
     public void create() {
         EntityManager entityManager = Database.getEntityManager();
         
-        ForumEntity forum = topic.getForum();
-        
         entityManager.getTransaction().begin();
         entityManager.persist(this);
-        
-        topic.setLastPost(this);
-        entityManager.merge(topic);
-        
-        forum.setLastPost(this);
-        entityManager.merge(forum);
-        while ((forum = forum.getParent()) != null) {
-            forum.setLastPost(this);
-            entityManager.merge(forum);
-        }
         
         entityManager.getTransaction().commit();
         entityManager.close();

@@ -59,12 +59,6 @@ public class ForumEntity implements Serializable {
     public Long getPosition() { return position; }
     public void setPosition(Long position) { this.position = position; }
     
-    @OneToOne
-    @JoinColumn(name = "lastPost")
-    private PostEntity lastPost;
-    public PostEntity getLastPost() { return lastPost; }
-    public void setLastPost(PostEntity lastPost) { this.lastPost = lastPost; }
-    
     @Column(name = "groups")
     private String groups;
     public List<String> getGroups() { return Arrays.asList(groups.split("\\|")); }
@@ -101,6 +95,26 @@ public class ForumEntity implements Serializable {
         for (ForumEntity child : getChildren())
             count += child.getTopicCount();
         return count;
+    }
+    
+    public PostEntity getLastPost() { 
+        PostEntity lastPost = null;
+        for (TopicEntity topic : topics)
+            lastPost = getNewer(lastPost, topic.getLastPost());
+        for (ForumEntity forum : children)
+           lastPost = getNewer(lastPost, forum.getLastPost());
+        return lastPost;
+    }
+    
+    private PostEntity getNewer(PostEntity post1, PostEntity post2) {
+        if (post1 == null)
+            return post2;
+        if (post2 == null)
+            return post1;
+        if (post1.getCreationDate().getTime() > post2.getCreationDate().getTime())
+            return post1;
+        else
+            return post2;
     }
     
     public String getLink() {
