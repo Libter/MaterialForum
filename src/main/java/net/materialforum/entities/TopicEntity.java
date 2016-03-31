@@ -69,6 +69,11 @@ public class TopicEntity implements Serializable {
     public int getPostCount() {
         return posts.size();
     }
+    
+    public String getFormattedPostCount() {
+        int count = getPostCount();
+        return count + " " + StringUtils.plurar(count, "post", "posty", "postów");
+    }
 
     public String getUrl() {
         return getId() + "." + getTitle().replaceAll("[^\\pL0-9 ]", "").replace(' ', '-');

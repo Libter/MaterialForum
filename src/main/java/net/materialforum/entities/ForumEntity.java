@@ -18,6 +18,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import net.materialforum.utils.Database;
+import net.materialforum.utils.StringUtils;
 
 @Entity(name = "forums")
 @NamedQueries({
@@ -94,6 +95,16 @@ public class ForumEntity implements Serializable {
         for (ForumEntity child : getChildren())
             count += child.getTopicCount();
         return count;
+    }
+    
+    public String getFormattedPostCount() {
+        Long count = getPostCount();
+        return count + " " + StringUtils.plurar(count, "post", "posty", "postów");
+    }
+    
+    public String getFormattedTopicCount() {
+        Long count = getTopicCount();
+        return count + " " + StringUtils.plurar(count, "temat", "tematy", "tematów");
     }
     
     public PostEntity getLastPost() { 

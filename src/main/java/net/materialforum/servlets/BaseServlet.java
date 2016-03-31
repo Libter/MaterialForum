@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.materialforum.entities.ForumEntity;
 import net.materialforum.entities.UserEntity;
 import net.materialforum.utils.Database;
+import net.materialforum.utils.StringUtils;
 import net.materialforum.utils.Validator.ForumError;
 
 public abstract class BaseServlet extends HttpServlet {

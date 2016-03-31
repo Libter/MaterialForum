@@ -16,8 +16,8 @@
                         <h3>${subforum.description}</h3>
                     </div>
                     <div class="table-cell count">
-                        ${subforum.topicCount} tematów<br />
-                        ${subforum.postCount} postów
+                        ${subforum.formattedTopicCount}<br />
+                        ${subforum.formattedPostCount}
                     </div>
                     <div class="table-cell avatar">
                         <c:if test="${!empty subforum.lastPost}">

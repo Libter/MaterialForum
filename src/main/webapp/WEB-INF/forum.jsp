@@ -20,7 +20,7 @@
                                 <h1><a href="${topic.link}">${topic.title}</a></h1>
                             </div>
                             <div class="table-cell count">
-                                ${topic.postCount} postów
+                                ${topic.formattedPostCount}
                             </div>
                             <div class="table-cell avatar">
                                 <img class="circle" src="${topic.lastPost.user.mediumAvatar}" />

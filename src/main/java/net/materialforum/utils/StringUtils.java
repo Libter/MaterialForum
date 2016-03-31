@@ -8,9 +8,6 @@ import java.util.Date;
 
 public class StringUtils {
 
-    private StringUtils() {
-    }
-
     private static final DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 
     public static String capitalize(String input) {
