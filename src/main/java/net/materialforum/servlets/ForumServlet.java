@@ -28,6 +28,7 @@ public class ForumServlet extends BaseServlet {
         Validator.Forum.canRead(forum, user);
 
         request.setAttribute("forum", forum);
+        request.setAttribute("title", forum.getTitle());
 
         if (splitted.length > 3) {
             String action = splitted[3];

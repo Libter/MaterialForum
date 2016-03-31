@@ -15,6 +15,7 @@ public class IndexServlet extends BaseServlet {
         request.setAttribute("forums", ForumEntity.getAllForums());
         request.setAttribute("navigation", Navigation.index());
         request.setAttribute("widgets", new Widgets());
+        request.setAttribute("title", "Forum");
         request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
     }
 

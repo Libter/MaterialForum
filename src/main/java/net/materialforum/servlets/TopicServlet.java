@@ -34,6 +34,7 @@ public class TopicServlet extends BaseServlet {
             request.setAttribute("topic", topic);
             request.setAttribute("posts", topic.getPosts());
             request.setAttribute("navigation", Navigation.topic(topic));
+            request.setAttribute("title", topic.getTitle());
             request.getRequestDispatcher("/WEB-INF/topic.jsp").forward(request, response);
         }
     }

@@ -1,6 +1,8 @@
 <%@page contentType="text/html" pageEncoding="utf-8"%>
-<title>Forum</title>
+<title>${title}</title>
 <meta charset="utf-8" />
+
+<link rel="shortcut icon" href="/favicon.ico" />
 
 <link rel="stylesheet" href="/css/all.css" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
