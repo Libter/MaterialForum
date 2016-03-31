@@ -11,14 +11,18 @@
 }
 
 .forum-row > .count {
-    width: 10%;
+    width: 100px;
     text-align: center;
 }
 
 .forum-row > .lastpost {
-    width: 25%;
+    width: 250px;
     font-size: 13px;
     padding: 0 10px;
+}
+
+.forum-row > .lastpost > .truncate {
+    max-width: 250px;
 }
 
 .forum-row > .avatar {

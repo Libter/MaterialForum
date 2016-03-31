@@ -32,7 +32,7 @@
                                 </div>
                             </c:when>
                             <c:otherwise>  
-                                <a href="${subforum.lastPost.topic.link}">${subforum.lastPost.topic.getEllipsizedTitle(35)}</a><br />
+                                <a class="truncate" href="${subforum.lastPost.topic.link}">${subforum.lastPost.topic.title}</a>
                                 Przez ${subforum.lastPost.user.formattedNick}<br />
                                 ${subforum.lastPost.formattedCreationDate}
                             </c:otherwise>

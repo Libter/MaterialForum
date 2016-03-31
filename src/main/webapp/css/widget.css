@@ -28,6 +28,7 @@
 
 .widget-topic {
     font-size: 13px;
+    max-width: 190px;
 }
 
 .widget-user {
