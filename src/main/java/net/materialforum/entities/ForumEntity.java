@@ -120,35 +120,34 @@ public class ForumEntity implements Serializable {
         return false;
     }
     
-    public boolean canRead(UserEntity user) {
-        return checkPermission(user, "read");
-    }
-
-    public boolean canWriteTopics(UserEntity user) {
-        return checkPermission(user, "write.topic");
-    }
-    
-    public boolean canWritePosts(UserEntity user) {
-        return checkPermission(user, "write.post");
-    }
-    
-    public boolean canEditTopic(UserEntity user, TopicEntity topic) {
-        if (user == null)
-            user = UserEntity.guest();
-        if (Objects.equals(topic.getUser().getId(), user.getId()))
-            return checkPermission(user, "edit.topic");
-        else
-            return checkPermission(user, "moderation.edit.topic");
-    }
-    
-    public boolean canEditPost(UserEntity user, PostEntity post) {
+    private boolean checkPermission(UserEntity user, PostEntity post, String permission) {
         if (user == null)
             user = UserEntity.guest();
         if (Objects.equals(post.getUser().getId(), user.getId()))
-            return checkPermission(user, "edit.post");
+            return checkPermission(user, permission);
         else
-            return checkPermission(user, "moderation.edit.post");
+            return checkPermission(user, "moderation" + permission);
     }
+    
+    private boolean checkPermission(UserEntity user, TopicEntity topic, String permission) {
+        if (user == null)
+            user = UserEntity.guest();
+        if (Objects.equals(topic.getUser().getId(), user.getId()))
+            return checkPermission(user, permission);
+        else
+            return checkPermission(user, "moderation" + permission);
+    }
+    
+    public boolean canRead(UserEntity user) { return checkPermission(user, "read"); }
+
+    public boolean canWriteTopics(UserEntity user) { return checkPermission(user, "write.topic"); }
+    public boolean canWritePosts(UserEntity user) { return checkPermission(user, "write.post"); }
+    
+    public boolean canEditTopic(UserEntity user, TopicEntity topic) { return checkPermission(user, topic, "edit.topic"); } 
+    public boolean canEditPost(UserEntity user, PostEntity post) { return checkPermission(user, post, "edit.post"); }
+    
+    public boolean canDeleteTopic(UserEntity user, TopicEntity topic) { return checkPermission(user, topic, "delete.topic"); } 
+    public boolean canDeletePost(UserEntity user, PostEntity post) { return checkPermission(user, post, "delete.post"); }
     
     public List<ForumEntity> getChildren(UserEntity user) {
         List<ForumEntity> subforums = new ArrayList<>();

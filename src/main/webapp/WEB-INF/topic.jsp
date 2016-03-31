@@ -16,7 +16,7 @@
                 >${topic.title}</h1>
 
             <div id="posts">
-                <c:forEach var="post" items="${posts}">
+                <c:forEach var="post" items="${posts}" varStatus="postStatus">
                     <div class="post" id="post-${post.id}">
                         <div class="body">
                             <div class="user-info">
@@ -31,6 +31,18 @@
                             </div>
                         </div>
                         <div class="buttons">
+                            <c:choose>
+                                <c:when test="${postStatus.index == 0}">
+                                    <c:if test="${topic.forum.canDeleteTopic(user, topic)}">
+                                        <button class="waves-effect btn-flat" onclick="deleteTopic();">Usuń</button>
+                                    </c:if>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:if test="${topic.forum.canDeletePost(user, post)}">
+                                        <button class="waves-effect btn-flat" onclick="deletePost(${post.id});">Usuń</button>
+                                    </c:if>
+                                </c:otherwise>
+                            </c:choose>
                             <c:if test="${topic.forum.canEditPost(user, post)}">
                                 <button class="edit waves-effect btn-flat" onclick="editPost(${post.id});">Edytuj</button>
                                 <button class="save waves-effect btn-flat" onclick="savePost(${post.id});">Zapisz</button>

@@ -3,6 +3,7 @@ package net.materialforum.entities;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -56,7 +57,7 @@ public class TopicEntity implements Serializable {
     private Date creationDate = new Date();
     public Date getCreationDate() { return creationDate; }
       
-    @OneToMany(mappedBy = "topic")
+    @OneToMany(mappedBy = "topic", cascade = CascadeType.REMOVE)
     @OrderBy("creationDate")
     private List<PostEntity> posts;
     public List<PostEntity> getPosts() { return posts; }

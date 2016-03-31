@@ -40,19 +40,31 @@ $(document).ready(function () {
     });
 });
 
-function editTitle() {
+function submit(action, value) {
     var form = document.createElement('form');
     form.method = 'post';
-    form.action = '/topic/' + topicId + './editTitle/';
+    form.action = '/topic/' + topicId + './' + action + '/';
 
     var input = document.createElement('input');
     input.type = 'hidden';
-    input.name = 'title';
-    input.value = $('#topic-header').html();
+    input.name = 'value';
+    input.value = value;
 
     form.appendChild(input);
     document.body.appendChild(form);
     form.submit();
+}
+
+function editTitle() {
+    submit('editTitle', $('#topic-header').text());
+}
+
+function hideTopic() {
+    submit('hideTopic', '');
+}
+
+function deleteTopic() {
+    submit('deleteTopic', '');
 }
 
 function editPost(id) {
@@ -87,4 +99,19 @@ function savePost(id) {
         }
     });
 
+}
+
+function deletePost(id) {
+    var post = $('#post-' + id);
+    
+    $.ajax({
+        url: '/topic/' + topicId + './deletePost/',
+        method: 'post',
+        data: {
+            id: id
+        },
+        success: function () {
+            post.remove();
+        }
+    });
 }

@@ -5,6 +5,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import net.materialforum.beans.Navigation;
+import net.materialforum.entities.ForumEntity;
 import net.materialforum.entities.PostEntity;
 import net.materialforum.entities.TopicEntity;
 import net.materialforum.utils.Database;
@@ -53,13 +54,17 @@ public class TopicServlet extends BaseServlet {
 
         TopicEntity topic = Database.getById(TopicEntity.class, topicId);
         Validator.Topic.exists(topic);
-        Validator.Forum.canRead(topic.getForum(), user);
+        
+        ForumEntity forum = topic.getForum();
+        Validator.Forum.canRead(forum, user);
+        
+        Long postId; PostEntity post;
         
         switch (action) {
             case "editTitle":
-                String title = StringUtils.removeHtml(request.getParameter("title"));
+                String title = StringUtils.removeHtml(request.getParameter("value"));
                 
-                Validator.Forum.canEditTopic(topic.getForum(), user, topic);
+                Validator.Forum.canEditTopic(forum, user, topic);
                 Validator.lengthOrEmpty(title, 3, 255);
                 
                 topic.setTitle(title);
@@ -69,11 +74,11 @@ public class TopicServlet extends BaseServlet {
                 break;
             case "editPost":
                 String newText = request.getParameter("text");
-                Long postId = Long.parseLong(request.getParameter("id"));
-                PostEntity post = Database.getById(PostEntity.class, postId);
+                postId = Long.parseLong(request.getParameter("id"));
+                post = Database.getById(PostEntity.class, postId);
                 
                 Validator.lengthOrEmpty(newText, 11, Integer.MAX_VALUE);
-                Validator.Forum.canEditPost(topic.getForum(), user, post);
+                Validator.Forum.canEditPost(forum, user, post);
                 
                 post.setText(newText);
                 Database.merge(post);
@@ -81,7 +86,7 @@ public class TopicServlet extends BaseServlet {
             case "add":
                 String text = request.getParameter("text");
                 
-                Validator.Forum.canWritePosts(topic.getForum(), user);
+                Validator.Forum.canWritePosts(forum, user);
                 Validator.lengthOrEmpty(text, 11, Integer.MAX_VALUE);
                 
                 PostEntity newPost = new PostEntity();
@@ -91,6 +96,17 @@ public class TopicServlet extends BaseServlet {
                 newPost.create();
 
                 response.sendRedirect(topic.getLink());
+                break;
+            case "deleteTopic":
+                Validator.Forum.canDeleteTopic(forum, user, topic); 
+                Database.remove(topic);
+                response.sendRedirect(forum.getLink());
+                break;
+            case "deletePost":
+                postId = Long.parseLong(request.getParameter("id"));
+                post = Database.getById(PostEntity.class, postId);
+                Validator.Forum.canDeletePost(forum, user, post); 
+                Database.remove(post);
                 break;
         }
     }

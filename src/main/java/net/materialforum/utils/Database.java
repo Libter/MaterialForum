@@ -86,5 +86,13 @@ public class Database {
         entityManager.getTransaction().commit();
         entityManager.close();
     }
+    
+    public static void remove(Object obj) {
+        EntityManager entityManager = Database.getEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.remove(entityManager.contains(obj) ? obj : entityManager.merge(obj));
+        entityManager.getTransaction().commit();
+        entityManager.close();
+    }
 
 }

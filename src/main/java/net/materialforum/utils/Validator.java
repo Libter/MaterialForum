@@ -124,6 +124,16 @@ public class Validator {
             if (!forum.canEditPost(user, post))
                 throw new ForumError("Nie masz uprawnień do edycji tego posta!");
         }
+        
+        public static void canDeleteTopic(ForumEntity forum, UserEntity user, TopicEntity topic) throws ForumError {
+            if (!forum.canDeleteTopic(user, topic))
+                throw new ForumError("Nie masz uprawnień do usunięcia tego tematu!");
+        }
+        
+        public static void canDeletePost(ForumEntity forum, UserEntity user, PostEntity post) throws ForumError {
+            if (!forum.canDeletePost(user, post))
+                throw new ForumError("Nie masz uprawnień do usunięcia tego posta!");
+        }
 
     }
 
