@@ -2,6 +2,8 @@ package net.materialforum.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -11,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import net.materialforum.utils.Database;
@@ -48,6 +52,11 @@ public class PostEntity implements Serializable {
     @Column(name = "creationDate")
     private Date creationDate = new Date();
     public Date getCreationDate() { return creationDate; }
+    
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+    @OrderBy("creationDate")
+    private List<LikeEntity> likes;
+    public List<LikeEntity> getLikes() { return likes; }
 
     public String getFormattedCreationDate() {
         return StringUtils.formatDateElapsed(creationDate);

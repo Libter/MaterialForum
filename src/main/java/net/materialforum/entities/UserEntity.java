@@ -3,6 +3,7 @@ package net.materialforum.entities;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import net.materialforum.permissions.PermissionManager;
@@ -64,6 +66,11 @@ public class UserEntity implements Serializable {
     @OneToMany(mappedBy = "user")
     private List<PostEntity> posts;
     public List<PostEntity> getPosts() { return posts; }
+    
+    @OneToMany(mappedBy = "user")
+    @OrderBy("creationDate")
+    private List<LikeEntity> likes;
+    public List<LikeEntity> getLikes() { return likes; }
     
     public static UserEntity guest() {
         UserEntity user = new UserEntity();
