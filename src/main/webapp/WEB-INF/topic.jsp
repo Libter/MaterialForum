@@ -46,6 +46,9 @@
                                     </c:if>
                                 </c:otherwise>
                             </c:choose>
+                            <c:if test="${topic.forum.canLikePost(user, post)}">
+                                <button class="waves-effect btn-flat" onclick="likePost(${post.id});">Polub</button>
+                            </c:if>
                             <c:if test="${topic.forum.canEditPost(user, post)}">
                                 <button class="edit waves-effect btn-flat" onclick="editPost(${post.id});">Edytuj</button>
                                 <button class="save waves-effect btn-flat" onclick="savePost(${post.id});">Zapisz</button>
