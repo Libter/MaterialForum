@@ -3,6 +3,7 @@ package net.materialforum.entities;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -60,6 +61,17 @@ public class PostEntity implements Serializable {
 
     public String getFormattedCreationDate() {
         return StringUtils.formatDateElapsed(creationDate);
+    }
+    
+    public boolean hasLiked(UserEntity user) {
+        return getUserLike(user) != null;
+    }
+    
+    public LikeEntity getUserLike(UserEntity user) {
+        for (LikeEntity like : likes)
+            if (Objects.equals(like.getUser().getId(), user.getId()))
+                return like;
+        return null;
     }
     
     public void create() {

@@ -69,6 +69,38 @@ function deleteTopic() {
     submit('deleteTopic', '');
 }
 
+function likePost(id) {
+    var post = $('#post-' + id);
+    
+    $.ajax({
+        url: '/topic/' + topicId + './likePost/',
+        method: 'post',
+        data: {
+            id: id
+        },
+        success: function () {
+            post.find('.buttons .like').hide();
+            post.find('.buttons .unlike').show();
+        }
+    });
+}
+
+function unlikePost(id) {
+    var post = $('#post-' + id);
+    
+    $.ajax({
+        url: '/topic/' + topicId + './unlikePost/',
+        method: 'post',
+        data: {
+            id: id
+        },
+        success: function () {
+            post.find('.buttons .like').show();
+            post.find('.buttons .unlike').hide();
+        }
+    });
+}
+
 function editPost(id) {
     var post = $('#post-' + id);
     var postText = post.find('.text');

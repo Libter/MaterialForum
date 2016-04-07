@@ -6,7 +6,7 @@
         <%@include file="/WEB-INF/include/head.jsp" %>
         <script src="/js/topic.js"></script>
         <script src="/ckeditor/ckeditor.js"></script>
-        <script>var topicId = ${topic.id}</script>
+        <script>var topicId = ${topic.id};</script>
     </head>
     <body>
         <%@ include file="/WEB-INF/include/menu.jsp" %>
@@ -47,7 +47,10 @@
                                 </c:otherwise>
                             </c:choose>
                             <c:if test="${topic.forum.canLikePost(user, post)}">
-                                <button class="waves-effect btn-flat" onclick="likePost(${post.id});">Polub</button>
+                                <button class="like waves-effect btn-flat <c:if test="${post.hasLiked(user)}">hidden</c:if>" 
+                                    onclick="likePost(${post.id});"><i class="fa fa-thumbs-o-up"></i> Polub</button>
+                                <button class="unlike waves-effect btn-flat <c:if test="${!post.hasLiked(user)}">hidden</c:if>" 
+                                    onclick="unlikePost(${post.id});"><i class="fa fa-thumbs-o-down"></i> Odlub</button>
                             </c:if>
                             <c:if test="${topic.forum.canEditPost(user, post)}">
                                 <button class="edit waves-effect btn-flat" onclick="editPost(${post.id});">Edytuj</button>

@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import net.materialforum.entities.ForumEntity;
+import net.materialforum.entities.LikeEntity;
 import net.materialforum.entities.PostEntity;
 import net.materialforum.entities.TopicEntity;
 import net.materialforum.entities.UserEntity;
@@ -133,6 +134,16 @@ public class Validator {
         public static void canDeletePost(ForumEntity forum, UserEntity user, PostEntity post) throws ForumError {
             if (!forum.canDeletePost(user, post))
                 throw new ForumError("Nie masz uprawnień do usunięcia tego posta!");
+        }
+        
+        public static void canLikePost(ForumEntity forum, UserEntity user, PostEntity post) throws ForumError {
+            if (!forum.canLikePost(user, post))
+                throw new ForumError("Nie masz uprawnień do polubienia tego posta!");
+        }
+        
+        public static void canUnlikePost(ForumEntity forum, UserEntity user, LikeEntity like) throws ForumError {
+            if (!forum.canUnlikePost(user, like))
+                throw new ForumError("Nie masz uprawnień do odlubienia tego posta!");
         }
 
     }

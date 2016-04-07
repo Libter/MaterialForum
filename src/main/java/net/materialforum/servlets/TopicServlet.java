@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import net.materialforum.beans.Navigation;
 import net.materialforum.entities.ForumEntity;
+import net.materialforum.entities.LikeEntity;
 import net.materialforum.entities.PostEntity;
 import net.materialforum.entities.TopicEntity;
 import net.materialforum.utils.Database;
@@ -60,6 +61,7 @@ public class TopicServlet extends BaseServlet {
 
         Long postId;
         PostEntity post;
+        LikeEntity like;
 
         switch (action) {
             case "add":
@@ -79,16 +81,36 @@ public class TopicServlet extends BaseServlet {
             case "move":
                 String forumId = request.getParameter("forum");
                 Validator.empty(forumId);
-                
+
                 ForumEntity toForum = Database.getById(ForumEntity.class, Long.parseLong(forumId));
                 Validator.Forum.exists(toForum);
                 Validator.Forum.canRead(toForum, user);
 
                 topic.setForum(toForum);
                 Database.merge(topic);
-                
+
                 response.sendRedirect(topic.getLink());
                 break;
+            case "likePost":
+                postId = Long.parseLong(request.getParameter("id"));
+                post = Database.getById(PostEntity.class, postId);
+
+                Validator.Forum.canLikePost(forum, user, post);
+
+                like = new LikeEntity();
+                like.setPost(post);
+                like.setUser(user);
+                like.create();
+                break;
+            case "unlikePost":
+                postId = Long.parseLong(request.getParameter("id"));
+                post = Database.getById(PostEntity.class, postId);
+                
+                like = post.getUserLike(user);
+                
+                Validator.Forum.canUnlikePost(forum, user, like);
+                
+                Database.remove(like);
             case "editTitle":
                 String title = StringUtils.removeHtml(request.getParameter("value"));
 

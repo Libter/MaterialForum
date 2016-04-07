@@ -68,6 +68,6 @@
     padding-bottom: 6px;
 }
 
-.post .buttons .save {
+.post .buttons .save, .post .buttons .hidden {
     display: none;
 }
