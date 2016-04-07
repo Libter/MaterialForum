@@ -78,9 +78,10 @@ function likePost(id) {
         data: {
             id: id
         },
-        success: function () {
+        success: function (result) {
             post.find('.buttons .like').hide();
             post.find('.buttons .unlike').show();
+            post.find('.likes').html(result);
         }
     });
 }
@@ -94,9 +95,10 @@ function unlikePost(id) {
         data: {
             id: id
         },
-        success: function () {
+        success: function (result) {
             post.find('.buttons .like').show();
             post.find('.buttons .unlike').hide();
+            post.find('.likes').html(result);
         }
     });
 }

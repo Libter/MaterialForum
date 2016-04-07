@@ -62,10 +62,20 @@
     table-layout: fixed;
 }
 
+.post .likes {
+    border-top: 1px solid #ccc;
+    font-size: 14px;
+    padding-top: 12px;
+}
+
 .post .buttons {
     text-align: right;
     padding-right: 6px;
     padding-bottom: 6px;
+}
+
+.post .buttons .fa {
+    margin-right: 6px;
 }
 
 .post .buttons .save, .post .buttons .hidden {

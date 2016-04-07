@@ -101,6 +101,10 @@ public class TopicServlet extends BaseServlet {
                 like.setPost(post);
                 like.setUser(user);
                 like.create();
+                
+                post = Database.getById(PostEntity.class, postId);
+                request.setAttribute("post", post);
+                request.getRequestDispatcher("/WEB-INF/include/topic/likes.jsp").forward(request, response);
                 break;
             case "unlikePost":
                 postId = Long.parseLong(request.getParameter("id"));
@@ -111,6 +115,11 @@ public class TopicServlet extends BaseServlet {
                 Validator.Forum.canUnlikePost(forum, user, like);
                 
                 Database.remove(like);
+                
+                post = Database.getById(PostEntity.class, postId);
+                request.setAttribute("post", post);
+                request.getRequestDispatcher("/WEB-INF/include/topic/likes.jsp").forward(request, response);
+                break;
             case "editTitle":
                 String title = StringUtils.removeHtml(request.getParameter("value"));
 
