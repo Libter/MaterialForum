@@ -13,7 +13,7 @@ public class IndexServlet extends BaseServlet {
     protected void get(HttpServletRequest request, HttpServletResponse response) throws Exception {    
         request.setAttribute("navigation", Navigation.index());
         request.setAttribute("widgets", new Widgets());
-        request.setAttribute("title", "Forum v0.1.4.1");
+        request.setAttribute("title", "Forum v0.1.5");
         request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
     }
 
