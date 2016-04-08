@@ -76,7 +76,7 @@ public class ForumEntity implements Serializable {
     public List<ForumEntity> getChildren() { return children; }
     
     @OneToMany(mappedBy = "forum")
-    @OrderBy("lastPost DESC")
+    @OrderBy("pinned DESC, lastPost DESC")
     private List<TopicEntity> topics;
     public List<TopicEntity> getTopics() { return topics; }
     

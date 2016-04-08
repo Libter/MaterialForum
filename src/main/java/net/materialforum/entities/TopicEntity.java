@@ -34,6 +34,16 @@ public class TopicEntity implements Serializable {
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }
     
+    @Column(name = "closed")
+    private Boolean closed = false;
+    public Boolean isClosed() { return closed; }
+    public void setClosed(Boolean closed) { this.closed = closed; }
+    
+    @Column(name = "pinned")
+    private Long pinned = 0L;
+    public Long getPinned() { return pinned; }
+    public void setPinned(Long pinned) { this.pinned = pinned; }
+    
     @ManyToOne
     @JoinColumn(name = "forum")
     private ForumEntity forum;
