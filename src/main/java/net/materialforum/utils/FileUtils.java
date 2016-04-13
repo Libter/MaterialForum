@@ -15,7 +15,7 @@ public class FileUtils {
     public static File getConfigFile(String filename) throws IOException {
         File directory = new File("/etc/materialforum");
         if (System.getProperty("os.name").toLowerCase().contains("win"))
-            directory = new File("***REMOVED***");
+            directory = new File(System.getenv("APPDATA") + "\\MaterialForum");
         directory.mkdirs();
 
         File file = new File(directory, filename);
