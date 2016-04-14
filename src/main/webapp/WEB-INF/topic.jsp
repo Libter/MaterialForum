@@ -12,8 +12,10 @@
         <%@ include file="/WEB-INF/include/menu.jsp" %>
         <br />
         <div id="main">
-            <h1 id="topic-header" class="forum-header" contenteditable="${topic.forum.canEditTopic(user, topic)}"
-                >${topic.title}</h1>
+            <h1 id="topic-header" class="forum-header" 
+                contenteditable="${topic.forum.canEditTopic(user, topic)}">
+                ${topic.title}
+            </h1>
 
             <div id="posts">
                 <c:forEach var="post" items="${posts}" varStatus="postStatus">
@@ -42,7 +44,7 @@
                                         </button>
                                     </c:if>
                                     <c:if test="${topic.forum.canCloseTopic(user, topic)}">
-                                        <button class="waves-effect btn-flat modal-trigger">
+                                        <button class="waves-effect btn-flat" onclick="closeTopic();">
                                             <i class="fa fa-lock"></i>Zamknij
                                         </button>
                                     </c:if>
