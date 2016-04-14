@@ -155,6 +155,16 @@ public class Validator {
             if (!forum.canCloseTopic(user, topic))
                 throw new ForumError("Nie masz uprawnień do otwarcia tego tematu!");
         }
+        
+        public static void canPinTopic(ForumEntity forum, UserEntity user, TopicEntity topic) throws ForumError {
+            if (!forum.canCloseTopic(user, topic))
+                throw new ForumError("Nie masz uprawnień do przypięcia tego tematu!");
+        }
+        
+        public static void canUnpinTopic(ForumEntity forum, UserEntity user, TopicEntity topic) throws ForumError {
+            if (!forum.canCloseTopic(user, topic))
+                throw new ForumError("Nie masz uprawnień do odpięcia tego tematu!");
+        }
 
     }
 

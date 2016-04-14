@@ -24,11 +24,24 @@
                 </c:otherwise>
             </c:choose>
 
-            <c:if test="${topic.forum.canPinTopic(user, topic)}">
-                <button class="waves-effect btn-flat modal-trigger">
-                    <i class="fa fa-thumb-tack"></i>Przypnij
-                </button>
-            </c:if>
+
+            <c:choose>
+                <c:when test="${topic.pinned > 0}">
+                    <c:if test="${topic.forum.canUnpinTopic(user, topic)}">
+                        <button class="waves-effect btn-flat" onclick="unpinTopic();">
+                            <i class="fa fa-thumb-tack"></i>Odepnij
+                        </button>
+                    </c:if>
+                </c:when>
+                <c:otherwise>
+                    <c:if test="${topic.forum.canPinTopic(user, topic)}">
+                        <button class="waves-effect btn-flat" onclick="pinTopic();">
+                            <i class="fa fa-thumb-tack"></i>Przypnij
+                        </button>
+                    </c:if>
+                </c:otherwise>
+            </c:choose>
+
             <c:if test="${topic.forum.canDeleteTopic(user, topic)}">
                 <button class="waves-effect btn-flat" onclick="deleteTopic();">
                     <i class="fa fa-trash-o"></i>Usuń
@@ -44,11 +57,11 @@
         </c:otherwise>
     </c:choose>
     <c:if test="${topic.forum.canLikePost(user, post)}">
-        <button class="like waves-effect btn-flat <c:if test="${post.hasLiked(user)}">hidden</c:if>" 
+        <button class="like waves-effect btn-flat <c:if test="${post.hasLiked(user)}">hidden</c:if>"
     onclick="likePost(${post.id});">
     <i class="fa fa-thumbs-o-up"></i>Polub
 </button>
-<button class="unlike waves-effect btn-flat <c:if test="${!post.hasLiked(user)}">hidden</c:if>" 
+<button class="unlike waves-effect btn-flat <c:if test="${!post.hasLiked(user)}">hidden</c:if>"
     onclick="unlikePost(${post.id});">
     <i class="fa fa-thumbs-o-down"></i>Odlub
 </button>

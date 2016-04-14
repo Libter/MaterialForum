@@ -77,6 +77,14 @@ function openTopic() {
     submit('openTopic', '');
 }
 
+function pinTopic() {
+    submit('pinTopic', '');
+}
+
+function unpinTopic() {
+    submit('unpinTopic', '');
+}
+
 function likePost(id) {
     var post = $('#post-' + id);
     

@@ -18,6 +18,7 @@
                         <div class="table-row forum-row ${topicStatus.index % 2 == 0 ? 'even' : 'odd'}">
                             <div class="table-cell topic">
                                 <h1>
+                                    <c:if test="${topic.pinned > 0}"><i class="fa fa-thumb-tack"></i></c:if>
                                     <c:if test="${topic.isClosed()}"><i class="fa fa-lock"></i></c:if>
                                     <a href="${topic.link}">${topic.title}</a>
                                 </h1>

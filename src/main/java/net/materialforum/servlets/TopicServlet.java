@@ -147,6 +147,13 @@ public class TopicServlet extends BaseServlet {
                 Database.remove(topic);
                 response.sendRedirect(forum.getLink());
                 break;
+            case "deletePost":
+                postId = Long.parseLong(request.getParameter("id"));
+                post = Database.getById(PostEntity.class, postId);
+                Validator.Forum.canDeletePost(forum, user, post);
+                Database.remove(post);
+                topic.refreshLastPost();
+                break;
             case "closeTopic":
                 Validator.Forum.canCloseTopic(forum, user, topic);
                 topic.setClosed(true);
@@ -159,12 +166,17 @@ public class TopicServlet extends BaseServlet {
                 Database.merge(topic);
                 response.sendRedirect(topic.getLink());
                 break;
-            case "deletePost":
-                postId = Long.parseLong(request.getParameter("id"));
-                post = Database.getById(PostEntity.class, postId);
-                Validator.Forum.canDeletePost(forum, user, post);
-                Database.remove(post);
-                topic.refreshLastPost();
+            case "pinTopic":
+                Validator.Forum.canPinTopic(forum, user, topic);
+                topic.setPinned(1L);
+                Database.merge(topic);
+                response.sendRedirect(topic.getLink());
+                break;
+            case "unpinTopic":
+                Validator.Forum.canUnpinTopic(forum, user, topic);
+                topic.setPinned(0L);
+                Database.merge(topic);
+                response.sendRedirect(topic.getLink());
                 break;
         }
     }
