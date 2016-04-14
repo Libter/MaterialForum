@@ -73,7 +73,7 @@ function closeTopic() {
     submit('closeTopic', '');
 }
 
-function closeTopic() {
+function openTopic() {
     submit('openTopic', '');
 }
 

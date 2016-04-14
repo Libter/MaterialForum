@@ -151,13 +151,13 @@ public class TopicServlet extends BaseServlet {
                 Validator.Forum.canCloseTopic(forum, user, topic);
                 topic.setClosed(true);
                 Database.merge(topic);
-                response.sendRedirect(forum.getLink());
+                response.sendRedirect(topic.getLink());
                 break;
             case "openTopic":
                 Validator.Forum.canOpenTopic(forum, user, topic);
                 topic.setClosed(false);
                 Database.merge(topic);
-                response.sendRedirect(forum.getLink());
+                response.sendRedirect(topic.getLink());
                 break;
             case "deletePost":
                 postId = Long.parseLong(request.getParameter("id"));
