@@ -5,6 +5,7 @@ http://87.98.234.168:8080/
 
 v0.1.7:
 - [ ] Quoting posts
+- [ ] Display user statistics under avatar
 
 v0.2:
 - [ ] Navbar without materialize.css
