@@ -41,6 +41,16 @@
                                             <i class="fa fa-arrows"></i>Przenieś
                                         </button>
                                     </c:if>
+                                    <c:if test="${topic.forum.canCloseTopic(user, topic)}">
+                                        <button class="waves-effect btn-flat modal-trigger">
+                                            <i class="fa fa-lock"></i>Zamknij
+                                        </button>
+                                    </c:if>
+                                    <c:if test="${topic.forum.canPinTopic(user, topic)}">
+                                        <button class="waves-effect btn-flat modal-trigger">
+                                            <i class="fa fa-thumb-tack"></i>Przypnij
+                                        </button>
+                                    </c:if>
                                     <c:if test="${topic.forum.canDeleteTopic(user, topic)}">
                                         <button class="waves-effect btn-flat" onclick="deleteTopic();">
                                             <i class="fa fa-trash-o"></i>Usuń
