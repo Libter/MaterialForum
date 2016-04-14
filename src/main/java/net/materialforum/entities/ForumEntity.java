@@ -177,7 +177,12 @@ public class ForumEntity implements Serializable {
     }
     
     public boolean canWriteTopics(UserEntity user) { return checkPermission(user, "write.topic"); }
-    public boolean canWritePosts(UserEntity user) { return checkPermission(user, "write.post"); }
+    public boolean canWritePosts(UserEntity user, TopicEntity topic) {
+        if (topic.isClosed())
+            return checkPermission(user, "moderation.write.closed");
+        else
+            return checkPermission(user, "write.post"); 
+    }
     
     public boolean canEditTopic(UserEntity user, TopicEntity topic) { return checkPermission(user, topic, "edit.topic"); } 
     public boolean canEditPost(UserEntity user, PostEntity post) { return checkPermission(user, post, "edit.post"); }
@@ -187,8 +192,10 @@ public class ForumEntity implements Serializable {
     public boolean canDeleteTopic(UserEntity user, TopicEntity topic) { return checkPermission(user, topic, "delete.topic"); } 
     public boolean canDeletePost(UserEntity user, PostEntity post) { return checkPermission(user, post, "delete.post"); }
     
-    public boolean canCloseTopic(UserEntity user, TopicEntity topic) { return checkPermission(user, topic, "close"); }
-    public boolean canPinTopic(UserEntity user, TopicEntity topic) { return checkPermission(user, topic, "pin"); }
+    public boolean canCloseTopic(UserEntity user, TopicEntity topic) { return checkPermission(user, topic, "close.add"); }
+    public boolean canOpenTopic(UserEntity user, TopicEntity topic) { return checkPermission(user, topic, "close.remove"); }
+    public boolean canPinTopic(UserEntity user, TopicEntity topic) { return checkPermission(user, topic, "pin.add"); }
+    public boolean canUnpinTopic(UserEntity user, TopicEntity topic) { return checkPermission(user, topic, "pin.remove"); }
     
     public List<ForumEntity> getChildren(UserEntity user) {
         List<ForumEntity> subforums = new ArrayList<>();

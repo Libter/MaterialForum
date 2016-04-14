@@ -67,7 +67,7 @@ public class TopicServlet extends BaseServlet {
             case "add":
                 String text = request.getParameter("text");
 
-                Validator.Forum.canWritePosts(forum, user);
+                Validator.Forum.canWritePosts(forum, user, topic);
                 Validator.lengthOrEmpty(text, 11, Integer.MAX_VALUE);
 
                 PostEntity newPost = new PostEntity();
@@ -153,6 +153,30 @@ public class TopicServlet extends BaseServlet {
                 Validator.Forum.canDeletePost(forum, user, post);
                 Database.remove(post);
                 topic.refreshLastPost();
+                break;
+            case "closeTopic":
+                Validator.Forum.canCloseTopic(forum, user, topic);
+                topic.setClosed(true);
+                Database.merge(topic);
+                response.sendRedirect(topic.getLink());
+                break;
+            case "openTopic":
+                Validator.Forum.canOpenTopic(forum, user, topic);
+                topic.setClosed(false);
+                Database.merge(topic);
+                response.sendRedirect(topic.getLink());
+                break;
+            case "pinTopic":
+                Validator.Forum.canPinTopic(forum, user, topic);
+                topic.setPinned(1L);
+                Database.merge(topic);
+                response.sendRedirect(topic.getLink());
+                break;
+            case "unpinTopic":
+                Validator.Forum.canUnpinTopic(forum, user, topic);
+                topic.setPinned(0L);
+                Database.merge(topic);
+                response.sendRedirect(topic.getLink());
                 break;
         }
     }

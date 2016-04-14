@@ -46,9 +46,9 @@ public class StringUtils {
         if (number > 20 && number % 10 > 1 && number % 10 < 5)
             return String.format(some, number);
         
-        if (number < 2)
+        if (number < 2 && number > 0)
             return String.format(single, number);
-        else if (number < 5)
+        else if (number < 5 && number > 0)
             return String.format(some, number);
         else
             return String.format(more, number);

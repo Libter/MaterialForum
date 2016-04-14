@@ -111,8 +111,8 @@ public class Validator {
                 throw new ForumError("Nie masz uprawnień do pisania tematów w tym dziale!");
         }
         
-        public static void canWritePosts(ForumEntity forum, UserEntity user) throws ForumError {
-            if (!forum.canWritePosts(user))
+        public static void canWritePosts(ForumEntity forum, UserEntity user, TopicEntity topic) throws ForumError {
+            if (!forum.canWritePosts(user, topic))
                 throw new ForumError("Nie masz uprawnień do pisania postów w tym dziale!");
         }
         
@@ -144,6 +144,26 @@ public class Validator {
         public static void canUnlikePost(ForumEntity forum, UserEntity user, LikeEntity like) throws ForumError {
             if (!forum.canUnlikePost(user, like))
                 throw new ForumError("Nie masz uprawnień do odlubienia tego posta!");
+        }
+        
+        public static void canCloseTopic(ForumEntity forum, UserEntity user, TopicEntity topic) throws ForumError {
+            if (!forum.canCloseTopic(user, topic))
+                throw new ForumError("Nie masz uprawnień do zamknięcia tego tematu!");
+        }
+        
+        public static void canOpenTopic(ForumEntity forum, UserEntity user, TopicEntity topic) throws ForumError {
+            if (!forum.canCloseTopic(user, topic))
+                throw new ForumError("Nie masz uprawnień do otwarcia tego tematu!");
+        }
+        
+        public static void canPinTopic(ForumEntity forum, UserEntity user, TopicEntity topic) throws ForumError {
+            if (!forum.canCloseTopic(user, topic))
+                throw new ForumError("Nie masz uprawnień do przypięcia tego tematu!");
+        }
+        
+        public static void canUnpinTopic(ForumEntity forum, UserEntity user, TopicEntity topic) throws ForumError {
+            if (!forum.canCloseTopic(user, topic))
+                throw new ForumError("Nie masz uprawnień do odpięcia tego tematu!");
         }
 
     }
