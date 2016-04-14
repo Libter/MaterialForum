@@ -147,6 +147,12 @@ public class TopicServlet extends BaseServlet {
                 Database.remove(topic);
                 response.sendRedirect(forum.getLink());
                 break;
+            case "closeTopic":
+                Validator.Forum.canCloseTopic(forum, user, topic);
+                topic.setClosed(true);
+                Database.merge(topic);
+                response.sendRedirect(forum.getLink());
+                break;
             case "deletePost":
                 postId = Long.parseLong(request.getParameter("id"));
                 post = Database.getById(PostEntity.class, postId);

@@ -145,6 +145,11 @@ public class Validator {
             if (!forum.canUnlikePost(user, like))
                 throw new ForumError("Nie masz uprawnień do odlubienia tego posta!");
         }
+        
+        public static void canCloseTopic(ForumEntity forum, UserEntity user, TopicEntity topic) throws ForumError {
+            if (!forum.canCloseTopic(user, topic))
+                throw new ForumError("Nie masz uprawnień do zamknięcia tego tematu!");
+        }
 
     }
 

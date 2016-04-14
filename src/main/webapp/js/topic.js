@@ -69,6 +69,10 @@ function deleteTopic() {
     submit('deleteTopic', '');
 }
 
+function closeTopic() {
+    submit('closeTopic', '');
+}
+
 function likePost(id) {
     var post = $('#post-' + id);
     
