@@ -5,7 +5,7 @@
         <c:forEach var="user" items="${widgets.topPosters}">
             <div class="table-row widget-row">
                 <div class="table-cell widget-avatar">
-                    <img class="circle" src="${user.getAvatar(38)}" />
+                    <img class="circle" src="${user.getAvatar(38)}" alt="${user.nick}" />
                 </div>
                 <div class="table-cell widget-user">
                     ${user.formattedNick}

@@ -5,7 +5,7 @@
         <c:forEach var="topic" items="${widgets.lastActiveTopics}">
             <div class="table-row widget-row">
                 <div class="table-cell widget-avatar">
-                    <img class="circle" src="${topic.lastPost.user.getAvatar(38)}" />
+                    <img class="circle" src="${topic.lastPost.user.getAvatar(38)}" alt="${topic.lastPost.user.nick}" />
                 </div>
                 <div class="table-cell truncate widget-topic">
                     <a href="${topic.link}">${topic.title}</a><br />

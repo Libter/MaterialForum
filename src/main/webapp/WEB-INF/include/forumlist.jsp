@@ -21,7 +21,7 @@
                     </div>
                     <div class="table-cell avatar">
                         <c:if test="${!empty subforum.lastPost}">
-                            <img class="circle" src="${subforum.lastPost.user.mediumAvatar}" />
+                            <img class="circle" src="${subforum.lastPost.user.mediumAvatar}" alt="${subforum.lastPost.user.nick}" />
                         </c:if>
                     </div>
                     <div class="table-cell lastpost">
