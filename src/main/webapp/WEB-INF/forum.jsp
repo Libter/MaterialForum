@@ -17,7 +17,10 @@
                     <c:forEach var="topic" items="${topics}" varStatus="topicStatus">
                         <div class="table-row forum-row ${topicStatus.index % 2 == 0 ? 'even' : 'odd'}">
                             <div class="table-cell topic">
-                                <h1><a href="${topic.link}">${topic.title}</a></h1>
+                                <h1>
+                                    <c:if test="${topic.isClosed()}"><i class="fa fa-lock"></i></c:if>
+                                    <a href="${topic.link}">${topic.title}</a>
+                                </h1>
                             </div>
                             <div class="table-cell count">
                                 ${topic.formattedPostCount}
