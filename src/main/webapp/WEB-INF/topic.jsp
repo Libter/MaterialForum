@@ -38,7 +38,7 @@
                                 <c:when test="${postStatus.index == 0}">
                                     <c:if test="${topic.forum.canMoveTopic(user, topic)}">
                                         <button class="waves-effect btn-flat modal-trigger" href="#moveTopic">
-                                            <i class="fa fa-move"></i>Przenieś
+                                            <i class="fa fa-arrows"></i>Przenieś
                                         </button>
                                     </c:if>
                                     <c:if test="${topic.forum.canDeleteTopic(user, topic)}">
