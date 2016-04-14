@@ -16,6 +16,7 @@ v0.2:
 
 Future versions:
 - [ ] Bugfixes
+- [ ] Translations
 - [ ] API for plugins
 - [ ] Display users viewing site/forum/topic
 - [ ] Chat based on WebSockets
