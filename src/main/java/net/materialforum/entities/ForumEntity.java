@@ -187,8 +187,10 @@ public class ForumEntity implements Serializable {
     public boolean canDeleteTopic(UserEntity user, TopicEntity topic) { return checkPermission(user, topic, "delete.topic"); } 
     public boolean canDeletePost(UserEntity user, PostEntity post) { return checkPermission(user, post, "delete.post"); }
     
-    public boolean canCloseTopic(UserEntity user, TopicEntity topic) { return checkPermission(user, topic, "close"); }
-    public boolean canPinTopic(UserEntity user, TopicEntity topic) { return checkPermission(user, topic, "pin"); }
+    public boolean canCloseTopic(UserEntity user, TopicEntity topic) { return checkPermission(user, topic, "close.add"); }
+    public boolean canOpenTopic(UserEntity user, TopicEntity topic) { return checkPermission(user, topic, "close.remove"); }
+    public boolean canPinTopic(UserEntity user, TopicEntity topic) { return checkPermission(user, topic, "pin.add"); }
+    public boolean canUnpinTopic(UserEntity user, TopicEntity topic) { return checkPermission(user, topic, "pin.remove"); }
     
     public List<ForumEntity> getChildren(UserEntity user) {
         List<ForumEntity> subforums = new ArrayList<>();
