@@ -27,7 +27,7 @@
                                 ${topic.formattedPostCount}
                             </div>
                             <div class="table-cell avatar">
-                                <img class="circle" src="${topic.lastPost.user.mediumAvatar}" />
+                                <img class="circle" src="${topic.lastPost.user.mediumAvatar}" alt="${topic.lastPost.user.nick}" />
                             </div>
                             <div class="table-cell lastpost">
                                 ${topic.lastPost.user.formattedNick}<br />

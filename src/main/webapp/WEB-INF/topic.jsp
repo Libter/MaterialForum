@@ -23,7 +23,7 @@
                         <div class="body">
                             <div class="user-info">
                                 <b>${post.user.formattedNick}</b><br />
-                                <img class="circle" src="${post.user.largeAvatar}" />
+                                <img class="circle" src="${post.user.largeAvatar}" alt="${post.user.nick}" />
                             </div>
                             <div class="content">
                                 <div class="date">Napisano ${post.formattedCreationDate}</div>
