@@ -1,3 +1,6 @@
+### Example forum
+http://87.98.234.168:8080/
+
 ### Plans for future versions
 
 v0.1.6:
