@@ -8,7 +8,7 @@
                 </button>
             </c:if>
             <c:choose>
-                <c:when test="${topic.closed}">
+                <c:when test="${topic.isClosed()}">
                     <c:if test="${topic.forum.canOpenTopic(user, topic)}">
                         <button class="waves-effect btn-flat" onclick="openTopic();">
                             <i class="fa fa-unlock-alt"></i>Otwórz

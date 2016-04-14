@@ -73,6 +73,10 @@ function closeTopic() {
     submit('closeTopic', '');
 }
 
+function closeTopic() {
+    submit('openTopic', '');
+}
+
 function likePost(id) {
     var post = $('#post-' + id);
     

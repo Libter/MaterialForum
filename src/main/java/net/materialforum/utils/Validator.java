@@ -150,6 +150,11 @@ public class Validator {
             if (!forum.canCloseTopic(user, topic))
                 throw new ForumError("Nie masz uprawnień do zamknięcia tego tematu!");
         }
+        
+        public static void canOpenTopic(ForumEntity forum, UserEntity user, TopicEntity topic) throws ForumError {
+            if (!forum.canCloseTopic(user, topic))
+                throw new ForumError("Nie masz uprawnień do otwarcia tego tematu!");
+        }
 
     }
 
