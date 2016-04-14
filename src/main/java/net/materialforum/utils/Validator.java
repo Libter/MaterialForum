@@ -111,8 +111,8 @@ public class Validator {
                 throw new ForumError("Nie masz uprawnień do pisania tematów w tym dziale!");
         }
         
-        public static void canWritePosts(ForumEntity forum, UserEntity user) throws ForumError {
-            if (!forum.canWritePosts(user))
+        public static void canWritePosts(ForumEntity forum, UserEntity user, TopicEntity topic) throws ForumError {
+            if (!forum.canWritePosts(user, topic))
                 throw new ForumError("Nie masz uprawnień do pisania postów w tym dziale!");
         }
         

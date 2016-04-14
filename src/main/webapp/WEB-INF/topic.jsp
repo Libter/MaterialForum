@@ -39,7 +39,7 @@
                 </c:forEach>
             </div>
 
-            <c:if test="${topic.forum.canWritePosts(user)}">
+            <c:if test="${topic.forum.canWritePosts(user, topic)}">
                 <br />
                 <form id="newPostForm" method="post" action="${topic.addLink}">
                     <textarea name="text" id="editor"></textarea>

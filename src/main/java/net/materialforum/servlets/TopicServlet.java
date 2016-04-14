@@ -67,7 +67,7 @@ public class TopicServlet extends BaseServlet {
             case "add":
                 String text = request.getParameter("text");
 
-                Validator.Forum.canWritePosts(forum, user);
+                Validator.Forum.canWritePosts(forum, user, topic);
                 Validator.lengthOrEmpty(text, 11, Integer.MAX_VALUE);
 
                 PostEntity newPost = new PostEntity();

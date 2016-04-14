@@ -177,7 +177,12 @@ public class ForumEntity implements Serializable {
     }
     
     public boolean canWriteTopics(UserEntity user) { return checkPermission(user, "write.topic"); }
-    public boolean canWritePosts(UserEntity user) { return checkPermission(user, "write.post"); }
+    public boolean canWritePosts(UserEntity user, TopicEntity topic) {
+        if (topic.isClosed())
+            return checkPermission(user, "moderation.write.closed");
+        else
+            return checkPermission(user, "write.post"); 
+    }
     
     public boolean canEditTopic(UserEntity user, TopicEntity topic) { return checkPermission(user, topic, "edit.topic"); } 
     public boolean canEditPost(UserEntity user, PostEntity post) { return checkPermission(user, post, "edit.post"); }
