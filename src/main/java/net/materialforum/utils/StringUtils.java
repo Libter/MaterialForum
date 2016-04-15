@@ -53,7 +53,19 @@ public class StringUtils {
         else
             return String.format(more, number);
     }
+    
+    public static String plurarPosts(long number) {
+        return number + " " + plurar(number, "post", "posty", "postów");
+    }
+    
+    public static String plurarTopics(long number) {
+        return number + " " + plurar(number, "temat", "tematy", "tematów");
+    }
 
+    public static String plurarLikes(long number) {
+        return number + " " + plurar(number, "polubienie", "polubienia", "polubień");
+    }
+    
     public static String removeHtml(String input) {
         return input.replace("<", "&lt;").replace(">", "&gt;");
     }

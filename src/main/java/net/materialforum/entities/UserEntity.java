@@ -16,6 +16,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import net.materialforum.permissions.PermissionManager;
 import net.materialforum.utils.CryptoUtils;
+import net.materialforum.utils.StringUtils;
 
 @Entity(name = "users")
 @NamedQueries({
@@ -83,6 +84,22 @@ public class UserEntity implements Serializable {
     
     public int getTopicCount() {
         return topics.size();
+    }
+    
+    public int getLikeCount() {
+        return likes.size();
+    }
+    
+    public String getFormattedPostCount() {
+        return StringUtils.plurarPosts(getPostCount());
+    }
+    
+    public String getFormattedTopicCount() {
+        return StringUtils.plurarTopics(getTopicCount());
+    }
+    
+    public String getFormattedLikeCount() {
+        return StringUtils.plurarLikes(getLikeCount());
     }
     
     public String getAvatar(int size) {

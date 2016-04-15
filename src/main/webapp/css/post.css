@@ -24,6 +24,10 @@
     vertical-align: top;
 }
 
+.post .user-info .stats {
+    font-size: 12px;
+}
+
 .post .date {
     font-size: 13px;
     color: #aaa;

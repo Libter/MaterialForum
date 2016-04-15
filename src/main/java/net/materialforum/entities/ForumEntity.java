@@ -98,13 +98,11 @@ public class ForumEntity implements Serializable {
     }
     
     public String getFormattedPostCount() {
-        Long count = getPostCount();
-        return count + " " + StringUtils.plurar(count, "post", "posty", "postów");
+        return StringUtils.plurarPosts(getPostCount());
     }
     
     public String getFormattedTopicCount() {
-        Long count = getTopicCount();
-        return count + " " + StringUtils.plurar(count, "temat", "tematy", "tematów");
+        return StringUtils.plurarTopics(getTopicCount());
     }
     
     public PostEntity getLastPost() { 
