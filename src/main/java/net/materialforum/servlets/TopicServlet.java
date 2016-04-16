@@ -142,10 +142,11 @@ public class TopicServlet extends BaseServlet {
                 post.setText(newText);
                 Database.merge(post);
                 break;
-            case "deleteTopic":
-                Validator.Forum.canDeleteTopic(forum, user, topic);
-                Database.remove(topic);
-                response.sendRedirect(forum.getLink());
+            case "quotePost":
+                postId = Long.parseLong(request.getParameter("id"));
+                post = Database.getById(PostEntity.class, postId);
+                request.setAttribute("post", post);
+                request.getRequestDispatcher("/WEB-INF/include/topic/quote.jsp").forward(request, response);
                 break;
             case "deletePost":
                 postId = Long.parseLong(request.getParameter("id"));
@@ -153,6 +154,11 @@ public class TopicServlet extends BaseServlet {
                 Validator.Forum.canDeletePost(forum, user, post);
                 Database.remove(post);
                 topic.refreshLastPost();
+                break;
+            case "deleteTopic":
+                Validator.Forum.canDeleteTopic(forum, user, topic);
+                Database.remove(topic);
+                response.sendRedirect(forum.getLink());
                 break;
             case "closeTopic":
                 Validator.Forum.canCloseTopic(forum, user, topic);

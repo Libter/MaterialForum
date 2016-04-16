@@ -57,22 +57,25 @@
         </c:otherwise>
     </c:choose>
     <c:if test="${topic.forum.canLikePost(user, post)}">
-        <button class="like waves-effect btn-flat <c:if test="${post.hasLiked(user)}">hidden</c:if>"
-    onclick="likePost(${post.id});">
-    <i class="fa fa-thumbs-o-up"></i>Polub
-</button>
-<button class="unlike waves-effect btn-flat <c:if test="${!post.hasLiked(user)}">hidden</c:if>"
-    onclick="unlikePost(${post.id});">
-    <i class="fa fa-thumbs-o-down"></i>Odlub
-</button>
-</c:if>
-<c:if test="${topic.forum.canEditPost(user, post)}">
-    <button class="edit waves-effect btn-flat" onclick="editPost(${post.id});">
-        <i class="fa fa-pencil"></i>Edytuj
-    </button>
-    <button class="save waves-effect btn-flat" onclick="savePost(${post.id});">
-        <i class="fa fa-floppy-o"></i>Zapisz
-    </button>
-</c:if>
+        <button class="like waves-effect btn-flat" onclick="likePost(${post.id});">
+            <i class="fa fa-thumbs-o-up"></i>Polub
+        </button>
+        <button class="unlike waves-effect btn-flat" onclick="unlikePost(${post.id});">
+            <i class="fa fa-thumbs-o-down"></i>Odlub
+        </button>
+    </c:if>
+    <c:if test="${topic.forum.canQuote(user)}">
+        <button class="like waves-effect btn-flat" onclick="quotePost(${post.id});">
+            <i class="fa fa-comment"></i>Cytuj
+        </button>
+    </c:if>
+    <c:if test="${topic.forum.canEditPost(user, post)}">
+        <button class="edit waves-effect btn-flat" onclick="editPost(${post.id});">
+            <i class="fa fa-pencil"></i>Edytuj
+        </button>
+        <button class="save waves-effect btn-flat" onclick="savePost(${post.id});">
+            <i class="fa fa-floppy-o"></i>Zapisz
+        </button>
+    </c:if>
 </div>
 </div>

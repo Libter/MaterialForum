@@ -161,6 +161,7 @@ public class ForumEntity implements Serializable {
     }
     
     public boolean canRead(UserEntity user) { return checkPermission(user, "read"); }
+    public boolean canQuote(UserEntity user) { return checkPermission(user, "quote"); }
     
     public boolean canLikePost(UserEntity user, PostEntity post) { 
         if (user == null || Objects.equals(post.getUser().getId(), user.getId()))

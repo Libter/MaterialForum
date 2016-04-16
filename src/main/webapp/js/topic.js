@@ -167,3 +167,16 @@ function deletePost(id) {
         }
     });
 }
+
+function quotePost(id) {
+    $.ajax({
+        url: '/topic/' + topicId + './quotePost/',
+        method: 'post',
+        data: {
+            id: id
+        },
+        success: function (response) {
+            CKEDITOR.instances['editor'].insertHtml(response);
+        }
+    });
+}
