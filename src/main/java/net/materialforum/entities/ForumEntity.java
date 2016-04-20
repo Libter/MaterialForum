@@ -98,13 +98,11 @@ public class ForumEntity implements Serializable {
     }
     
     public String getFormattedPostCount() {
-        Long count = getPostCount();
-        return count + " " + StringUtils.plurar(count, "post", "posty", "postów");
+        return StringUtils.plurarPosts(getPostCount());
     }
     
     public String getFormattedTopicCount() {
-        Long count = getTopicCount();
-        return count + " " + StringUtils.plurar(count, "temat", "tematy", "tematów");
+        return StringUtils.plurarTopics(getTopicCount());
     }
     
     public PostEntity getLastPost() { 
@@ -163,6 +161,7 @@ public class ForumEntity implements Serializable {
     }
     
     public boolean canRead(UserEntity user) { return checkPermission(user, "read"); }
+    public boolean canQuote(UserEntity user) { return checkPermission(user, "quote"); }
     
     public boolean canLikePost(UserEntity user, PostEntity post) { 
         if (user == null || Objects.equals(post.getUser().getId(), user.getId()))

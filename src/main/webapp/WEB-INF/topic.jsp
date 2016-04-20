@@ -24,6 +24,11 @@
                             <div class="user-info">
                                 <b>${post.user.formattedNick}</b><br />
                                 <img class="circle" src="${post.user.largeAvatar}" alt="${post.user.nick}" />
+                                <div class="stats">
+                                    ${post.user.formattedPostCount}<br />
+                                    ${post.user.formattedTopicCount}<br />
+                                    ${post.user.formattedLikeCount}
+                                </div>
                             </div>
                             <div class="content">
                                 <div class="date">Napisano ${post.formattedCreationDate}</div>

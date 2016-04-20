@@ -24,6 +24,10 @@
     vertical-align: top;
 }
 
+.post .user-info .stats {
+    font-size: 12px;
+}
+
 .post .date {
     font-size: 13px;
     color: #aaa;
@@ -80,4 +84,18 @@
 
 .post .buttons .save, .post .buttons .hidden {
     display: none;
+}
+
+.post blockquote {
+    padding-left: 16px;
+    padding-right: 8px;
+    padding-top: 8px;
+    padding-bottom: 0.1px;
+    background: #f4f4f4;
+    border-left: 5px solid #888;
+}
+
+.post blockquote .header {
+    margin-left: -8px;
+    font-weight: bold;
 }
