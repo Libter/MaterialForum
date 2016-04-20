@@ -3,10 +3,6 @@ http://87.98.234.168:8080/
 
 ### Plans for future versions
 
-v0.1.7:
-- Quoting posts
-- Display user statistics under avatar
-
 v0.2:
 - Navbar without materialize.css
 - Buttons under post without materialize.css
@@ -22,3 +18,4 @@ Future versions:
 - Topics pagination
 - Spoilers
 - E-mail verification
+- Selective quoting
